@@ -5,6 +5,7 @@
  */
 package Client;
 
+import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
@@ -15,7 +16,7 @@ import javax.faces.view.ViewScoped;
  */
 @Named(value = "clientController")
 @ViewScoped
-public class ClientController {
+public class ClientController implements Serializable {
 
     @EJB
     private ClientDAO clientDAO;

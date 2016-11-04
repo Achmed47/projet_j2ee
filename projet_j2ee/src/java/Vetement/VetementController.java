@@ -5,6 +5,7 @@
  */
 package Vetement;
 
+import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
@@ -13,9 +14,9 @@ import javax.faces.view.ViewScoped;
  *
  * @author sabat
  */
-@Named(value = "venteController")
+@Named(value = "vetementController")
 @ViewScoped
-public class VenteController {
+public class VetementController implements Serializable {
 
     @EJB
     private VetementDAO vetementDAO;
@@ -23,6 +24,6 @@ public class VenteController {
     /**
      * Creates a new instance of VenteController
      */
-    public VenteController() {
+    public VetementController() {
     }
 }

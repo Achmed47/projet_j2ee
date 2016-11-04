@@ -5,6 +5,7 @@
  */
 package Couleurs;
 
+import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
@@ -15,7 +16,7 @@ import javax.faces.view.ViewScoped;
  */
 @Named(value = "couleursController")
 @ViewScoped
-public class CouleursController {
+public class CouleursController implements Serializable {
 
     @EJB
     private CouleursDAO couleursDAO;

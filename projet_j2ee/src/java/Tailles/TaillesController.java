@@ -5,6 +5,7 @@
  */
 package Tailles;
 
+import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
@@ -15,7 +16,7 @@ import javax.faces.view.ViewScoped;
  */
 @Named(value = "taillesController")
 @ViewScoped
-public class TaillesController {
+public class TaillesController implements Serializable {
 
     @EJB
     private TaillesDAO taillesDAO;

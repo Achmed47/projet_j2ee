@@ -5,6 +5,7 @@
  */
 package Stock;
 
+import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
@@ -15,7 +16,7 @@ import javax.faces.view.ViewScoped;
  */
 @Named(value = "stockController")
 @ViewScoped
-public class StockController {
+public class StockController implements Serializable {
 
     @EJB
     private StockDAO stockDAO1;

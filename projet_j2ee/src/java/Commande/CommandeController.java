@@ -5,6 +5,7 @@
  */
 package Commande;
 
+import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
@@ -15,7 +16,7 @@ import javax.faces.view.ViewScoped;
  */
 @Named(value = "commandeController")
 @ViewScoped
-public class CommandeController {
+public class CommandeController implements Serializable {
 
     @EJB
     private CommandeDAO commandeDAO;
