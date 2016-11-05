@@ -28,11 +28,5 @@ public class VetementDAO {
     public List<Vetement> getAllVetements() {
         Query query = em.createNamedQuery("Vetement.findAll");
         return query.getResultList();
-    }
-
-    List<String> getAllTypes() {
-        Query query = em.createNamedQuery("Vetement.findAllTypes");
-        return query.getResultList();
-    }
-    
+    }    
 }

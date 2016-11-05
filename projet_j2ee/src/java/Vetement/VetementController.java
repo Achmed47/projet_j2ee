@@ -6,6 +6,7 @@
 package Vetement;
 
 import Couleurs.CouleursDAO;
+import Tailles.TaillesDAO;
 import Types.TypesDAO;
 import java.io.Serializable;
 import java.util.List;

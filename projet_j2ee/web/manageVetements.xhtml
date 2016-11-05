@@ -10,18 +10,18 @@
         
         <h1><h:outputText value="Gestion des vêtements" /></h1>
         
-        <p:dataTable id="tableVetements" var="vet" value="#{vetementController.vetements}" editable="true" sortMode="multiple">
+        <p:dataTable id="tableVetements" var="vet" value="#{vetementController.vetements}" editable="true" sortMode="multiple" sortOrder="desending">
             <p:ajax event="rowEdit" listener="#{vetementController.onRowEdit}" update=":form:msgs" />
             <p:ajax event="rowEditCancel" listener="#{vetementController.onRowCancel}" update=":form:msgs" />
 
-            <p:column headerText="RefVet" sortBy="#{vet.refVet}">
+            <p:column headerText="RefVet" sortBy="#{vet.refVet}" filterBy="#{vet.refVet}">
                 <p:cellEditor>
                     <f:facet name="output"><h:outputText value="#{vet.refVet}" /></f:facet>
                     <f:facet name="input"><p:inputText value="#{vet.refVet}" style="width:100%"/></f:facet>
                 </p:cellEditor>
             </p:column>
 
-            <p:column headerText="Type" sortBy="#{vet.type}">
+            <p:column headerText="Type" sortBy="#{vet.type}" filterBy="#{vet.type}">
                 <p:cellEditor>
                     <f:facet name="output"><h:outputText value="#{vet.type}" /></f:facet>
                     <f:facet name="input">
@@ -32,7 +32,7 @@
                 </p:cellEditor>
             </p:column>
             
-            <p:column headerText="Couleur" sortBy="#{vet.couleur}">
+            <p:column headerText="Couleur" sortBy="#{vet.couleur}" filterBy="#{vet.couleur}">
                 <p:cellEditor>
                     <f:facet name="output"><h:outputText value="#{vet.couleur}" /></f:facet>
                     <f:facet name="input">

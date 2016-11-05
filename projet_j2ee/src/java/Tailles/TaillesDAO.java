@@ -5,9 +5,11 @@
  */
 package Tailles;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -21,5 +23,10 @@ public class TaillesDAO {
 
     public void persist(Object object) {
         em.persist(object);
+    }
+    
+    public List<String> getAllTailles() {
+        Query query = em.createNamedQuery("Tailles.findAll");
+        return query.getResultList();
     }
 }
