@@ -1,3 +1,7 @@
+body{
+    background-color: #eff1f4;
+}
+
 #entete {
     margin-bottom: 20px;
 }
@@ -8,12 +12,21 @@
 
 #titre{
     color: cadetblue;
+    font-weight: bold;
+    font-size: 30px;
 }
 
 #logo {
-    height: 30px !important;
+    height: 35px !important;
 }
 
 #navMenu {
-    width: 245px !important;
+    resizable: true;
+/*    width: 250px !important;
+    height: 500px !important;*/
+}
+
+#corps {
+    height: 500px !important;
+    resizable: true;
 }
