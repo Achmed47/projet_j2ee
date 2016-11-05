@@ -36,7 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Vetement.findAll", query = "SELECT v FROM Vetement v"),
     @NamedQuery(name = "Vetement.findByRefVet", query = "SELECT v FROM Vetement v WHERE v.refVet = :refVet"),
-    @NamedQuery(name = "Vetement.findByTextile", query = "SELECT v FROM Vetement v WHERE v.textile = :textile"),
+    @NamedQuery(name = "Vetement.findByType", query = "SELECT v FROM Vetement v WHERE v.type = :type"),
+    @NamedQuery(name = "Vetement.findAllTypes", query = "SELECT v from Type"),
     @NamedQuery(name = "Vetement.findByPrixV", query = "SELECT v FROM Vetement v WHERE v.prixV = :prixV"),
     @NamedQuery(name = "Vetement.findByUrlV", query = "SELECT v FROM Vetement v WHERE v.urlV = :urlV")})
 public class Vetement implements Serializable {
@@ -50,8 +51,8 @@ public class Vetement implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "textile")
-    private String textile;
+    @Column(name = "type")
+    private String type;
     @Basic(optional = false)
     @NotNull
     @Column(name = "prixV")
@@ -76,9 +77,9 @@ public class Vetement implements Serializable {
         this.refVet = refVet;
     }
 
-    public Vetement(Integer refVet, String textile, float prixV, String urlV) {
+    public Vetement(Integer refVet, String type, float prixV, String urlV) {
         this.refVet = refVet;
-        this.textile = textile;
+        this.type = type;
         this.prixV = prixV;
         this.urlV = urlV;
     }
@@ -91,12 +92,12 @@ public class Vetement implements Serializable {
         this.refVet = refVet;
     }
 
-    public String getTextile() {
-        return textile;
+    public String getType() {
+        return type;
     }
 
-    public void setTextile(String textile) {
-        this.textile = textile;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public float getPrixV() {

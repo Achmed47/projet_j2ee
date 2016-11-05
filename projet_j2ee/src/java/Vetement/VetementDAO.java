@@ -5,9 +5,11 @@
  */
 package Vetement;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -22,4 +24,15 @@ public class VetementDAO {
     public void persist(Object object) {
         em.persist(object);
     }
+    
+    public List<Vetement> getAllVetements() {
+        Query query = em.createNamedQuery("Vetement.findAll");
+        return query.getResultList();
+    }
+
+    List<String> getAllTypes() {
+        Query query = em.createNamedQuery("Vetement.findAllTypes");
+        return query.getResultList();
+    }
+    
 }
