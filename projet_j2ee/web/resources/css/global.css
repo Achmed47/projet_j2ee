@@ -2,8 +2,12 @@
     margin-bottom: 20px;
 }
 
-#bouton{
+#changeUserForm{
     float: right;
+}
+
+#titre{
+    color: cadetblue;
 }
 
 #logo {
