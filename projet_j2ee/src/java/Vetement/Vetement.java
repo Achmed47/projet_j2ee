@@ -6,7 +6,6 @@
 package Vetement;
 
 import Vente.Vente;
-import Stock.Stock;
 import Couleurs.Couleurs;
 import java.io.Serializable;
 import java.util.Collection;
@@ -64,8 +63,6 @@ public class Vetement implements Serializable {
     @JoinColumn(name = "couleur", referencedColumnName = "couleur")
     @ManyToOne(optional = false)
     private Couleurs couleur;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "vetement")
-    private Collection<Stock> stockCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "refVet")
     private Collection<Vente> venteCollection;
 
@@ -121,15 +118,6 @@ public class Vetement implements Serializable {
 
     public void setCouleur(Couleurs couleur) {
         this.couleur = couleur;
-    }
-
-    @XmlTransient
-    public Collection<Stock> getStockCollection() {
-        return stockCollection;
-    }
-
-    public void setStockCollection(Collection<Stock> stockCollection) {
-        this.stockCollection = stockCollection;
     }
 
     @XmlTransient

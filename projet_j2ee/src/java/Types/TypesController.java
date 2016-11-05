@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Stock;
+package Types;
 
 import java.io.Serializable;
 import javax.ejb.EJB;
@@ -14,19 +14,14 @@ import javax.faces.view.ViewScoped;
  *
  * @author sabat
  */
-@Named(value = "stockController")
+@Named(value = "typesController")
 @ViewScoped
-public class StockController implements Serializable {
+public class TypesController implements Serializable {
 
     @EJB
-    private StockDAO stockDAO1;
-
-    @EJB
-    private StockDAO stockDAO;
-
-    /**
-     * Creates a new instance of StockController
-     */
-    public StockController() {
+    private TypesDAO typesDAO;
+    
+    public TypesController() {
     }
+    
 }

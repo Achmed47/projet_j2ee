@@ -5,6 +5,8 @@
  */
 package Vetement;
 
+import Couleurs.CouleursDAO;
+import Types.TypesDAO;
 import java.io.Serializable;
 import java.util.List;
 import javafx.scene.control.TableColumn.CellEditEvent;
@@ -22,7 +24,12 @@ import org.primefaces.event.RowEditEvent;
 @Named(value = "vetementController")
 @ViewScoped
 public class VetementController implements Serializable {
-
+    @EJB
+    private CouleursDAO couleursDAO;
+    
+    @EJB
+    private TypesDAO typesDAO;
+    
     @EJB
     private VetementDAO vetementDAO;
 
@@ -39,7 +46,11 @@ public class VetementController implements Serializable {
     }
     
     public List<String> getTypes() {
-        return vetementDAO.getAllTypes();
+        return typesDAO.getAllTypes();
+    }
+    
+    public List<String> getCouleurs() {
+        return couleursDAO.getAllCouleurs();
     }
 
     public Vetement getSaisie() {
