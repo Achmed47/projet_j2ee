@@ -1,0 +1,30 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+    
+    <p:layoutUnit position="west" id="navMenu" resizable="false">
+        <h:form>
+            <p:growl autoUpdate="true"/>
+            <p:outputLabel value="FONCTIONNALITES"/>
+            <p:panelMenu id="menu">
+                <p:submenu label="Les commandes"></p:submenu>
+                <p:submenu label="Gestion des vêtements">
+                    <p:menuitem value="Vêtements"/>
+                    <p:menuitem value="Motifs"/>
+                    <p:menuitem value="Couleurs"/>
+                    <p:menuitem value="Tailles"/>
+                </p:submenu>
+                <p:submenu label="Statistiques de ventes" >
+                    <p:menuitem value="Nombre de ventes"/>
+                    <p:menuitem value="Revenu mensuel"/>
+                    <p:menuitem value="Revenu annuel"/>
+                    <p:menuitem value="Article le plus vendu"/>
+                </p:submenu>
+            </p:panelMenu>
+        </h:form>
+    </p:layoutUnit>
+</ui:composition>
+

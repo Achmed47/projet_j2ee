@@ -12,36 +12,11 @@
     </h:head>
     <h:body>
         <f:view encoding="UTF-8" contentType="text/html">
-            <p:outputPanel id="entete" deferred="false">
-                    <h:graphicImage url="img/t-shirt-xxl.png" id="logo" alt="logo"/>
-                    <h><h1> Tex'Style </h1></h>
-                    <h:form>
-                        <h><p:commandButton value="Utilisateur"/></h>
-                    </h:form>
-            </p:outputPanel>
+            <ui:include src="/header.xhtml" />
             
             <p:layout id="corps">
-                <p:layoutUnit position="west" id="navMenu" resizable="false">
-                     <h:form>
-                         <p:growl autoUpdate="true"/>
-                         <p:outputLabel value="FONCTIONNALITES"/>
-                         <p:panelMenu id="menu">
-                             <p:submenu label="Les commandes"></p:submenu>
-                             <p:submenu label="Gestion des vêtements">
-                                 <p:menuitem value="Vêtements"/>
-                                 <p:menuitem value="Motifs"/>
-                                 <p:menuitem value="Couleurs"/>
-                                 <p:menuitem value="Tailles"/>
-                             </p:submenu>
-                             <p:submenu label="Statistiques de ventes" >
-                                 <p:menuitem value="Nombre de ventes"/>
-                                 <p:menuitem value="Revenu mensuel"/>
-                                 <p:menuitem value="Revenu annuel"/>
-                                 <p:menuitem value="Article le plus vendu"/>
-                             </p:submenu>
-                         </p:panelMenu>
-                     </h:form>
-                 </p:layoutUnit>
+                <ui:include src="/menu.xhtml" />
+                
                 <p:layoutUnit position="center" id="content" resizable="false">
                     <h>Corps</h>
                 </p:layoutUnit>
