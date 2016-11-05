@@ -18,6 +18,8 @@ import javax.persistence.Query;
 @Stateless
 public class VetementDAO {
 
+    private static final long serialVersionUID = 1L;    
+    
     @PersistenceContext(unitName = "projet_j2eePU")
     private EntityManager em;
 

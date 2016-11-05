@@ -25,8 +25,9 @@ public class TypesDAO {
         em.persist(object);
     }
     
-    public List<String> getAllTypes() {
+    public List<Types> getAllTypes() {
         Query query = em.createNamedQuery("Types.findAll");
+        System.out.println("All types : " + query.getResultList().toString());
         return query.getResultList();
     }
 }

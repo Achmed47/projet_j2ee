@@ -39,7 +39,7 @@
                                     <f:facet name="output"><h:outputText value="#{vet.type}" /></f:facet>
                                     <f:facet name="input">
                                         <h:selectOneMenu value="#{vet.type}" style="width:100%">
-                                            <f:selectItems value="#{vetementController.types}" var="type" itemLabel="#{man}" itemValue="#{man}" />
+                                            <f:selectItems value="#{vetementController.types}" var="type" itemLabel="#{type}" itemValue="#{type}" />
                                         </h:selectOneMenu>
                                     </f:facet>
                                 </p:cellEditor>
@@ -50,7 +50,7 @@
                                     <f:facet name="output"><h:outputText value="#{vet.couleur}" /></f:facet>
                                     <f:facet name="input">
                                         <h:selectOneMenu value="#{vet.couleur}" style="width:100%">
-                                            <f:selectItems value="#{vetementController.couleurs}" var="couleur" itemLabel="#{man}" itemValue="#{man}" />
+                                            <f:selectItems value="#{vetementController.couleurs}" var="couleur" itemLabel="#{couleur}" itemValue="#{couleur}" />
                                         </h:selectOneMenu>
                                     </f:facet>
                                 </p:cellEditor>

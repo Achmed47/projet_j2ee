@@ -18,6 +18,8 @@ import javax.faces.view.ViewScoped;
 @ViewScoped
 public class TypesController implements Serializable {
 
+   private static final long serialVersionUID = 1L;
+    
     @EJB
     private TypesDAO typesDAO;
     

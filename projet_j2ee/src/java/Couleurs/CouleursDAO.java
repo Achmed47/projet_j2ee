@@ -25,7 +25,7 @@ public class CouleursDAO {
         em.persist(object);
     }
     
-    public List<String> getAllCouleurs() {
+    public List<Couleurs> getAllCouleurs() {
         Query query = em.createNamedQuery("Couleurs.findAll");
         return query.getResultList();
     }
