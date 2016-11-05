@@ -5,7 +5,6 @@
  */
 package Tailles;
 
-import Stock.Stock;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -42,8 +41,6 @@ public class Tailles implements Serializable {
     @Size(min = 1, max = 3)
     @Column(name = "taille")
     private String taille;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tailles")
-    private Collection<Stock> stockCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "taille")
     private Collection<Vente> venteCollection;
 
@@ -60,15 +57,6 @@ public class Tailles implements Serializable {
 
     public void setTaille(String taille) {
         this.taille = taille;
-    }
-
-    @XmlTransient
-    public Collection<Stock> getStockCollection() {
-        return stockCollection;
-    }
-
-    public void setStockCollection(Collection<Stock> stockCollection) {
-        this.stockCollection = stockCollection;
     }
 
     @XmlTransient

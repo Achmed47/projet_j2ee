@@ -5,9 +5,11 @@
  */
 package Couleurs;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -21,5 +23,10 @@ public class CouleursDAO {
 
     public void persist(Object object) {
         em.persist(object);
+    }
+    
+    public List<String> getAllCouleurs() {
+        Query query = em.createNamedQuery("Couleurs.findAll");
+        return query.getResultList();
     }
 }

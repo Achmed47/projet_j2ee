@@ -5,9 +5,11 @@
  */
 package Types;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -21,5 +23,10 @@ public class TypesDAO {
 
     public void persist(Object object) {
         em.persist(object);
+    }
+    
+    public List<String> getAllTypes() {
+        Query query = em.createNamedQuery("Types.findAll");
+        return query.getResultList();
     }
 }

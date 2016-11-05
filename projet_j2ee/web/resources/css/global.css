@@ -11,9 +11,5 @@
 }
 
 #navMenu {
-    height: 300px;
-}
-
-#content {
-    height:300px;
+    width: 245px !important;
 }
