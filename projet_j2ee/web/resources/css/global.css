@@ -2,16 +2,16 @@
     margin-bottom: 20px;
 }
 
+#bouton{
+    float: right;
+}
+
 #logo {
-    height: 50px;
+    height: 30px !important;
 }
 
 #navMenu {
     height: 300px;
-}
-
-#menu {
-    width: 300px;
 }
 
 #content {

@@ -8,14 +8,14 @@
 
     <h:head>
         <title>Tex'Style</title>
-        <link type="text/css" rel="stylesheet" href="css/global.css"></link>
+        <h:outputStylesheet library="css" name="global.css" />
     </h:head>
     <h:body>
         <f:view encoding="UTF-8" contentType="text/html">
-            <ui:include src="/header.xhtml" />
+            <ui:include src="templates/global/header.xhtml" />
             
             <p:layout id="corps">
-                <ui:include src="/menu.xhtml" />
+                <ui:include src="templates/global/menu.xhtml" />
                 
                 <p:layoutUnit position="center" id="content" resizable="false">
                     <h>Corps</h>
