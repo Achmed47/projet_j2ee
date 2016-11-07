@@ -20,9 +20,11 @@
                     <p:growl autoUpdate="true"/>
                     <p:outputLabel value="FONCTIONNALITES"/>
                     <p:panelMenu>
-                        <p:submenu label="Les commandes"></p:submenu>
+                        <p:submenu label="Les commandes">
+                            <p:menuitem value="Gestion des commandes" outcome="commandes.xhtml"/>
+                        </p:submenu>
                         <p:submenu label="Gestion des vêtements">
-                            <p:menuitem value="Vêtements"/>
+                            <p:menuitem value="Vêtements" outcome="accueil.xhtml"/>
                             <p:menuitem value="Motifs"/>
                             <p:menuitem value="Couleurs"/>
                             <p:menuitem value="Tailles"/>
