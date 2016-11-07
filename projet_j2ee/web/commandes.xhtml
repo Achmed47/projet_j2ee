@@ -21,23 +21,20 @@
                     <h:form id="form">
                         <p:growl id="msgs" showDetail="true"/>
 
-                        <h1><h:outputText value="Gestion des commandes" /></h1>
-                        <p:accordionPanel>
-                            <p:tab title="Commande N°" >
-                                <h:panelGrid columns="5" cellpadding="10">
-<!--                                    <h:outputText value=""/> 
-Faire une fonction permettant de récupérer tout ce qu'il faut pour le mettre dans le panel -->
-                                </h:panelGrid>
-                            </p:tab>
-                            <p:tab title="Commande N°   RefClient   Date    DateExpédition  Prix">
-                                <h:panelGrid columns="5" cellpadding="10">
-                                </h:panelGrid>
+                        <h1><h:outputText value="Gestion des commandes"/></h1>
+                        <p:accordionPanel multiple="true">
+                            <p:tab title="">
+                                <p:dataTable id="tableCommandes" var="com" value="#{commandeController.commandes}">
+<!-- 
+    Faire une fonction permettant de récupérer tout ce qu'il faut pour le mettre dans le panel
+    Plus faire ne sorte que les commandes se mettent au fur et à mesure
+-->                                    
+                                </p:dataTable>
                             </p:tab>
                         </p:accordionPanel>
                     </h:form>
                 </p:layoutUnit>
             </p:layout>
-            
         </f:view>
     </h:body>
 </html>
