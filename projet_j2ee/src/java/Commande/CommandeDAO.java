@@ -5,9 +5,11 @@
  */
 package Commande;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -21,5 +23,10 @@ public class CommandeDAO {
 
     public void persist(Object object) {
         em.persist(object);
+    }
+    
+    public List<Commande> getAllCommandes() {
+        Query query = em.createNamedQuery("Commande.findAll");
+        return query.getResultList();
     }
 }

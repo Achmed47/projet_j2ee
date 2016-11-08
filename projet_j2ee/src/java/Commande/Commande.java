@@ -38,8 +38,7 @@ import Vente.Vente;
 @NamedQueries({
     @NamedQuery(name = "Commande.findAll", query = "SELECT c FROM Commande c"),
     @NamedQuery(name = "Commande.findByIdCommande", query = "SELECT c FROM Commande c WHERE c.idCommande = :idCommande"),
-    @NamedQuery(name = "Commande.findByStatut", query = "SELECT c FROM Commande c WHERE c.statut = :statut"),
-    @NamedQuery(name = "Commande.findByType", query = "SELECT c FROM Commande c WHERE c.type = :type")})
+    @NamedQuery(name = "Commande.findByStatut", query = "SELECT c FROM Commande c WHERE c.statut = :statut")})
 public class Commande implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -55,8 +54,9 @@ public class Commande implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "type")
-    private String type;
+    @JoinColumn(name = "refVet", referencedColumnName = "refVet")
+    @ManyToOne(optional = false)
+    private String refVet;
     @JoinColumn(name = "refClient", referencedColumnName = "refClient")
     @ManyToOne(optional = false)
     private Client refClient;
@@ -79,7 +79,6 @@ public class Commande implements Serializable {
     public Commande(Integer idCommande, short statut, String type) {
         this.idCommande = idCommande;
         this.statut = statut;
-        this.type = type;
     }
 
     public Integer getIdCommande() {
@@ -98,12 +97,12 @@ public class Commande implements Serializable {
         this.statut = statut;
     }
 
-    public String getType() {
-        return type;
+    public String getRefVet() {
+        return refVet;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setRefVet(String refVet) {
+        this.refVet = refVet;
     }
 
     public Client getRefClient() {
