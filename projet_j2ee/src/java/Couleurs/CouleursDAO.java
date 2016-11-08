@@ -37,24 +37,12 @@ public class CouleursDAO {
         return (Couleurs) query.getSingleResult();
     }
     
-    public void addCouleur(Couleurs couleur){
-        System.out.println("Trying to save : " + couleur);
+    public void saveCouleur(Couleurs couleur){
         try {
-            if (couleur.getCouleur() != null) {
+            if (couleur.getIdCouleur() != null) {
                 em.merge(couleur);
-            }
-        } catch (Exception e){
-            System.err.println(e.getMessage());
-        }
-    }
-    
-    public void updateCouleur(Couleurs couleur) {
-        try {
-            if (couleur.getCouleur() != null) {
-                // TODO WORK HERE !!!
-                
-                deleteCouleur(couleur);
-                addCouleur(couleur);
+            } else {
+                em.persist(couleur);
             }
         } catch (Exception e){
             System.err.println(e.getMessage());
@@ -64,7 +52,7 @@ public class CouleursDAO {
     public void deleteCouleur(Couleurs couleur) {
         try {
             if (couleur.getCouleur() != null) {
-                Couleurs v = em.find(Couleurs.class, couleur.getCouleur());
+                Couleurs v = em.find(Couleurs.class, couleur.getIdCouleur());
                 em.remove(v);
             }
         } catch (Exception e){

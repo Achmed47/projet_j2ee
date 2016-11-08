@@ -6,10 +6,10 @@
 package Commande;
 
 import Client.Client;
+import Dates.Dates;
+import Vetement.Vetement;
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,18 +19,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import Dates.Dates;
-import Vente.Vente;
 
 /**
  *
- * @author sabat
+ * @author Val Gros Pénis
  */
 @Entity
 @Table(name = "commande")
@@ -51,12 +46,9 @@ public class Commande implements Serializable {
     @NotNull
     @Column(name = "statut")
     private short statut;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
     @JoinColumn(name = "refVet", referencedColumnName = "refVet")
     @ManyToOne(optional = false)
-    private String refVet;
+    private Vetement refVet;
     @JoinColumn(name = "refClient", referencedColumnName = "refClient")
     @ManyToOne(optional = false)
     private Client refClient;
@@ -66,8 +58,6 @@ public class Commande implements Serializable {
     @JoinColumn(name = "idDate", referencedColumnName = "idDate")
     @ManyToOne(optional = false)
     private Dates idDate;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCommande")
-    private Collection<Vente> venteCollection;
 
     public Commande() {
     }
@@ -76,7 +66,7 @@ public class Commande implements Serializable {
         this.idCommande = idCommande;
     }
 
-    public Commande(Integer idCommande, short statut, String type) {
+    public Commande(Integer idCommande, short statut) {
         this.idCommande = idCommande;
         this.statut = statut;
     }
@@ -97,11 +87,11 @@ public class Commande implements Serializable {
         this.statut = statut;
     }
 
-    public String getRefVet() {
+    public Vetement getRefVet() {
         return refVet;
     }
 
-    public void setRefVet(String refVet) {
+    public void setRefVet(Vetement refVet) {
         this.refVet = refVet;
     }
 
@@ -129,15 +119,6 @@ public class Commande implements Serializable {
         this.idDate = idDate;
     }
 
-    @XmlTransient
-    public Collection<Vente> getVenteCollection() {
-        return venteCollection;
-    }
-
-    public void setVenteCollection(Collection<Vente> venteCollection) {
-        this.venteCollection = venteCollection;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -160,7 +141,7 @@ public class Commande implements Serializable {
 
     @Override
     public String toString() {
-        return "tables.Commande[ idCommande=" + idCommande + " ]";
+        return "Commande.Commande[ idCommande=" + idCommande + " ]";
     }
     
 }

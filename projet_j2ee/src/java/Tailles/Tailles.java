@@ -5,12 +5,15 @@
  */
 package Tailles;
 
+import Vente.Vente;
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -20,35 +23,53 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import Vente.Vente;
 
 /**
  *
- * @author sabat
+ * @author Val Gros Pénis
  */
 @Entity
 @Table(name = "tailles")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Tailles.findAll", query = "SELECT t FROM Tailles t"),
+    @NamedQuery(name = "Tailles.findByIdTaille", query = "SELECT t FROM Tailles t WHERE t.idTaille = :idTaille"),
     @NamedQuery(name = "Tailles.findByTaille", query = "SELECT t FROM Tailles t WHERE t.taille = :taille")})
 public class Tailles implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTaille")
+    private List<Vente> venteList;
+
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "idTaille")
+    private Integer idTaille;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 3)
     @Column(name = "taille")
     private String taille;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "taille")
-    private Collection<Vente> venteCollection;
 
     public Tailles() {
     }
 
-    public Tailles(String taille) {
+    public Tailles(Integer idTaille) {
+        this.idTaille = idTaille;
+    }
+
+    public Tailles(Integer idTaille, String taille) {
+        this.idTaille = idTaille;
         this.taille = taille;
+    }
+
+    public Integer getIdTaille() {
+        return idTaille;
+    }
+
+    public void setIdTaille(Integer idTaille) {
+        this.idTaille = idTaille;
     }
 
     public String getTaille() {
@@ -59,19 +80,10 @@ public class Tailles implements Serializable {
         this.taille = taille;
     }
 
-    @XmlTransient
-    public Collection<Vente> getVenteCollection() {
-        return venteCollection;
-    }
-
-    public void setVenteCollection(Collection<Vente> venteCollection) {
-        this.venteCollection = venteCollection;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (taille != null ? taille.hashCode() : 0);
+        hash += (idTaille != null ? idTaille.hashCode() : 0);
         return hash;
     }
 
@@ -82,7 +94,7 @@ public class Tailles implements Serializable {
             return false;
         }
         Tailles other = (Tailles) object;
-        if ((this.taille == null && other.taille != null) || (this.taille != null && !this.taille.equals(other.taille))) {
+        if ((this.idTaille == null && other.idTaille != null) || (this.idTaille != null && !this.idTaille.equals(other.idTaille))) {
             return false;
         }
         return true;
@@ -91,6 +103,15 @@ public class Tailles implements Serializable {
     @Override
     public String toString() {
         return taille;
+    }
+
+    @XmlTransient
+    public List<Vente> getVenteList() {
+        return venteList;
+    }
+
+    public void setVenteList(List<Vente> venteList) {
+        this.venteList = venteList;
     }
     
 }

@@ -5,9 +5,10 @@
  */
 package Vente;
 
-import Tailles.Tailles;
-import Motif.Motif;
 import Commande.Commande;
+import Motif.Motif;
+import Tailles.Tailles;
+import Vetement.Vetement;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -20,11 +21,10 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
-import Vetement.Vetement;
 
 /**
  *
- * @author sabat
+ * @author Val Gros Pénis
  */
 @Entity
 @Table(name = "vente")
@@ -55,15 +55,15 @@ public class Vente implements Serializable {
     @NotNull
     @Column(name = "idVente")
     private Integer idVente;
+    @JoinColumn(name = "idTaille", referencedColumnName = "idTaille")
+    @ManyToOne(optional = false)
+    private Tailles idTaille;
     @JoinColumn(name = "idCommande", referencedColumnName = "idCommande")
     @ManyToOne(optional = false)
     private Commande idCommande;
     @JoinColumn(name = "idMotif", referencedColumnName = "idMotif")
     @ManyToOne(optional = false)
     private Motif idMotif;
-    @JoinColumn(name = "taille", referencedColumnName = "taille")
-    @ManyToOne(optional = false)
-    private Tailles taille;
     @JoinColumn(name = "refVet", referencedColumnName = "refVet")
     @ManyToOne(optional = false)
     private Vetement refVet;
@@ -114,6 +114,14 @@ public class Vente implements Serializable {
         this.idVente = idVente;
     }
 
+    public Tailles getIdTaille() {
+        return idTaille;
+    }
+
+    public void setIdTaille(Tailles idTaille) {
+        this.idTaille = idTaille;
+    }
+
     public Commande getIdCommande() {
         return idCommande;
     }
@@ -128,14 +136,6 @@ public class Vente implements Serializable {
 
     public void setIdMotif(Motif idMotif) {
         this.idMotif = idMotif;
-    }
-
-    public Tailles getTaille() {
-        return taille;
-    }
-
-    public void setTaille(Tailles taille) {
-        this.taille = taille;
     }
 
     public Vetement getRefVet() {
@@ -168,7 +168,7 @@ public class Vente implements Serializable {
 
     @Override
     public String toString() {
-        return "tables.Vente[ idVente=" + idVente + " ]";
+        return "Vente.Vente[ idVente=" + idVente + " ]";
     }
     
 }
