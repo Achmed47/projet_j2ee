@@ -46,9 +46,6 @@ public class Commande implements Serializable {
     @NotNull
     @Column(name = "statut")
     private short statut;
-    @JoinColumn(name = "refVet", referencedColumnName = "refVet")
-    @ManyToOne(optional = false)
-    private Vetement refVet;
     @JoinColumn(name = "refClient", referencedColumnName = "refClient")
     @ManyToOne(optional = false)
     private Client refClient;
@@ -85,14 +82,6 @@ public class Commande implements Serializable {
 
     public void setStatut(short statut) {
         this.statut = statut;
-    }
-
-    public Vetement getRefVet() {
-        return refVet;
-    }
-
-    public void setRefVet(Vetement refVet) {
-        this.refVet = refVet;
     }
 
     public Client getRefClient() {
