@@ -7,18 +7,21 @@ package Vetement;
 
 import Couleurs.Couleurs;
 import Couleurs.CouleursDAO;
-import Tailles.TaillesDAO;
 import Types.Types;
 import Types.TypesDAO;
 import java.io.Serializable;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-import javafx.scene.control.TableColumn.CellEditEvent;
+import java.util.Objects;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.inject.Named;
+import javax.faces.event.ActionEvent;
 import javax.faces.view.ViewScoped;
+import javax.inject.Named;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
 
 /**
@@ -39,56 +42,74 @@ public class VetementController implements Serializable {
     
     @EJB
     private VetementDAO vetementDAO;
+    
+    private List<Vetement> allVetements;
 
-    private int id;
-
-    private Vetement saisie;
+    private Vetement newVetement;
 
     public VetementController() {
-        saisie = new Vetement();
+        newVetement = new Vetement();
+        allVetements = new ArrayList<>();
+    }
+    
+    @PostConstruct
+    public void init() {
+        allVetements = vetementDAO.getAllVetements();
     }
 
     public List<Vetement> getVetements() {
-        System.out.println(vetementDAO.getAllVetements().toString());
-        return vetementDAO.getAllVetements();
+        return allVetements;
     }
     
     public List<Types> getTypes() {
-        System.out.println(typesDAO.getAllTypes().toString());
         return typesDAO.getAllTypes();
     }
     
     public List<Couleurs> getCouleurs() {
-        System.out.println("Liste couleurs : " + couleursDAO.getAllCouleurs().toString());
         return couleursDAO.getAllCouleurs();
     }
 
-    public Vetement getSaisie() {
-        return saisie;
+    public Vetement getNewVetement() {
+        return newVetement;
     }
 
-    public void setSaisie(Vetement saisie) {
-        this.saisie = saisie;
+    public void setNewVetement(Vetement saisie) {
+        this.newVetement = saisie;
     }
 
     public void onRowEdit(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Vetement modifié : ", ((Vetement) event.getObject()).getRefVet().toString());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+        Vetement v = (Vetement) event.getObject();
+        vetementDAO.saveVetement(v);
     }
 
     public void onRowCancel(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Modification annulée", ((Vetement) event.getObject()).getRefVet().toString());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+        
     }
-
-    public void onCellEdit(CellEditEvent event) {
-        Object oldValue = event.getOldValue();
-        Object newValue = event.getNewValue();
-
-        if (newValue != null && !newValue.equals(oldValue)) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+    
+    public void deleteVetement(Vetement vetement) {
+        System.out.println(vetement);
+        if(vetement != null && vetement.getRefVet() != null) {
+            for (Iterator<Vetement> it = allVetements.iterator(); it.hasNext();) {
+                Vetement v = it.next();
+                if(Objects.equals(v.getRefVet(), vetement.getRefVet())) {
+                    vetementDAO.deleteVetement(vetement);
+                    it.remove();
+                   
+                }
+            }
         }
     }
-
+    
+    public void addVetement(ActionEvent e) {
+        if(newVetement != null && newVetement.getRefVet() != null 
+                && newVetement.getCouleur() != null && newVetement.getType() != null
+                && newVetement.getPrixV() >= 0 && newVetement.getUrlV().length() > 0) {
+            vetementDAO.saveVetement(newVetement);
+            allVetements.add(newVetement);
+            RequestContext.getCurrentInstance().execute("PF('addVetementDialog').hide()");
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("tableVetements");
+            RequestContext.getCurrentInstance().update("form:addVetementDialog");
+            newVetement = new Vetement();
+        }
+    }
 }

@@ -18,7 +18,7 @@ import javax.persistence.Query;
 @Stateless
 public class VetementDAO {
 
-    private static final long serialVersionUID = 1L;    
+    private static final long serialVersionUID = 1L;
     
     @PersistenceContext(unitName = "projet_j2eePU")
     private EntityManager em;
@@ -30,5 +30,28 @@ public class VetementDAO {
     public List<Vetement> getAllVetements() {
         Query query = em.createNamedQuery("Vetement.findAll");
         return query.getResultList();
-    }    
+    }
+    
+    public void saveVetement(Vetement vetement){
+        try {
+            if (vetement.getRefVet() != null) {
+                em.merge(vetement);
+            } else {
+                em.persist(vetement);
+            }
+        } catch (Exception e){
+            System.err.println(e.getMessage());
+        }
+    }
+
+    public void deleteVetement(Vetement vetement) {
+        try {
+            if (vetement.getRefVet() != null) {
+                Vetement v = em.find(Vetement.class, vetement.getRefVet());
+                em.remove(v);
+            }
+        } catch (Exception e){
+            System.err.println(e.getMessage());
+        }
+    }
 }

@@ -90,7 +90,7 @@ public class Couleurs implements Serializable {
 
     @Override
     public String toString() {
-        return "tables.Couleurs[ couleur=" + couleur + " ]";
+        return couleur;
     }
     
 }

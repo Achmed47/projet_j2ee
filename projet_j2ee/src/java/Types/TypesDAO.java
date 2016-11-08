@@ -5,11 +5,13 @@
  */
 package Types;
 
+import Couleurs.Couleurs;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -27,7 +29,12 @@ public class TypesDAO {
     
     public List<Types> getAllTypes() {
         Query query = em.createNamedQuery("Types.findAll");
-        System.out.println("All types : " + query.getResultList().toString());
         return query.getResultList();
+    }
+
+    public Object getTypeByName(String value) {
+        TypedQuery query = em.createNamedQuery("Types.findByType", Couleurs.class);
+        query.setParameter("type", value);
+        return (Types) query.getSingleResult();
     }
 }

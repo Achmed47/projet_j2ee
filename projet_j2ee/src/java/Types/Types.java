@@ -74,7 +74,7 @@ public class Types implements Serializable {
 
     @Override
     public String toString() {
-        return "Types.Types[ type=" + type + " ]";
+        return type;
     }
     
 }

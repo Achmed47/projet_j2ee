@@ -90,7 +90,7 @@ public class Tailles implements Serializable {
 
     @Override
     public String toString() {
-        return "tables.Tailles[ taille=" + taille + " ]";
+        return taille;
     }
     
 }
