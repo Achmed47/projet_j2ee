@@ -6,9 +6,6 @@
 package Converters;
 
 import Couleurs.Couleurs;
-import Couleurs.CouleursDAO;
-import java.util.Map.Entry;
-import javax.ejb.EJB;
 import javax.enterprise.inject.Model;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -26,6 +23,7 @@ public class CouleurConverter implements Converter {
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {  
         if (value != null && !value.isEmpty()) {
+            System.err.println("Converting " + value + " to color");
             return (Couleurs) component.getAttributes().get(value);
         }
         return null;
