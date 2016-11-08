@@ -39,12 +39,14 @@ public class horizontalView implements Serializable {
  
         ChartSeries tshirt = new ChartSeries();
         tshirt.setLabel("Tshirt");
+        recupData();
 
         // Récupérer le nombre de t-shirt vendu dans le mois
         // tshirt.set(abscisse, ordonnée);
  
         ChartSeries pull = new ChartSeries();
         pull.setLabel("Pull");
+        recupData();
 
         // Récupérer le nombre de pull vendu dans le mois
         // tshirt.set(abscisse, ordonnée);
