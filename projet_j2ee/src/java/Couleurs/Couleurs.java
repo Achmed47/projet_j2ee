@@ -5,12 +5,15 @@
  */
 package Couleurs;
 
+import Vetement.Vetement;
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -20,35 +23,53 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import Vetement.Vetement;
 
 /**
  *
- * @author sabat
+ * @author Val Gros Pénis
  */
 @Entity
 @Table(name = "couleurs")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Couleurs.findAll", query = "SELECT c FROM Couleurs c"),
+    @NamedQuery(name = "Couleurs.findByIdCouleur", query = "SELECT c FROM Couleurs c WHERE c.idCouleur = :idCouleur"),
     @NamedQuery(name = "Couleurs.findByCouleur", query = "SELECT c FROM Couleurs c WHERE c.couleur = :couleur")})
 public class Couleurs implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCouleur")
+    private List<Vetement> vetementList;
+
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "idCouleur")
+    private Integer idCouleur;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "couleur")
     private String couleur;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "couleur")
-    private Collection<Vetement> vetementCollection;
 
     public Couleurs() {
     }
 
-    public Couleurs(String couleur) {
+    public Couleurs(Integer idCouleur) {
+        this.idCouleur = idCouleur;
+    }
+
+    public Couleurs(Integer idCouleur, String couleur) {
+        this.idCouleur = idCouleur;
         this.couleur = couleur;
+    }
+
+    public Integer getIdCouleur() {
+        return idCouleur;
+    }
+
+    public void setIdCouleur(Integer idCouleur) {
+        this.idCouleur = idCouleur;
     }
 
     public String getCouleur() {
@@ -59,19 +80,10 @@ public class Couleurs implements Serializable {
         this.couleur = couleur;
     }
 
-    @XmlTransient
-    public Collection<Vetement> getVetementCollection() {
-        return vetementCollection;
-    }
-
-    public void setVetementCollection(Collection<Vetement> vetementCollection) {
-        this.vetementCollection = vetementCollection;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (couleur != null ? couleur.hashCode() : 0);
+        hash += (idCouleur != null ? idCouleur.hashCode() : 0);
         return hash;
     }
 
@@ -82,7 +94,7 @@ public class Couleurs implements Serializable {
             return false;
         }
         Couleurs other = (Couleurs) object;
-        if ((this.couleur == null && other.couleur != null) || (this.couleur != null && !this.couleur.equals(other.couleur))) {
+        if ((this.idCouleur == null && other.idCouleur != null) || (this.idCouleur != null && !this.idCouleur.equals(other.idCouleur))) {
             return false;
         }
         return true;
@@ -91,6 +103,15 @@ public class Couleurs implements Serializable {
     @Override
     public String toString() {
         return couleur;
+    }
+
+    @XmlTransient
+    public List<Vetement> getVetementList() {
+        return vetementList;
+    }
+
+    public void setVetementList(List<Vetement> vetementList) {
+        this.vetementList = vetementList;
     }
     
 }

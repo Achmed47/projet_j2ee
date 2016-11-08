@@ -64,7 +64,7 @@ public class CouleursController implements Serializable {
         System.out.println("Modification de la couleur en cours");
         Couleurs c = (Couleurs) event.getObject();
         System.out.println("Couleur modifiée : " + c);
-        couleursDAO.updateCouleur(c);
+        couleursDAO.saveCouleur(c);
     }
 
     public void onRowCancel(RowEditEvent event) {
@@ -85,13 +85,17 @@ public class CouleursController implements Serializable {
     }
     
     public void addCouleur(ActionEvent e) {
-        if(newCouleur != null && newCouleur.getCouleur()!= null && !allCouleurs.contains(newCouleur)) {
-            couleursDAO.addCouleur(newCouleur);
+        if(newCouleur != null && newCouleur.getCouleur()!= null && !contains(newCouleur.getCouleur())) {
+            couleursDAO.saveCouleur(newCouleur);
             allCouleurs.add(newCouleur);
             RequestContext.getCurrentInstance().execute("PF('addCouleurDialog').hide()");
             FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("tableCouleurs");
             RequestContext.getCurrentInstance().update("formCouleurs:addCouleurDialog");
             newCouleur = new Couleurs();
         }
+    }
+        
+    private boolean contains(String couleur) {
+        return (allCouleurs.stream().anyMatch((c) -> (c.getCouleur().equals(couleur))));
     }
 }
