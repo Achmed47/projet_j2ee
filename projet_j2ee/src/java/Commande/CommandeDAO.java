@@ -17,7 +17,7 @@ import javax.persistence.Query;
  */
 @Stateless
 public class CommandeDAO {
-
+ 
     @PersistenceContext(unitName = "projet_j2eePU")
     private EntityManager em;
 
