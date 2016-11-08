@@ -21,9 +21,7 @@
                 <p:layoutUnit position="center" id="content" resizable="false">
                     <h:form id="form">
                         <p:growl id="msgs" showDetail="true"/>
-                        
-                        <p:commandButton value="Ajouter un vêtement" type="button" onclick="PF('addVetementDialog').show();" />
-                        
+
                         <p:dialog id="addVetementDialog" widgetVar="addVetementDialog" header="Ajouter un vêtement" resizable="false">
                             <h:panelGrid columns="2" cellpadding="5">
                                 <h:outputLabel for="addVetementType" value="Type : " />
@@ -49,6 +47,7 @@
                         </p:dialog>
                         
                         <h1><h:outputText value="Gestion des vêtements" /></h1>
+                        <p:commandButton value="Ajouter un vêtement" type="button" onclick="PF('addVetementDialog').show();" />
 
                         <p:dataTable id="tableVetements" var="vet" value="#{vetementController.vetements}" editable="true" sortMode="multiple" sortOrder="desending">
                             <p:ajax event="rowEdit" listener="#{vetementController.onRowEdit}" update=":form:msgs" />

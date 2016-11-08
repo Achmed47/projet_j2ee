@@ -36,4 +36,39 @@ public class CouleursDAO {
         query.setParameter("couleur", value);
         return (Couleurs) query.getSingleResult();
     }
+    
+    public void addCouleur(Couleurs couleur){
+        System.out.println("Trying to save : " + couleur);
+        try {
+            if (couleur.getCouleur() != null) {
+                em.merge(couleur);
+            }
+        } catch (Exception e){
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    public void updateCouleur(Couleurs couleur) {
+        try {
+            if (couleur.getCouleur() != null) {
+                // TODO WORK HERE !!!
+                
+                deleteCouleur(couleur);
+                addCouleur(couleur);
+            }
+        } catch (Exception e){
+            System.err.println(e.getMessage());
+        }
+    }
+
+    public void deleteCouleur(Couleurs couleur) {
+        try {
+            if (couleur.getCouleur() != null) {
+                Couleurs v = em.find(Couleurs.class, couleur.getCouleur());
+                em.remove(v);
+            }
+        } catch (Exception e){
+            System.err.println(e.getMessage());
+        }
+    }
 }

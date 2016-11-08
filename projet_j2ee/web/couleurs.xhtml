@@ -18,11 +18,50 @@
                 <ui:include src="templates/global/menu.xhtml" />
                 
                 <p:layoutUnit position="center" id="content" resizable="false">
-                    <h:form id="form">
+                    <h:form id="formCouleurs">
                         <p:growl id="msgs" showDetail="true"/>
 
                         <h1><h:outputText value="Gestion des couleurs"/></h1>
-                    
+                        <p:commandButton value="Ajouter une couleur" type="button" onclick="PF('addCouleurDialog').show();" />
+                        
+                        <p:dialog id="addCouleurDialog" widgetVar="addCouleurDialog" header="Ajouter un vêtement" resizable="false">
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputLabel for="addCouleurName" value="Name : " />
+                                <p:inputText id="addCouleurName" value="#{couleursController.newCouleur.couleur}" required="true" label="Couleur"/>
+
+                                <f:facet name="footer">
+                                    <p:commandButton value="Créer" update="tableCouleurs" actionListener="#{couleursController.addCouleur}"/>
+                                </f:facet>  
+                            </h:panelGrid>
+                        </p:dialog>
+
+                        <p:dataTable id="tableCouleurs" var="c" value="#{couleursController.couleurs}" editable="true" sortMode="multiple" sortOrder="desending">
+                            <p:ajax event="rowEdit" listener="#{couleursController.onRowEdit}" update=":formCouleurs:tableCouleurs :formCouleurs:msgs" />
+                            <p:ajax event="rowEditCancel" listener="#{couleursController.onRowCancel}" />
+
+                            <p:column headerText="RefVet" sortBy="#{c.couleur}" filterBy="#{c.couleur}">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{c.couleur}" /></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{c.couleur}" style="width:100%"/></f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            
+                            <p:column style="width:32px">
+                                <p:rowEditor />
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <p:commandLink styleClass="ui-icon ui-icon-trash">
+                                            <p:ajax listener="#{couleursController.deleteCouleur(c)}" update="tableCouleurs" />
+                                        </p:commandLink>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:commandLink styleClass="ui-icon ui-icon-trash" >
+                                            <p:ajax listener="#{couleursController.deleteCouleur(c)}" update="tableCouleurs" />
+                                        </p:commandLink>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                        </p:dataTable>
                     </h:form>
                 </p:layoutUnit>
             </p:layout>
