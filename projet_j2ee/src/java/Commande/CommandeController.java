@@ -6,6 +6,7 @@
 package Commande;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
@@ -29,6 +30,9 @@ public class CommandeController implements Serializable {
     public CommandeController() {
     }
     
-    
-    
+    public List<Commande> getCommandes() {
+        System.out.println(commandeDAO.getAllCommandes().toString());
+        return commandeDAO.getAllCommandes();
+    }
+   
 }

@@ -5,9 +5,11 @@
  */
 package Vente;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -21,5 +23,10 @@ public class VenteDAO {
 
     public void persist(Object object) {
         em.persist(object);
+    }
+    
+    public List<Vente> getAllVentes() {
+        Query query = em.createNamedQuery("Vente.findAll");
+        return query.getResultList();
     }
 }

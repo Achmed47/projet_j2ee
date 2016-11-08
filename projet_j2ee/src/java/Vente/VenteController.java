@@ -6,6 +6,7 @@
 package Vente;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
@@ -28,4 +29,10 @@ public class VenteController implements Serializable {
      */
     public VenteController() {
     }
+    
+    public List<Vente> getVentes() {
+        System.out.println(venteDAO.getAllVentes().toString());
+        return venteDAO.getAllVentes();
+    }
+    
 }
