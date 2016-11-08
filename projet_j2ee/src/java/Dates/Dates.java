@@ -175,7 +175,7 @@ public class Dates implements Serializable {
 
     @Override
     public String toString() {
-        return "tables.Dates[ idDate=" + idDate + " ]";
+        return jour + "/" + mois + "/" + annee + " " + heure + ":" + minute;
     }
     
 }

@@ -10,6 +10,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -28,5 +29,11 @@ public class CouleursDAO {
     public List<Couleurs> getAllCouleurs() {
         Query query = em.createNamedQuery("Couleurs.findAll");
         return query.getResultList();
+    }
+
+    public Object getCouleurByName(String value) {
+        TypedQuery query = em.createNamedQuery("Couleurs.findByCouleur", Couleurs.class);
+        query.setParameter("couleur", value);
+        return (Couleurs) query.getSingleResult();
     }
 }

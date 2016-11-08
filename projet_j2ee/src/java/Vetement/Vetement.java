@@ -9,6 +9,7 @@ import Vente.Vente;
 import Couleurs.Couleurs;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.concurrent.ThreadLocalRandom;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,10 +21,12 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.hibernate.validator.constraints.Length;
 
 /**
  *
@@ -44,6 +47,7 @@ public class Vetement implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
+    @Min(1000000)
     @Column(name = "refVet")
     private Integer refVet;
     @Basic(optional = false)
@@ -67,6 +71,7 @@ public class Vetement implements Serializable {
     private Collection<Vente> venteCollection;
 
     public Vetement() {
+        this.refVet = ThreadLocalRandom.current().nextInt(1000000, 9999999 + 1);
     }
 
     public Vetement(Integer refVet) {

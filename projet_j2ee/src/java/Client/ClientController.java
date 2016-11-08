@@ -7,8 +7,9 @@ package Client;
 
 import java.io.Serializable;
 import javax.ejb.EJB;
-import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.view.ViewScoped;
+import javax.inject.Named;
 
 /**
  *

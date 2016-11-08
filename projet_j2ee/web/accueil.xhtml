@@ -9,6 +9,7 @@
     <h:head>
         <title>Tex'Style</title>
         <h:outputStylesheet library="css" name="global.css" />
+        
     </h:head>
     <h:body>
         <f:view encoding="UTF-8" contentType="text/html">
@@ -20,7 +21,33 @@
                 <p:layoutUnit position="center" id="content" resizable="false">
                     <h:form id="form">
                         <p:growl id="msgs" showDetail="true"/>
+                        
+                        <p:commandButton value="Ajouter un vêtement" type="button" onclick="PF('addVetementDialog').show();" />
+                        
+                        <p:dialog id="addVetementDialog" widgetVar="addVetementDialog" header="Ajouter un vêtement" resizable="false">
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputLabel for="addVetementType" value="Type : " />
+                                <h:selectOneMenu id="addVetementType" value="#{vetementController.newVetement.type}" style="width:100%" required="true">
+                                    <f:selectItems value="#{vetementController.types}" var="type" itemLabel="#{type}" itemValue="#{type}" />
+                                </h:selectOneMenu>
 
+                                <h:outputLabel for="addVetementCouleur" value="Couleur : " />
+                                <h:selectOneMenu id="addVetementCouleur" value="#{vetementController.newVetement.couleur}" style="width:100%" required="true">
+                                    <f:selectItems value="#{vetementController.couleurs}" var="couleur" itemLabel="#{couleur}" itemValue="#{couleur}" />
+                                </h:selectOneMenu>
+
+                                <h:outputLabel for="addVetementPrix" value="Prix : " />
+                                <p:inputText id="addVetementPrix" value="#{vetementController.newVetement.prixV}" required="true" label="Prix" />
+
+                                <h:outputLabel for="addVetementUrl" value="URL : " />
+                                <p:inputText id="addVetementUrl" value="#{vetementController.newVetement.urlV}" required="true" label="Url" />
+
+                                <f:facet name="footer">
+                                    <p:commandButton value="Créer" update="tableVetements" actionListener="#{vetementController.addVetement}"/>
+                                </f:facet>  
+                            </h:panelGrid>
+                        </p:dialog>
+                        
                         <h1><h:outputText value="Gestion des vêtements" /></h1>
 
                         <p:dataTable id="tableVetements" var="vet" value="#{vetementController.vetements}" editable="true" sortMode="multiple" sortOrder="desending">
@@ -29,8 +56,8 @@
 
                             <p:column headerText="RefVet" sortBy="#{vet.refVet}" filterBy="#{vet.refVet}">
                                 <p:cellEditor>
-                                    <f:facet name="output"><h:outputText value="#{vet.refVet}" /></f:facet>
-                                    <f:facet name="input"><p:inputText value="#{vet.refVet}" style="width:100%"/></f:facet>
+                                    <f:facet name="output"><h:outputText value="##{vet.refVet}" /></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{vet.refVet}" style="width:100%;visibility:hidden;"/></f:facet>
                                 </p:cellEditor>
                             </p:column>
 
@@ -69,15 +96,27 @@
                                     <f:facet name="input"><p:inputText value="#{vet.urlV}" style="width:100%"/></f:facet>
                                 </p:cellEditor>
                             </p:column>
-
+                            
                             <p:column style="width:32px">
                                 <p:rowEditor />
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <p:commandLink styleClass="ui-icon ui-icon-trash">
+                                            <p:ajax listener="#{vetementController.deleteVetement(vet)}" update="tableVetements" />
+                                        </p:commandLink>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:commandLink styleClass="ui-icon ui-icon-trash" >
+                                            <p:ajax listener="#{vetementController.deleteVetement(vet)}" update="tableVetements" />
+                                        </p:commandLink>
+                                    </f:facet>
+                                </p:cellEditor>
+                                
                             </p:column>
                         </p:dataTable>
                     </h:form>
                 </p:layoutUnit>
             </p:layout>
-            
         </f:view>
     </h:body>
 </html>
