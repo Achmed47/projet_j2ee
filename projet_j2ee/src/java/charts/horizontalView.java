@@ -24,7 +24,8 @@ import org.primefaces.model.chart.ChartSeries;
 public class horizontalView implements Serializable {
  
     private HorizontalBarChartModel horizontalBarModel;
-    
+    private ResultSet rs;
+ 
     @PostConstruct
     public void init() {
         createHorizontalBarModel();
@@ -36,23 +37,22 @@ public class horizontalView implements Serializable {
      
     private void createHorizontalBarModel() {
         horizontalBarModel = new HorizontalBarChartModel();
- 
+
+        ResultSet rs = recupData();        
+        
         ChartSeries tshirt = new ChartSeries();
         tshirt.setLabel("Tshirt");
-        recupData();
 
         // Récupérer le nombre de t-shirt vendu dans le mois
         // tshirt.set(abscisse, ordonnée);
  
         ChartSeries pull = new ChartSeries();
         pull.setLabel("Pull");
-        recupData();
 
         // Récupérer le nombre de pull vendu dans le mois
         // tshirt.set(abscisse, ordonnée);
  
         horizontalBarModel.addSeries(tshirt);
-        horizontalBarModel.addSeries(pull);
          
         horizontalBarModel.setTitle("Horizontal and Stacked");
         horizontalBarModel.setLegendPosition("e");
@@ -67,7 +67,7 @@ public class horizontalView implements Serializable {
         yAxis.setLabel("Mois");        
     }
 
-    public void recupData(){
+    public ResultSet recupData(){
         try {
             Connection conn = DriverManager.getConnection("projetj2ee", "root", "");
             Statement state = conn.createStatement();
@@ -88,6 +88,6 @@ public class horizontalView implements Serializable {
         }catch(SQLException e) {
            System.out.println(e.getMessage()); 
         }
+        return(rs);
     }
- 
 }
