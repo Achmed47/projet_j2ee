@@ -16,53 +16,101 @@
             
             <p:layout id="corps">
                 <ui:include src="templates/global/menu.xhtml" />
-                
-                <p:layoutUnit position="center" id="content" resizable="false">
-                    <h:form id="formCouleurs">
-                        <p:growl id="msgs" showDetail="true"/>
 
-                        <h1><h:outputText value="Gestion des couleurs"/></h1>
-                        <p:commandButton value="Ajouter une couleur" type="button" onclick="PF('addCouleurDialog').show();" />
-                        
-                        <p:dialog id="addCouleurDialog" widgetVar="addCouleurDialog" header="Ajouter un vêtement" resizable="false">
-                            <h:panelGrid columns="2" cellpadding="5">
-                                <h:outputLabel for="addCouleurName" value="Name : " />
-                                <p:inputText id="addCouleurName" value="#{couleursController.newCouleur.couleur}" required="true" label="Couleur"/>
+                <p:layoutUnit position="center">
+                    <h1><h:outputText value="Gestion des paramètres"/></h1>
 
-                                <f:facet name="footer">
-                                    <p:commandButton value="Créer" update="tableCouleurs" actionListener="#{couleursController.addCouleur}"/>
-                                </f:facet>  
-                            </h:panelGrid>
-                        </p:dialog>
+                    <p:panelGrid columns="2">
+                        <h:form id="formCouleurs">
+                            <p:growl id="msgsCouleur" showDetail="true"/>
 
-                        <p:dataTable id="tableCouleurs" var="c" value="#{couleursController.couleurs}" editable="true" sortMode="multiple" sortOrder="desending">
-                            <p:ajax event="rowEdit" listener="#{couleursController.onRowEdit}" update=":formCouleurs:tableCouleurs :formCouleurs:msgs" />
-                            <p:ajax event="rowEditCancel" listener="#{couleursController.onRowCancel}" />
+                            <p:commandButton value="Ajouter une couleur" type="button" onclick="PF('addCouleurDialog').show();" />
 
-                            <p:column headerText="RefVet" sortBy="#{c.couleur}" filterBy="#{c.couleur}">
-                                <p:cellEditor>
-                                    <f:facet name="output"><h:outputText value="#{c.couleur}" /></f:facet>
-                                    <f:facet name="input"><p:inputText value="#{c.couleur}" style="width:100%"/></f:facet>
-                                </p:cellEditor>
-                            </p:column>
-                            
-                            <p:column style="width:32px">
-                                <p:rowEditor />
-                                <p:cellEditor>
-                                    <f:facet name="output">
-                                        <p:commandLink styleClass="ui-icon ui-icon-trash">
-                                            <p:ajax listener="#{couleursController.deleteCouleur(c)}" update="tableCouleurs" />
-                                        </p:commandLink>
-                                    </f:facet>
-                                    <f:facet name="input">
-                                        <p:commandLink styleClass="ui-icon ui-icon-trash" >
-                                            <p:ajax listener="#{couleursController.deleteCouleur(c)}" update="tableCouleurs" />
-                                        </p:commandLink>
-                                    </f:facet>
-                                </p:cellEditor>
-                            </p:column>
-                        </p:dataTable>
-                    </h:form>
+                            <p:dialog id="addCouleurDialog" widgetVar="addCouleurDialog" header="Ajouter une couleur" resizable="false">
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <h:outputLabel for="addCouleurName" value="Name : " />
+                                    <p:inputText id="addCouleurName" value="#{couleursController.newCouleur.couleur}" required="true" label="Couleur"/>
+
+                                    <f:facet name="footer">
+                                        <p:commandButton value="Créer" update="tableCouleurs" actionListener="#{couleursController.addCouleur}"/>
+                                    </f:facet>  
+                                </h:panelGrid>
+                            </p:dialog>
+
+                            <p:dataTable id="tableCouleurs" var="c" value="#{couleursController.couleurs}" editable="true" sortMode="multiple" sortOrder="desending">
+                                <p:ajax event="rowEdit" listener="#{couleursController.onRowEdit}" update=":formCouleurs:tableCouleurs :formCouleurs:msgsCouleur" />
+                                <p:ajax event="rowEditCancel" listener="#{couleursController.onRowCancel}" />
+
+                                <p:column headerText="RefVet" sortBy="#{c.couleur}" filterBy="#{c.couleur}">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{c.couleur}" /></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{c.couleur}" style="width:100%"/></f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+
+                                <p:column style="width:32px">
+                                    <p:rowEditor />
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <p:commandLink styleClass="ui-icon ui-icon-trash">
+                                                <p:ajax listener="#{couleursController.deleteCouleur(c)}" update="tableCouleurs" />
+                                            </p:commandLink>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <p:commandLink styleClass="ui-icon ui-icon-trash" >
+                                                <p:ajax listener="#{couleursController.deleteCouleur(c)}" update="tableCouleurs" />
+                                            </p:commandLink>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                            </p:dataTable>
+                        </h:form>
+
+                        <h:form id="formTaille">
+                            <p:growl id="msgsTaille" showDetail="true"/>
+
+                            <p:commandButton value="Ajouter une taille" type="button" onclick="PF('addTailleDialog').show();" />
+
+                            <p:dialog id="addTailleDialog" widgetVar="addTailleDialog" header="Ajouter une taille" resizable="false">
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <h:outputLabel for="addTaille" value="Taille : " />
+                                    <p:inputText id="addTaille" value="#{taillesController.newTaille.taille}" required="true" label="Taille"/>
+
+                                    <f:facet name="footer">
+                                        <p:commandButton value="Créer" update="tableTaille" actionListener="#{taillesController.addTaille}"/>
+                                    </f:facet>  
+                                </h:panelGrid>
+                            </p:dialog>
+
+                            <p:dataTable id="tableTaille" var="t" value="#{taillesController.tailles}" editable="true" sortMode="multiple" sortOrder="desending">
+                                <p:ajax event="rowEdit" listener="#{taillesController.onRowEdit}" update=":formTaille:tableTaille :formTaille:msgsTaille" />
+                                <p:ajax event="rowEditCancel" listener="#{taillesController.onRowCancel}" />
+
+                                <p:column headerText="Taille" sortBy="#{t.taille}" filterBy="#{t.taille}">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{t.taille}" /></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{t.taille}" style="width:100%"/></f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+
+                                <p:column style="width:32px">
+                                    <p:rowEditor />
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <p:commandLink styleClass="ui-icon ui-icon-trash">
+                                                <p:ajax listener="#{taillesController.deleteTaille(t)}" update="tableTaille" />
+                                            </p:commandLink>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <p:commandLink styleClass="ui-icon ui-icon-trash" >
+                                                <p:ajax listener="#{taillesController.deleteTaille(t)}" update="tableTaille" />
+                                            </p:commandLink>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                            </p:dataTable>
+                        </h:form>
+                    </p:panelGrid>
                 </p:layoutUnit>
             </p:layout>
         </f:view>
