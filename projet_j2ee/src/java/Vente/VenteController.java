@@ -7,9 +7,8 @@ package Vente;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.bean.ViewScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import org.primefaces.model.chart.HorizontalBarChartModel;
 
@@ -18,7 +17,7 @@ import org.primefaces.model.chart.HorizontalBarChartModel;
  * @author sabat
  */
 @Named(value = "venteController")
-@ViewScoped
+@SessionScoped
 public class VenteController implements Serializable {
 
     private static final long serialVersionUID = 1L;

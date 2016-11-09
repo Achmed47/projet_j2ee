@@ -33,9 +33,9 @@ public class CouleurConverter implements Converter {
     public String getAsString(FacesContext context, UIComponent component, Object value) {
         if (value instanceof Couleurs) {
             Couleurs entity = (Couleurs) value;
-            if (entity != null && entity instanceof Couleurs && entity.getCouleur() != null) {
-                component.getAttributes().put( entity.getCouleur().toString(), entity);
-                return entity.getCouleur().toString();
+            if (entity instanceof Couleurs && entity.getCouleur() != null) {
+                component.getAttributes().put( entity.getCouleur(), entity);
+                return entity.getCouleur();
             }
         }
         return "";

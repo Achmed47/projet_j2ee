@@ -31,7 +31,7 @@ public class CouleursDAO {
         return query.getResultList();
     }
 
-    public Object getCouleurByName(String value) {
+    public Couleurs getCouleurByName(String value) {
         TypedQuery query = em.createNamedQuery("Couleurs.findByCouleur", Couleurs.class);
         query.setParameter("couleur", value);
         return (Couleurs) query.getSingleResult();

@@ -5,7 +5,7 @@
  */
 package Types;
 
-import Couleurs.Couleurs;
+import Types.Types;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -32,9 +32,32 @@ public class TypesDAO {
         return query.getResultList();
     }
 
-    public Object getTypeByName(String value) {
-        TypedQuery query = em.createNamedQuery("Types.findByType", Couleurs.class);
+    public Types getTypeByName(String value) {
+        TypedQuery query = em.createNamedQuery("Types.findByType", Types.class);
         query.setParameter("type", value);
         return (Types) query.getSingleResult();
+    }
+    
+    public void saveType(Types type){
+        try {
+            if (type.getIdType() != null) {
+                em.merge(type);
+            } else {
+                em.persist(type);
+            }
+        } catch (Exception e){
+            System.err.println(e.getMessage());
+        }
+    }
+
+    public void deleteType(Types type) {
+        try {
+            if (type.getType() != null) {
+                Types t = em.find(Types.class, type.getIdType());
+                em.remove(t);
+            }
+        } catch (Exception e){
+            System.err.println(e.getMessage());
+        }
     }
 }

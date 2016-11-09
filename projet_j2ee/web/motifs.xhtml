@@ -18,11 +18,66 @@
                 <ui:include src="templates/global/menu.xhtml" />
                 
                 <p:layoutUnit position="center" id="content" resizable="false">
-                    <h:form id="form">
-                        <p:growl id="msgs" showDetail="true"/>
+                     <h:form id="formMotif">
+                        <p:growl id="msgsMotif" showDetail="true"/>
 
-                        <h1><h:outputText value="Gestion des motifs"/></h1>
-                    
+                        <p:commandButton value="Ajouter un motif" type="button" onclick="PF('addMotifDialog').show();" />
+
+                        <p:dialog id="addMotifDialog" widgetVar="addMotifDialog" header="Ajouter un motif" resizable="false">
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputLabel for="addUrlMotif" value="URL/Nom : " />
+                                <p:inputText id="addUrlMotif" value="#{motifController.newMotif.urlMotif}" required="true" label="Motif"/>
+
+                                <h:outputLabel for="addPrixMotif" value="Prix : " />
+                                <p:inputText id="addPrixMotif" value="#{motifController.newMotif.prixM}" required="true" label="Prix"/>
+                                
+                                <f:facet name="footer">
+                                    <p:commandButton value="Créer" update="tableMotif" actionListener="#{motifController.addMotif}"/>
+                                </f:facet>  
+                            </h:panelGrid>
+                        </p:dialog>
+
+                        <p:dataTable id="tableMotif" var="m" value="#{motifController.motifs}" editable="true" sortMode="multiple" sortOrder="desending">
+                            <p:ajax event="rowEdit" listener="#{motifController.onRowEdit}" update=":formMotif:tableMotif :formMotif:msgsMotif" />
+                            <p:ajax event="rowEditCancel" listener="#{motifController.onRowCancel}" />
+
+                            <p:column headerText="Aperçu" sortBy="#{m.urlMotif}">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:graphicImage value="#{m.urlMotif}" style="width:50px;height:50px;"/></f:facet>
+                                    <f:facet name="input"><p:inputText value=" " style="width:100%;visibility:hidden;"/></f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            
+                            <p:column headerText="URL / Nom " sortBy="#{m.urlMotif}" filterBy="#{m.urlMotif}">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{m.urlMotif}" /></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{m.urlMotif}" style="width:100%"/></f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            
+                            <p:column headerText="Prix" sortBy="#{m.prixM}" filterBy="#{m.prixM}">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{m.prixM}" /></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{m.prixM}" style="width:100%"/></f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column style="width:32px">
+                                <p:rowEditor />
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <p:commandLink styleClass="ui-icon ui-icon-trash">
+                                            <p:ajax listener="#{motifController.deleteMotif(m)}" update="tableMotif" />
+                                        </p:commandLink>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:commandLink styleClass="ui-icon ui-icon-trash" >
+                                            <p:ajax listener="#{motifController.deleteMotif(m)}" update="tableMotif" />
+                                        </p:commandLink>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                        </p:dataTable>
                     </h:form>
                 </p:layoutUnit>
             </p:layout>

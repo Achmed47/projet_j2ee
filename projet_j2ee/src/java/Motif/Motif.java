@@ -23,6 +23,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import Vente.Vente;
+import javax.validation.constraints.Min;
 
 /**
  *
@@ -51,6 +52,7 @@ public class Motif implements Serializable {
     private String urlMotif;
     @Basic(optional = false)
     @NotNull
+    @Min(0)
     @Column(name = "prixM")
     private float prixM;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMotif")
@@ -124,7 +126,7 @@ public class Motif implements Serializable {
 
     @Override
     public String toString() {
-        return "tables.Motif[ idMotif=" + idMotif + " ]";
+        return urlMotif + " " + prixM;
     }
     
 }

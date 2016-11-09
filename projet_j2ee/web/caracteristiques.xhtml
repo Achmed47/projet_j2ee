@@ -18,9 +18,9 @@
                 <ui:include src="templates/global/menu.xhtml" />
 
                 <p:layoutUnit position="center">
-                    <h1><h:outputText value="Gestion des paramètres"/></h1>
+                    <h1><h:outputText value="Gestion des caractéristiques"/></h1>
 
-                    <p:panelGrid columns="2">
+                    <p:panelGrid columns="3">
                         <h:form id="formCouleurs">
                             <p:growl id="msgsCouleur" showDetail="true"/>
 
@@ -104,6 +104,51 @@
                                         <f:facet name="input">
                                             <p:commandLink styleClass="ui-icon ui-icon-trash" >
                                                 <p:ajax listener="#{taillesController.deleteTaille(t)}" update="tableTaille" />
+                                            </p:commandLink>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                            </p:dataTable>
+                        </h:form>
+                        
+                        <h:form id="formType">
+                            <p:growl id="msgsType" showDetail="true"/>
+
+                            <p:commandButton value="Ajouter un type" type="button" onclick="PF('addTypeDialog').show();" />
+
+                            <p:dialog id="addTypeDialog" widgetVar="addTypeDialog" header="Ajouter un type" resizable="false">
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <h:outputLabel for="addType" value="Type : " />
+                                    <p:inputText id="addType" value="#{typesController.newType.type}" required="true" label="Type"/>
+
+                                    <f:facet name="footer">
+                                        <p:commandButton value="Créer" update="tableType" actionListener="#{typesController.addType}"/>
+                                    </f:facet>  
+                                </h:panelGrid>
+                            </p:dialog>
+
+                            <p:dataTable id="tableType" var="t" value="#{typesController.types}" editable="true" sortMode="multiple" sortOrder="desending">
+                                <p:ajax event="rowEdit" listener="#{typesController.onRowEdit}" update=":formType:tableType :formType:msgsType" />
+                                <p:ajax event="rowEditCancel" listener="#{typesController.onRowCancel}" />
+
+                                <p:column headerText="Type" sortBy="#{t.type}" filterBy="#{t.type}">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{t.type}" /></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{t.type}" style="width:100%"/></f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+
+                                <p:column style="width:32px">
+                                    <p:rowEditor />
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <p:commandLink styleClass="ui-icon ui-icon-trash">
+                                                <p:ajax listener="#{typesController.deleteType(t)}" update="tableType" />
+                                            </p:commandLink>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <p:commandLink styleClass="ui-icon ui-icon-trash" >
+                                                <p:ajax listener="#{typesController.deleteType(t)}" update="tableType" />
                                             </p:commandLink>
                                         </f:facet>
                                     </p:cellEditor>

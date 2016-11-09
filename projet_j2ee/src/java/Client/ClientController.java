@@ -7,7 +7,7 @@ package Client;
 
 import java.io.Serializable;
 import javax.ejb.EJB;
-import javax.faces.bean.ViewScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 /**
@@ -15,7 +15,7 @@ import javax.inject.Named;
  * @author sabat
  */
 @Named(value = "clientController")
-@ViewScoped
+@SessionScoped
 public class ClientController implements Serializable {
 
     private static final long serialVersionUID = 1L;

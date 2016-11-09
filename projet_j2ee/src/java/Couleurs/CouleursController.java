@@ -6,13 +6,12 @@
 package Couleurs;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.bean.ViewScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
@@ -24,7 +23,7 @@ import org.primefaces.event.RowEditEvent;
  * @author sabat
  */
 @Named(value = "couleursController")
-@ViewScoped
+@SessionScoped
 public class CouleursController implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -35,16 +34,12 @@ public class CouleursController implements Serializable {
     private List<Couleurs> allCouleurs;
     private Couleurs newCouleur;
 
-    /**
-     * Creates a new instance of CouleursController
-     */
     public CouleursController() {
-        allCouleurs = new ArrayList<>();
-        newCouleur = new Couleurs();
     }
     
     @PostConstruct
     public void init() {
+        newCouleur = new Couleurs();
         allCouleurs = couleursDAO.getAllCouleurs();
     }
     
@@ -61,10 +56,10 @@ public class CouleursController implements Serializable {
     }
     
     public void onRowEdit(RowEditEvent event) {
-        System.out.println("Modification de la couleur en cours");
         Couleurs c = (Couleurs) event.getObject();
-        System.out.println("Couleur modifiée : " + c);
-        couleursDAO.saveCouleur(c);
+        if(!contains(c.getCouleur())) {
+            couleursDAO.saveCouleur(c);
+        }
     }
 
     public void onRowCancel(RowEditEvent event) {

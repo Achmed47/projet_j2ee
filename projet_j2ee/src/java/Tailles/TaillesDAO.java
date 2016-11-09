@@ -32,7 +32,7 @@ public class TaillesDAO {
         return query.getResultList();
     }
     
-    public Object getTailleByValue(String value) {
+    public Tailles getTailleByValue(String value) {
         TypedQuery query = em.createNamedQuery("Tailles.findByTaille", Couleurs.class);
         query.setParameter("taille", value);
         return (Tailles) query.getSingleResult();

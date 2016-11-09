@@ -10,15 +10,14 @@ import Couleurs.CouleursDAO;
 import Types.Types;
 import Types.TypesDAO;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
@@ -28,7 +27,7 @@ import org.primefaces.event.RowEditEvent;
  * @author sabat
  */
 @Named(value = "vetementController")
-@ViewScoped
+@SessionScoped
 public class VetementController implements Serializable {
     
     private static final long serialVersionUID = 1L;
@@ -43,17 +42,20 @@ public class VetementController implements Serializable {
     private VetementDAO vetementDAO;
     
     private List<Vetement> allVetements;
-
+    private List<Types> typesList;
+    private List<Couleurs> couleursList;
+    
     private Vetement newVetement;
 
     public VetementController() {
-        newVetement = new Vetement();
-        allVetements = new ArrayList<>();
     }
     
     @PostConstruct
     public void init() {
+        newVetement  = new Vetement();
         allVetements = vetementDAO.getAllVetements();
+        typesList    = typesDAO.getAllTypes();
+        couleursList = couleursDAO.getAllCouleurs();
     }
 
     public List<Vetement> getVetements() {
@@ -61,11 +63,11 @@ public class VetementController implements Serializable {
     }
     
     public List<Types> getTypes() {
-        return typesDAO.getAllTypes();
+        return typesList;
     }
     
     public List<Couleurs> getCouleurs() {
-        return couleursDAO.getAllCouleurs();
+        return couleursList;
     }
 
     public Vetement getNewVetement() {
@@ -100,9 +102,11 @@ public class VetementController implements Serializable {
     }
     
     public void addVetement(ActionEvent e) {
+        System.out.println("Vetement a ajouter : " + newVetement);
         if(newVetement != null && newVetement.getRefVet() != null 
                 && newVetement.getCouleur() != null && newVetement.getType() != null
                 && newVetement.getPrixV() >= 0 && newVetement.getUrlV().length() > 0) {
+            System.out.println("Prêt à être ajouté");
             vetementDAO.saveVetement(newVetement);
             allVetements.add(newVetement);
             RequestContext.getCurrentInstance().execute("PF('addVetementDialog').hide()");

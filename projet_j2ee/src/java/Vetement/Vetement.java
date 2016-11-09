@@ -17,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -43,6 +44,7 @@ public class Vetement implements Serializable {
     private Integer refVet;
     @Basic(optional = false)
     @NotNull
+    @Min(0)
     @Column(name = "prixV")
     private float prixV;
     @Basic(optional = false)
@@ -58,6 +60,7 @@ public class Vetement implements Serializable {
     private Couleurs idCouleur;
 
     public Vetement() {
+        this.refVet = getRandomRefV();
     }
 
     public Vetement(Integer refVet) {
@@ -109,6 +112,10 @@ public class Vetement implements Serializable {
     public void setCouleur(Couleurs idCouleur) {
         this.idCouleur = idCouleur;
     }
+    
+    private int getRandomRefV() {
+        return 1000000 + (int)(Math.random() * 9999999); 
+    }
 
     @Override
     public int hashCode() {
@@ -132,7 +139,7 @@ public class Vetement implements Serializable {
 
     @Override
     public String toString() {
-        return "Vetement.Vetement[ refVet=" + refVet + " ]";
+        return "Vetement.Vetement[ refVet=" + refVet + ", " + idType + ", " + idCouleur + ", " + prixV + ", " + urlV + " ]";
     }
     
 }

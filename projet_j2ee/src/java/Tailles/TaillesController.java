@@ -5,7 +5,6 @@
  */
 package Tailles;
 
-import Couleurs.Couleurs;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -13,8 +12,7 @@ import java.util.List;
 import java.util.Objects;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
@@ -26,7 +24,7 @@ import org.primefaces.event.RowEditEvent;
  * @author sabat
  */
 @Named(value = "taillesController")
-@ViewScoped
+@SessionScoped
 public class TaillesController implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,12 +39,11 @@ public class TaillesController implements Serializable {
      * Creates a new instance of TaillesController
      */
     public TaillesController() {
-        newTaille = new Tailles();
-        allTailles = new ArrayList<>();
     }
     
     @PostConstruct
     public void init() {
+        newTaille = new Tailles();
         allTailles = taillesDAO.getAllTailles();
     }
 
@@ -68,7 +65,9 @@ public class TaillesController implements Serializable {
     
     public void onRowEdit(RowEditEvent event) {
         Tailles t = (Tailles) event.getObject();
-        taillesDAO.saveTaille(t);
+        if(!contains(t.getTaille())) {
+            taillesDAO.saveTaille(t);    
+        }
     }
 
     public void onRowCancel(RowEditEvent event) {
@@ -76,7 +75,6 @@ public class TaillesController implements Serializable {
     }
     
     public void deleteTaille(Tailles taille) {
-        System.out.println(taille);
         if(taille != null && taille.getTaille()!= null) {
             for (Iterator<Tailles> it = allTailles.iterator(); it.hasNext();) {
                 Tailles t = it.next();

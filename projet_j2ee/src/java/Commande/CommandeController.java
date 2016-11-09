@@ -8,7 +8,7 @@ package Commande;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.faces.bean.ViewScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 /**
@@ -16,7 +16,7 @@ import javax.inject.Named;
  * @author sabat
  */
 @Named(value = "commandeController")
-@ViewScoped
+@SessionScoped
 public class CommandeController implements Serializable {
 
     private static final long serialVersionUID = 1L;
