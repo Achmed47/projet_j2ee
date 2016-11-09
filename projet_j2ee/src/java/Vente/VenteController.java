@@ -35,4 +35,5 @@ public class VenteController implements Serializable {
         return venteDAO.getAllVentes();
     }
     
+    
 }

@@ -171,5 +171,4 @@ public class Vente implements Serializable {
         return "Vente.Vente[ idVente=" + idVente + " ]";
     }
     
-    
 }
