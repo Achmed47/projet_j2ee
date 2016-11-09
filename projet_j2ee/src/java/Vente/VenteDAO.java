@@ -37,7 +37,7 @@ public class VenteDAO {
 //    public ArrayList<DataChart> getDataChartArray() {
 //        return dataChartArray;
 //    }
-//
+
 //    public void setDataChartArray(ArrayList<DataChart> dataChartArray) {
 //        this.dataChartArray = dataChartArray;
 //    }
@@ -45,7 +45,7 @@ public class VenteDAO {
 //    public void recupData(){
 //        try (Connection conn = DriverManager.getConnection("projetj2ee", "root", "")) {
 //            Statement state = conn.createStatement();
-//            
+            
 //            ResultSet rs = state.executeQuery("SELECT count(*) nbVentes, type, mois \n" +
 //                " FROM vente v, vetement vt, dates d, commande c\n" +
 //                " WHERE v.refVet = vt.refVet\n" +
