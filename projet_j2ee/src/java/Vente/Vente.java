@@ -168,7 +168,7 @@ public class Vente implements Serializable {
 
     @Override
     public String toString() {
-        return "Vente.Vente[ idVente=" + idVente + " ]";
+        return "Vente.Vente[ idVente=" + idVente + "]";
     }
-    
 }
+

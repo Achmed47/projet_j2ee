@@ -32,19 +32,19 @@ public class VenteDAO {
         return query.getResultList();
     }
     
-    public void recupData(){
+    public List<Vente> recupData(){
         Query query = em.createQuery("SELECT count(*) nbVentes, type, mois \n" +
                 " FROM vente v, vetement vt, dates d, commande c\n" +
-                " WHERE v.refVet = vt.refVet\n" +
-                " AND v.idCommande = c.idCommande\n" +
-                " AND c.idDate = d.idDate\n" +
+                " WHERE v.refVet =: vt.refVet\n" +
+                " AND v.idCommande =: c.idCommande\n" +
+                " AND c.idDate =: d.idDate\n" +
                 " ORDER BY type, mois");
                 
-        List<Vente[]> results = query.getResultList();
-            System.out.println(results.toString());
-            for (int i = 0; i < results.size(); i++){
-                
+        List<Vente> rs = query.getResultList();
+            for (int i = 0; i < rs.size(); i++){
+                System.out.println(rs.get(i));
             }
+        return rs;
     }
 
 

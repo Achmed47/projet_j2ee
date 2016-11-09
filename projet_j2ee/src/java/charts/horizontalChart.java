@@ -35,31 +35,6 @@ public class horizontalChart implements Serializable {
     }
      
     private void createHorizontalBarModel() {
-        horizontalBarModel = new HorizontalBarChartModel();
- 
-//        recupData();
-//        
-//        ChartSeries tshirt = new ChartSeries();
-//        tshirt.setLabel("Tshirt");
-//        tshirt.set("abscisse", ordonnée);
-// 
-//        ChartSeries pull = new ChartSeries();
-//        pull.setLabel("Pull");
-//        pull.set("abscisse", ordonnée);
- 
-//        horizontalBarModel.addSeries(tshirt);
-//        horizontalBarModel.addSeries(pull);
-         
-//        horizontalBarModel.setTitle("Horizontal and Stacked");
-//        horizontalBarModel.setLegendPosition("e");
-//        horizontalBarModel.setStacked(true);
-//         
-//        Axis xAxis = horizontalBarModel.getAxis(AxisType.X);
-//        xAxis.setLabel("Mois");
-//        xAxis.setMin(0);
-//        xAxis.setMax(200);
-//         
-//        Axis yAxis = horizontalBarModel.getAxis(AxisType.Y);
-//        yAxis.setLabel("NbVentes");        
+        horizontalBarModel = new HorizontalBarChartModel();      
     }
 }
