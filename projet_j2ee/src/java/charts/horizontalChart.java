@@ -62,17 +62,17 @@ public class horizontalChart implements Serializable {
 //        horizontalBarModel.addSeries(tshirt);
 //        horizontalBarModel.addSeries(pull);
          
-        horizontalBarModel.setTitle("Horizontal and Stacked");
-        horizontalBarModel.setLegendPosition("e");
-        horizontalBarModel.setStacked(true);
-         
-        Axis xAxis = horizontalBarModel.getAxis(AxisType.X);
-        xAxis.setLabel("Mois");
-        xAxis.setMin(0);
-        xAxis.setMax(200);
-         
-        Axis yAxis = horizontalBarModel.getAxis(AxisType.Y);
-        yAxis.setLabel("NbVentes");        
+//        horizontalBarModel.setTitle("Horizontal and Stacked");
+//        horizontalBarModel.setLegendPosition("e");
+//        horizontalBarModel.setStacked(true);
+//         
+//        Axis xAxis = horizontalBarModel.getAxis(AxisType.X);
+//        xAxis.setLabel("Mois");
+//        xAxis.setMin(0);
+//        xAxis.setMax(200);
+//         
+//        Axis yAxis = horizontalBarModel.getAxis(AxisType.Y);
+//        yAxis.setLabel("NbVentes");        
     }
     
 //    public void recupData(){
