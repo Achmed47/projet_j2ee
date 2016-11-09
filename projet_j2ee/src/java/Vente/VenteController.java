@@ -7,6 +7,7 @@ package Vente;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Named;
@@ -65,5 +66,4 @@ public class VenteController implements Serializable {
 
         return venteMoisChart;
     }
-
 }

@@ -33,12 +33,7 @@ public class VenteDAO {
     }
     
     public List<Vente> recupData(){
-        Query query = em.createQuery("SELECT count(*) nbVentes, type, mois \n" +
-                " FROM vente v, vetement vt, dates d, commande c\n" +
-                " WHERE v.refVet =: vt.refVet\n" +
-                " AND v.idCommande =: c.idCommande\n" +
-                " AND c.idDate =: d.idDate\n" +
-                " ORDER BY type, mois");
+        Query query = em.createQuery("SELECT count(v) nbVentes, t.type, d.mois FROM Vente v, Vetement vt, Dates d, Commande c, Types t WHERE (v.refVet = :vt.refVet) AND (v.idCommande = :c.idCommande) AND (c.idDate = :d.idDate) AND (vt.idType = :t.idType) ORDER BY t.type, d.mois", Vente.class);
                 
         List<Vente> rs = query.getResultList();
             for (int i = 0; i < rs.size(); i++){
@@ -46,6 +41,4 @@ public class VenteDAO {
             }
         return rs;
     }
-
-
 }
