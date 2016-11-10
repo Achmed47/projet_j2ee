@@ -22,7 +22,7 @@
                         <p:growl id="msgs" showDetail="true"/>
 
                         <h1><h:outputText value="Gestion des commandes"/></h1>
-                        <p:accordionPanel dynamic="true" id="allCommandes" value="#{commandeController.commandes}" multiple="true" var="c">
+                        <p:accordionPanel id="allCommandes" value="#{commandeController.commandes}" multiple="false" dynamic="true" var="c" style="height:100%">
                             <p:tab title="##{c.idCommande} pour le client ##{c.client.refClient}, validée le #{c.date}">
                                 <p:layout>
                                     <p:layoutUnit position="north" resizable="false">
@@ -36,11 +36,11 @@
                                             </p:column>
 
                                             <p:column>
-                                                <h:outputText value="#{v.quantite} x #{v.refVet.prixV}€" />
+                                                <h:outputText value="#{v.quantite} x (#{v.refVet.prixV}€ + #{v.idMotif.prixM}€)" />
                                             </p:column>
 
                                             <p:column>
-                                                <h:outputText value="#{v.prix}€" />
+                                                <h:outputText value="#{venteController.getPrixTotalByCommandeId(c.idCommande)}€" />
                                             </p:column>
                                         </p:dataTable>
                                     </p:layoutUnit>
@@ -49,8 +49,8 @@
                                         <p:commandButton value="Marquer comme envoyée" actionListener="#{commandeController.updateCommandeStatut(c)}" />
                                     </p:layoutUnit>
 
-                                    <p:layoutUnit position="right" resizable="false">
-                                        <h:outputText value="#{venteController.getPrixTotalByCommandeId(c.idCommande)}€" />
+                                    <p:layoutUnit position="east" resizable="false">
+                                        <h:outputText value="#{c.prixC}€" />
                                     </p:layoutUnit>
                                 </p:layout>
                             </p:tab>

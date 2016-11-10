@@ -19,6 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -54,6 +55,11 @@ public class Commande implements Serializable {
     @JoinColumn(name = "idDate", referencedColumnName = "idDate")
     @ManyToOne(optional = false)
     private Dates idDate;
+    @Basic(optional = false)
+    @NotNull
+    @Min(0)
+    @Column(name = "prixC")
+    private float prixC;
 
     public Commande() {
     }
@@ -105,6 +111,14 @@ public class Commande implements Serializable {
 
     public void setDate(Dates idDate) {
         this.idDate = idDate;
+    }
+
+    public float getPrixC() {
+        return prixC;
+    }
+
+    public void setPrixC(float prixC) {
+        this.prixC = prixC;
     }
 
     @Override
