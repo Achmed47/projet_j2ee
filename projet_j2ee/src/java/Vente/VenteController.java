@@ -5,8 +5,6 @@
  */
 package Vente;
 
-import Commande.Commande;
-import Commande.CommandeDAO;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,11 +27,9 @@ public class VenteController implements Serializable {
     
     @EJB
     private VenteDAO venteDAO;
-    
-    @EJB
-    private CommandeDAO commandeDAO;
 
     private List<Vente> allVentes;
+    private List<Vente> ventesFiltered;
     
     /**
      * Creates a new instance of VenteController
@@ -44,6 +40,7 @@ public class VenteController implements Serializable {
     @PostConstruct
     public void init() {
         allVentes = venteDAO.getAllVentes();
+        ventesFiltered = new ArrayList<>();
     }
     
     public List<Vente> getVentes() {
@@ -81,10 +78,19 @@ public class VenteController implements Serializable {
     }
     
     public List<Vente> getVentesByCommandeId(Integer commandeId) {
-        List<Vente> venteFiltered = new ArrayList<>();
+        ventesFiltered.clear();
         allVentes.stream().filter((v) -> (Objects.equals(v.getCommande().getIdCommande(), commandeId))).forEachOrdered((v) -> {
-            venteFiltered.add(v);
+            ventesFiltered.add(v);
         });
-        return venteFiltered;
+        return ventesFiltered;
+    }
+    
+    public float getPrixTotalByCommandeId(Integer commandeId) {
+        if(ventesFiltered.isEmpty()) {
+            return 0;
+        } else {
+            float prixTotal = 0;
+            return ventesFiltered.stream().map((v) -> v.getPrix()).reduce(prixTotal, (accumulator, _item) -> accumulator + _item);
+        }
     }
 }

@@ -83,27 +83,27 @@ public class Commande implements Serializable {
         this.statut = statut;
     }
 
-    public Client getRefClient() {
+    public Client getClient() {
         return refClient;
     }
 
-    public void setRefClient(Client refClient) {
+    public void setClient(Client refClient) {
         this.refClient = refClient;
     }
 
-    public Dates getIdDateExp() {
+    public Dates getDateExp() {
         return idDateExp;
     }
 
-    public void setIdDateExp(Dates idDateExp) {
+    public void setDateExp(Dates idDateExp) {
         this.idDateExp = idDateExp;
     }
 
-    public Dates getIdDate() {
+    public Dates getDate() {
         return idDate;
     }
 
-    public void setIdDate(Dates idDate) {
+    public void setDate(Dates idDate) {
         this.idDate = idDate;
     }
 
