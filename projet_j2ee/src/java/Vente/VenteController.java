@@ -10,6 +10,9 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import org.primefaces.model.chart.Axis;
+import org.primefaces.model.chart.AxisType;
+import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.HorizontalBarChartModel;
 
 /**
@@ -24,6 +27,7 @@ public class VenteController implements Serializable {
     
     @EJB
     private VenteDAO venteDAO;
+    private HorizontalBarChartModel venteMoisChart;
 
     /**
      * Creates a new instance of VenteController
@@ -36,32 +40,34 @@ public class VenteController implements Serializable {
         return venteDAO.getAllVentes();
     }
     
-    public HorizontalBarChartModel ChartHorizontal() {
+    
+    
+    public HorizontalBarChartModel chartHorizontal() {
         List<Vente> venteMois = venteDAO.recupData();
-        HorizontalBarChartModel venteMoisChart = new HorizontalBarChartModel();
+        venteMoisChart = new HorizontalBarChartModel();
         
-//        ChartSeries tshirt = new ChartSeries();
+        ChartSeries tshirt = new ChartSeries();
 //        tshirt.setLabel("Tshirt");
 //        tshirt.set("abscisse", ordonnée);
 // 
-//        ChartSeries pull = new ChartSeries();
+        ChartSeries pull = new ChartSeries();
 //        pull.setLabel("Pull");
 //        pull.set("abscisse", ordonnée);
  
-//        horizontalBarModel.addSeries(tshirt);
-//        horizontalBarModel.addSeries(pull);
+        venteMoisChart.addSeries(tshirt);
+        venteMoisChart.addSeries(pull);
          
-//        horizontalBarModel.setTitle("Horizontal and Stacked");
-//        horizontalBarModel.setLegendPosition("e");
-//        horizontalBarModel.setStacked(true);
-//         
-//        Axis xAxis = horizontalBarModel.getAxis(AxisType.X);
-//        xAxis.setLabel("Mois");
-//        xAxis.setMin(0);
-//        xAxis.setMax(200);
-//         
-//        Axis yAxis = horizontalBarModel.getAxis(AxisType.Y);
-//        yAxis.setLabel("NbVentes");    
+        venteMoisChart.setTitle("Horizontal and Stacked");
+        venteMoisChart.setLegendPosition("e");
+        venteMoisChart.setStacked(true);
+         
+        Axis xAxis = venteMoisChart.getAxis(AxisType.X);
+        xAxis.setLabel("Mois");
+        xAxis.setMin(0);
+        xAxis.setMax(200);
+         
+        Axis yAxis = venteMoisChart.getAxis(AxisType.Y);
+        yAxis.setLabel("NbVentes");    
 
         return venteMoisChart;
     }
