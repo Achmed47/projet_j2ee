@@ -22,10 +22,25 @@
                         <p:growl id="msgs" showDetail="true"/>
 
                         <h1><h:outputText value="Gestion des commandes"/></h1>
-                        <p:accordionPanel multiple="true">
-                            <p:tab title="">
-                                <p:dataTable id="tableVentes" var="com" value="#{venteController.ventes}">
-                                    
+                        <p:accordionPanel multiple="true" id="allCommandes" value="#{commandeController.commandes}"
+                            var="c" multiple="true" dynamic="true">
+                            <p:tab title="##{c.idCommande} pour le client ##{c.refClient}, validée le #{c.idDate}">
+                                <p:dataTable id="tableVentes" var="v" value="#{venteController.getVentesByCommandeId(c.idCommande)}">
+                                    <p:column>
+                                        <h:outputText value="#{v.refVet.urlV}" />
+                                    </p:column>
+
+                                    <p:column>
+                                        <h:outputText value="#{v.refVet.type} #{v.refVet.couleur} taille #{v.idTaille.taille}" />
+                                    </p:column>
+
+                                    <p:column>
+                                        <h:outputText value="#{v.quantite} x #{v.refVet.prixV}" />
+                                    </p:column>
+
+                                    <p:column>
+                                        <h:outputText value="#{v.prix}" />
+                                    </p:column>
                                 </p:dataTable>
                             </p:tab>
                         </p:accordionPanel>

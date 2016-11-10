@@ -5,7 +5,6 @@
  */
 package Types;
 
-import Types.Types;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

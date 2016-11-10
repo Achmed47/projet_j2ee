@@ -7,7 +7,6 @@ package Commande;
 
 import Client.Client;
 import Dates.Dates;
-import Vetement.Vetement;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
