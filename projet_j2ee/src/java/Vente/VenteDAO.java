@@ -33,12 +33,12 @@ public class VenteDAO {
     }
     
     public List<Vente> recupData(){
-        Query query = em.createQuery("SELECT count(v) nbVentes, t.type, d.mois FROM Vente v, Vetement vt, Dates d, Commande c, Types t WHERE (v.refVet = :vt.refVet) AND (v.idCommande = :c.idCommande) AND (c.idDate = :d.idDate) AND (vt.idType = :t.idType) ORDER BY t.type, d.mois", Vente.class);
-                
+        Query query = em.createQuery("SELECT sum(v.prix) revenu, d.mois FROM Vente v JOIN Dates d JOIN Commande c WHERE (c.idCommande = :idCommande) AND (d.idDate = :idDate) ORDER BY d.mois", Vente.class);
         List<Vente> rs = query.getResultList();
-            for (int i = 0; i < rs.size(); i++){
-                System.out.println(rs.get(i));
-            }
+        for (int i = 0; i < rs.size(); i++){
+            System.out.println(rs.get(i));
+        }
         return rs;
     }
+        
 }
