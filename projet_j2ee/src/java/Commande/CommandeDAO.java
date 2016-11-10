@@ -36,4 +36,16 @@ public class CommandeDAO {
         query.setParameter("idCommande", idCommande);
         return (Commande) query.getSingleResult();
     }
+    
+    public void save(Commande c){
+        try {
+            if (c.getIdCommande() != null) {
+                em.merge(c);
+            } else {
+                em.persist(c);
+            }
+        } catch (Exception e){
+            System.err.println(e.getMessage());
+        }
+    }
 }

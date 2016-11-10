@@ -44,5 +44,11 @@ public class CommandeController implements Serializable {
     public List<Commande> getCommandes() {
         return allCommandes;
     }
-   
+    
+    public void updateCommandeStatut(Commande c) {
+        if(c != null && c.getIdCommande() != null && c.getStatut() == 0) {
+            c.setStatut((short) 1);
+            commandeDAO.save(c);
+        }
+    }
 }
