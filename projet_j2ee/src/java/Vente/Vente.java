@@ -122,11 +122,11 @@ public class Vente implements Serializable {
         this.idTaille = idTaille;
     }
 
-    public Commande getIdCommande() {
+    public Commande getCommande() {
         return idCommande;
     }
 
-    public void setIdCommande(Commande idCommande) {
+    public void setCommande(Commande idCommande) {
         this.idCommande = idCommande;
     }
 

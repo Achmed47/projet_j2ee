@@ -18,15 +18,41 @@
                 <ui:include src="templates/global/menu.xhtml" />
                 
                 <p:layoutUnit position="center" id="content" resizable="false">
-                    <h:form id="form">
+                    <h:form id="formCommande">
                         <p:growl id="msgs" showDetail="true"/>
 
                         <h1><h:outputText value="Gestion des commandes"/></h1>
-                        <p:accordionPanel multiple="true">
-                            <p:tab title="">
-                                <p:dataTable id="tableVentes" var="com" value="#{venteController.ventes}">
-                                    
-                                </p:dataTable>
+                        <p:accordionPanel dynamic="true" id="allCommandes" value="#{commandeController.commandes}" multiple="true" var="c">
+                            <p:tab title="##{c.idCommande} pour le client ##{c.client.refClient}, validée le #{c.date}">
+                                <p:layout>
+                                    <p:layoutUnit position="north" resizable="false">
+                                        <p:dataTable id="tableCommandes" var="v" value="#{venteController.getVentesByCommandeId(c.idCommande)}">
+                                            <p:column>
+                                                <h:outputText value="#{v.refVet.urlV}" />
+                                            </p:column>
+
+                                            <p:column>
+                                                <h:outputText value="#{v.refVet.type} #{v.refVet.couleur}, taille #{v.idTaille.taille}" />
+                                            </p:column>
+
+                                            <p:column>
+                                                <h:outputText value="#{v.quantite} x #{v.refVet.prixV}€" />
+                                            </p:column>
+
+                                            <p:column>
+                                                <h:outputText value="#{v.prix}€" />
+                                            </p:column>
+                                        </p:dataTable>
+                                    </p:layoutUnit>
+
+                                    <p:layoutUnit position="center" resizable="false">
+                                        <p:commandButton value="Marquée comme envoyée" update="tableCouleurs" actionListener="#{commandeController.updateCommandeStatut(c)}"/>
+                                    </p:layoutUnit>
+
+                                    <p:layoutUnit position="right" resizable="false">
+                                        <h:outputText value="#{venteController.getPrixTotalByCommandeId(c.idCommande)}€" />
+                                    </p:layoutUnit>
+                                </p:layout>
                             </p:tab>
                         </p:accordionPanel>
                     </h:form>
