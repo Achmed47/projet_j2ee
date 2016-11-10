@@ -46,7 +46,7 @@
                                     </p:layoutUnit>
 
                                     <p:layoutUnit position="center" resizable="false">
-                                        <p:commandButton value="Créer" update="tableCouleurs" actionListener="#{couleursController.addCouleur}"/>
+                                        <p:commandButton value="Marquée comme envoyée" update="tableCouleurs" actionListener="#{commandeController.updateCommandeStatut(c)}"/>
                                     </p:layoutUnit>
 
                                     <p:layoutUnit position="right" resizable="false">
