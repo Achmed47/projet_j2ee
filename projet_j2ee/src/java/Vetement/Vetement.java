@@ -7,8 +7,11 @@ package Vetement;
 
 import Couleurs.Couleurs;
 import Types.Types;
+import Vente.Vente;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -16,11 +19,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -35,6 +40,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Vetement.findByPrixV", query = "SELECT v FROM Vetement v WHERE v.prixV = :prixV"),
     @NamedQuery(name = "Vetement.findByUrlV", query = "SELECT v FROM Vetement v WHERE v.urlV = :urlV")})
 public class Vetement implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "refVet")
+    private List<Vente> venteList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -140,6 +148,15 @@ public class Vetement implements Serializable {
     @Override
     public String toString() {
         return "Vetement.Vetement[ refVet=" + refVet + ", " + idType + ", " + idCouleur + ", " + prixV + ", " + urlV + " ]";
+    }
+
+    @XmlTransient
+    public List<Vente> getVenteList() {
+        return venteList;
+    }
+
+    public void setVenteList(List<Vente> venteList) {
+        this.venteList = venteList;
     }
     
 }

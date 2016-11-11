@@ -53,13 +53,4 @@ public class VenteController implements Serializable {
         });
         return ventesFiltered;
     }
-    
-    public float getPrixTotalByCommandeId(Integer commandeId) {
-        if(ventesFiltered.isEmpty()) {
-            return 0;
-        } else {
-            float prixTotal = 0;
-            return ventesFiltered.stream().map((v) -> v.getPrix()).reduce(prixTotal, (accumulator, _item) -> accumulator + _item);
-        }
-    }
 }

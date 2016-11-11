@@ -13,6 +13,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -33,7 +35,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Vente.findAll", query = "SELECT v FROM Vente v"),
     @NamedQuery(name = "Vente.findByPositionMotif", query = "SELECT v FROM Vente v WHERE v.positionMotif = :positionMotif"),
     @NamedQuery(name = "Vente.findByQuantite", query = "SELECT v FROM Vente v WHERE v.quantite = :quantite"),
-    @NamedQuery(name = "Vente.findByPrix", query = "SELECT v FROM Vente v WHERE v.prix = :prix"),
     @NamedQuery(name = "Vente.findByIdVente", query = "SELECT v FROM Vente v WHERE v.idVente = :idVente")})
 public class Vente implements Serializable {
 
@@ -46,24 +47,20 @@ public class Vente implements Serializable {
     @NotNull
     @Column(name = "quantite")
     private int quantite;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "prix")
-    private float prix;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "idVente")
     private Integer idVente;
-    @JoinColumn(name = "idTaille", referencedColumnName = "idTaille")
-    @ManyToOne(optional = false)
-    private Tailles idTaille;
     @JoinColumn(name = "idCommande", referencedColumnName = "idCommande")
     @ManyToOne(optional = false)
     private Commande idCommande;
     @JoinColumn(name = "idMotif", referencedColumnName = "idMotif")
     @ManyToOne(optional = false)
     private Motif idMotif;
+    @JoinColumn(name = "idTaille", referencedColumnName = "idTaille")
+    @ManyToOne(optional = false)
+    private Tailles idTaille;
     @JoinColumn(name = "refVet", referencedColumnName = "refVet")
     @ManyToOne(optional = false)
     private Vetement refVet;
@@ -75,11 +72,10 @@ public class Vente implements Serializable {
         this.idVente = idVente;
     }
 
-    public Vente(Integer idVente, short positionMotif, int quantite, float prix) {
+    public Vente(Integer idVente, short positionMotif, int quantite) {
         this.idVente = idVente;
         this.positionMotif = positionMotif;
         this.quantite = quantite;
-        this.prix = prix;
     }
 
     public short getPositionMotif() {
@@ -98,28 +94,12 @@ public class Vente implements Serializable {
         this.quantite = quantite;
     }
 
-    public float getPrix() {
-        return prix;
-    }
-
-    public void setPrix(float prix) {
-        this.prix = prix;
-    }
-
     public Integer getIdVente() {
         return idVente;
     }
 
     public void setIdVente(Integer idVente) {
         this.idVente = idVente;
-    }
-
-    public Tailles getIdTaille() {
-        return idTaille;
-    }
-
-    public void setIdTaille(Tailles idTaille) {
-        this.idTaille = idTaille;
     }
 
     public Commande getCommande() {
@@ -130,19 +110,27 @@ public class Vente implements Serializable {
         this.idCommande = idCommande;
     }
 
-    public Motif getIdMotif() {
+    public Motif getMotif() {
         return idMotif;
     }
 
-    public void setIdMotif(Motif idMotif) {
+    public void setMotif(Motif idMotif) {
         this.idMotif = idMotif;
     }
 
-    public Vetement getRefVet() {
+    public Tailles getTaille() {
+        return idTaille;
+    }
+
+    public void setTaille(Tailles idTaille) {
+        this.idTaille = idTaille;
+    }
+
+    public Vetement getVet() {
         return refVet;
     }
 
-    public void setRefVet(Vetement refVet) {
+    public void setVet(Vetement refVet) {
         this.refVet = refVet;
     }
 
@@ -168,7 +156,7 @@ public class Vente implements Serializable {
 
     @Override
     public String toString() {
-        return "Vente.Vente[ idVente=" + idVente + "]";
+        return "Vente.Vente[ idVente=" + idVente + " ]";
     }
+    
 }
-

@@ -28,19 +28,19 @@
                                     <p:layoutUnit position="north" resizable="false">
                                         <p:dataTable id="tableCommandes" var="v" value="#{venteController.getVentesByCommandeId(c.idCommande)}">
                                             <p:column>
-                                                <h:outputText value="#{v.refVet.urlV}" />
+                                                <h:outputText value="#{v.vet.urlV}" />
                                             </p:column>
 
                                             <p:column>
-                                                <h:outputText value="#{v.refVet.type} #{v.refVet.couleur}, taille #{v.idTaille.taille}" />
+                                                <h:outputText value="#{v.vet.type} #{v.vet.couleur}, taille #{v.taille.taille}" />
                                             </p:column>
 
                                             <p:column>
-                                                <h:outputText value="#{v.quantite} x (#{v.refVet.prixV}€ + #{v.idMotif.prixM}€)" />
+                                                <h:outputText value="#{v.quantite} x (#{v.vet.prixV}€ + #{v.motif.prixM}€)" />
                                             </p:column>
 
                                             <p:column>
-                                                <h:outputText value="#{venteController.getPrixTotalByCommandeId(c.idCommande)}€" />
+                                                <h:outputText value="#{c.prixC}€" />
                                             </p:column>
                                         </p:dataTable>
                                     </p:layoutUnit>
