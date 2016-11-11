@@ -20,13 +20,6 @@ body{
     height: 35px !important;
 }
 
-#navMenu {
-    resizable: true;
-/*    width: 250px !important;
-    height: 500px !important;*/
-}
-
 #corps {
     height: 500px !important;
-    resizable: true;
 }

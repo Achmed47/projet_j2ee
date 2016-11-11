@@ -10,6 +10,7 @@ import Dates.Dates;
 import Vente.Vente;
 import java.io.Serializable;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -23,6 +24,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -116,7 +118,7 @@ public class Commande implements Serializable {
     public Dates getDate() {
         return idDate;
     }
-
+    
     public void setDate(Dates idDate) {
         this.idDate = idDate;
     }
@@ -143,10 +145,7 @@ public class Commande implements Serializable {
             return false;
         }
         Commande other = (Commande) object;
-        if ((this.idCommande == null && other.idCommande != null) || (this.idCommande != null && !this.idCommande.equals(other.idCommande))) {
-            return false;
-        }
-        return true;
+        return !((this.idCommande == null && other.idCommande != null) || (this.idCommande != null && !this.idCommande.equals(other.idCommande)));
     }
 
     @Override
@@ -163,4 +162,11 @@ public class Commande implements Serializable {
         this.venteList = venteList;
     }
     
+    public String getStringStatut() {
+        return (statut == 0) ? "en attente" : "envoyée";
+    }
+    
+    public boolean mayBeRendered() {
+        return (statut == 0);
+    }
 }

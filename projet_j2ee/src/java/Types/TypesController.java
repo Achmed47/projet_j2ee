@@ -71,7 +71,6 @@ public class TypesController implements Serializable {
     }
     
     public void deleteType(Types type) {
-        System.out.println(type);
         if(type != null && type.getType()!= null) {
             for (Iterator<Types> it = allTypes.iterator(); it.hasNext();) {
                 Types t = it.next();

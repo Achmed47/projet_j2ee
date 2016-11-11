@@ -9,6 +9,7 @@
     <h:head>
         <title>Tex'Style</title>
         <h:outputStylesheet library="css" name="global.css" />
+        <h:outputScript library="js" name="global.js"/>
     </h:head>
     <h:body>
         <f:view encoding="UTF-8" contentType="text/html">
@@ -23,10 +24,10 @@
 
                         <h1><h:outputText value="Gestion des commandes"/></h1>
                         <p:accordionPanel id="allCommandes" value="#{commandeController.commandes}" multiple="false" dynamic="true" var="c" style="height:100%">
-                            <p:tab title="##{c.idCommande} pour le client ##{c.client.refClient}, validée le #{c.date}">
-                                <p:layout>
-                                    <p:layoutUnit position="north" resizable="false">
-                                        <p:dataTable id="tableCommandes" var="v" value="#{venteController.getVentesByCommandeId(c.idCommande)}">
+                            <p:tab title="##{c.idCommande} pour le client ##{c.client.refClient}, validée le #{c.date} (#{c.stringStatut})">
+                                <p:layout style="height:210px;">
+                                    <p:layoutUnit position="north">
+                                        <p:dataTable liveResize="true" class="tableCommandes" var="v" value="#{venteController.getVentesByCommandeId(c.idCommande)}">
                                             <p:column>
                                                 <h:outputText value="#{v.vet.urlV}" />
                                             </p:column>
@@ -45,11 +46,13 @@
                                         </p:dataTable>
                                     </p:layoutUnit>
 
-                                    <p:layoutUnit position="center" resizable="false">
-                                        <p:commandButton value="Marquer comme envoyée" actionListener="#{commandeController.updateCommandeStatut(c)}" />
+                                    <p:layoutUnit  position="center">
+                                        <p:commandButton class="validateCommande" rendered="#{c.mayBeRendered()}" value="Marquer comme envoyée">
+                                            <p:ajax listener="#{commandeController.updateCommandeStatut(c)}" update="@(.validateCommande) :formCommande:allCommandes" />
+                                        </p:commandButton>
                                     </p:layoutUnit>
 
-                                    <p:layoutUnit position="east" resizable="false">
+                                    <p:layoutUnit position="east">
                                         <h:outputText value="#{c.prixC}€" />
                                     </p:layoutUnit>
                                 </p:layout>

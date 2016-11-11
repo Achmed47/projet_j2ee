@@ -67,7 +67,6 @@ public class CouleursController implements Serializable {
     }
     
     public void deleteCouleur(Couleurs couleur) {
-        System.out.println(couleur);
         if(couleur != null && couleur.getCouleur()!= null) {
             for (Iterator<Couleurs> it = allCouleurs.iterator(); it.hasNext();) {
                 Couleurs c = it.next();

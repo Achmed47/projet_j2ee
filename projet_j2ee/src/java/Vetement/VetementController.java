@@ -88,7 +88,6 @@ public class VetementController implements Serializable {
     }
     
     public void deleteVetement(Vetement vetement) {
-        System.out.println(vetement);
         if(vetement != null && vetement.getRefVet() != null) {
             for (Iterator<Vetement> it = allVetements.iterator(); it.hasNext();) {
                 Vetement v = it.next();
@@ -102,11 +101,9 @@ public class VetementController implements Serializable {
     }
     
     public void addVetement(ActionEvent e) {
-        System.out.println("Vetement a ajouter : " + newVetement);
         if(newVetement != null && newVetement.getRefVet() != null 
                 && newVetement.getCouleur() != null && newVetement.getType() != null
                 && newVetement.getPrixV() >= 0 && newVetement.getUrlV().length() > 0) {
-            System.out.println("Prêt à être ajouté");
             vetementDAO.saveVetement(newVetement);
             allVetements.add(newVetement);
             RequestContext.getCurrentInstance().execute("PF('addVetementDialog').hide()");

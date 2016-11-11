@@ -42,10 +42,10 @@ public class ChartView implements Serializable {
         return barModel;
     }
     
-    public List<Vente> selectData() {
-        List<Vente> revenuMois = venteDAO.recupData();
-        return revenuMois;
-    }
+//    public List<Vente> selectData() {
+//        List<Vente> revenuMois = venteDAO.recupData();
+//        return revenuMois;
+//    }
     
     private BarChartModel initChartBar(){
         BarChartModel chart = new BarChartModel();

@@ -32,13 +32,13 @@ public class VenteDAO {
         return query.getResultList();
     }
     
-    public List<Vente> recupData(){
-        Query query = em.createQuery("SELECT sum(v.prix) revenu, d.mois FROM Vente v JOIN Dates d JOIN Commande c WHERE (c.idCommande = :idCommande) AND (d.idDate = :idDate) ORDER BY d.mois", Vente.class);
-        List<Vente> rs = query.getResultList();
-        for (int i = 0; i < rs.size(); i++){
-            System.out.println(rs.get(i));
-        }
-        return rs;
-    }
+//    public List<Vente> recupData(){
+//        Query query = em.createQuery("SELECT sum(v.prix) revenu, d.mois FROM Vente v JOIN Dates d JOIN Commande c WHERE (c.idCommande = :idCommande) AND (d.idDate = :idDate) ORDER BY d.mois", Vente.class);
+//        List<Vente> rs = query.getResultList();
+//        for (int i = 0; i < rs.size(); i++){
+//            System.out.println(rs.get(i));
+//        }
+//        return rs;
+//    }
         
 }

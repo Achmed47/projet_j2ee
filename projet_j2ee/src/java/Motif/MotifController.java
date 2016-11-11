@@ -74,7 +74,6 @@ public class MotifController implements Serializable {
     }
     
     public void deleteMotif(Motif motif) {
-        System.out.println(motif);
         if(motif != null && motif.getIdMotif()!= null) {
             for (Iterator<Motif> it = allMotifs.iterator(); it.hasNext();) {
                 Motif t = it.next();
