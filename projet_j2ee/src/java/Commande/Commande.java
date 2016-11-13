@@ -40,7 +40,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Commande.findAll", query = "SELECT c FROM Commande c"),
     @NamedQuery(name = "Commande.findByIdCommande", query = "SELECT c FROM Commande c WHERE c.idCommande = :idCommande"),
-    @NamedQuery(name = "Commande.findByStatut", query = "SELECT c FROM Commande c WHERE c.statut = :statut")})
+    @NamedQuery(name = "Commande.findByStatut", query = "SELECT c FROM Commande c WHERE c.statut = :statut"),
+    @NamedQuery(name = "Commande.revenuMensuel", query = "SELECT SUM(c.prixC) AS revenu, d.mois FROM Commande AS c LEFT JOIN c.idDate AS d ORDER BY d.mois")})
 public class Commande implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCommande")
@@ -169,4 +170,5 @@ public class Commande implements Serializable {
     public boolean mayBeRendered() {
         return (statut == 0);
     }
+
 }
