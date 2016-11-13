@@ -41,7 +41,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Commande.findAll", query = "SELECT c FROM Commande c"),
     @NamedQuery(name = "Commande.findByIdCommande", query = "SELECT c FROM Commande c WHERE c.idCommande = :idCommande"),
     @NamedQuery(name = "Commande.findByStatut", query = "SELECT c FROM Commande c WHERE c.statut = :statut"),
-    @NamedQuery(name = "Commande.revenuMensuel", query = "SELECT SUM(c.prixC) AS revenu, d.mois FROM Commande AS c LEFT JOIN c.idDate AS d ORDER BY d.mois")})
+    @NamedQuery(name = "Commande.revenuMensuel", query = "SELECT SUM(c.prixC) AS revenu, d.mois FROM Commande AS c LEFT JOIN c.idDate AS d GROUP BY d.mois ORDER BY d.mois")})
+//    @NamedQuery(name = "Commande.revenuMensuel", query = "SELECT d.mois FROM commande.idDate AS d")})
 public class Commande implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCommande")

@@ -7,6 +7,7 @@ package Commande;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -50,12 +51,10 @@ public class CommandeDAO {
             System.err.println(e.getMessage());
         }
     }
-    
+
     public List<Commande> recupData(){
         Query query = em.createNamedQuery("Commande.revenuMensuel", Commande.class);
-        List<Commande> rs = new ArrayList<Commande>();
-        rs = query.getResultList();
-        
+        List rs = (List) query.getResultList();
         return rs;
     }
 }

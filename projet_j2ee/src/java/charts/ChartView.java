@@ -9,6 +9,7 @@ import Commande.Commande;
 import Commande.CommandeDAO;
 import javax.annotation.PostConstruct;
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -17,7 +18,6 @@ import javax.inject.Named;
 import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.BarChartModel;
-//import org.primefaces.model.chart.HorizontalBarChartModel;
 import org.primefaces.model.chart.ChartSeries;
 
 /**
@@ -38,7 +38,6 @@ public class ChartView implements Serializable {
     private List<Commande> commandesMois;
     
     private BarChartModel barModel;
-//    private HorizontalBarChartModel horizontalBarModel;
  
     @PostConstruct
     public void init() {
@@ -52,24 +51,18 @@ public class ChartView implements Serializable {
     private BarChartModel initChartBar(){
         BarChartModel chart = new BarChartModel();
         commandesMois = commandeDAO.recupData();
-        
-        try {
-            for (int i = 0; i < commandesMois.size(); i++){
-                System.out.print("ligne : " + i + " revenu = " + commandesMois.get(i));
-//                commandesMois.add(new Commande(i));
-//                System.out.print("ligne : " + i + " valeur = " + commandesMois.toString());
-            }
-        } catch (Exception e){
-            System.err.println(e.getMessage());
+        Iterator it = commandesMois.iterator();
+        ChartSeries revenuMois = new ChartSeries();        
+        revenuMois.setLabel("Revenu");
+        while(it.hasNext()){
+            Object[] ligne = (Object[])it.next();
+            String sRevenu = ligne[0].toString();
+            float revenu = new Float(sRevenu);
+            String sMois = ligne[1].toString();
+            revenuMois.set(sMois, revenu);
+            System.out.println("Revenu = " + revenu + "\n" + "Mois = " + sMois);
         }
-        
-        System.out.println("j'ai fini récup data");
-//        ChartSeries revenu = new ChartSeries();
-//        
-//        revenu.setLabel("Revenu");
-//        revenu.set("12", 150);
-//        
-//        chart.addSeries(revenu);
+        chart.addSeries(revenuMois);
         
         return chart;
     }
@@ -85,6 +78,6 @@ public class ChartView implements Serializable {
         Axis yAxis = barModel.getAxis(AxisType.Y);
         yAxis.setLabel("Revenu");
         yAxis.setMin(0);
-        yAxis.setMax(200);
+        yAxis.setMax(500);
     }
 }
