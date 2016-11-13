@@ -25,10 +25,10 @@ import org.primefaces.model.chart.ChartSeries;
  * @author léa
  */
 
-@Named(value = "chartView")
+@Named(value = "chartBarYear")
 @RequestScoped
 
-public class ChartView implements Serializable {
+public class ChartBarYear implements Serializable {
     
     private static final long serialVersionUID = 1L;
     
@@ -50,19 +50,19 @@ public class ChartView implements Serializable {
     
     private BarChartModel initChartBar(){
         BarChartModel chart = new BarChartModel();
-        commandesMois = commandeDAO.recupData();
+        commandesMois = commandeDAO.recupDataAnnee();
         Iterator it = commandesMois.iterator();
-        ChartSeries revenuMois = new ChartSeries();        
-        revenuMois.setLabel("Revenu");
+        ChartSeries revenuAnnee = new ChartSeries();        
+        revenuAnnee.setLabel("Revenu");
         while(it.hasNext()){
             Object[] ligne = (Object[])it.next();
             String sRevenu = ligne[0].toString();
             float revenu = new Float(sRevenu);
-            String sMois = ligne[1].toString();
-            revenuMois.set(sMois, revenu);
-            System.out.println("Revenu = " + revenu + "\n" + "Mois = " + sMois);
+            String sAnnee = ligne[1].toString();
+            revenuAnnee.set(sAnnee, revenu);
+            System.out.println("Revenu = " + revenu + "\n" + "Mois = " + sAnnee);
         }
-        chart.addSeries(revenuMois);
+        chart.addSeries(revenuAnnee);
         
         return chart;
     }
@@ -73,7 +73,7 @@ public class ChartView implements Serializable {
         barModel.setLegendPosition("ne");
          
         Axis xAxis = barModel.getAxis(AxisType.X);
-        xAxis.setLabel("Mois");
+        xAxis.setLabel("Annees");
          
         Axis yAxis = barModel.getAxis(AxisType.Y);
         yAxis.setLabel("Revenu");
