@@ -53,8 +53,9 @@
                                     rows="1" id="vetementAvailableColors">
                             <p:panel style="text-align:center">
                                 <h:commandLink>
-                                    <p:graphicImage library="img" name="vetements/#{vetementController.selectedVetement.type}/#{c.couleur}/avant.png" style="width:75px;height:75px;" />
-                                    <p:ajax listener="#{vetementController.setNewColor(c)}" update="form:finalImageVetement"/>
+                                    <p:graphicImage library="img" name="vetements/#{vetementController.selectedVetement.type}/#{c.couleur}/avant.png" style="width:75px;height:75px;">
+                                        <p:ajax listener="#{vetementController.setNewColor(c)}"/>
+                                    </p:graphicImage>
                                 </h:commandLink>
                             </p:panel>
                         </p:dataGrid>
