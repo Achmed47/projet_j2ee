@@ -117,12 +117,12 @@ public class VetementController implements Serializable {
     }
     
     public int getNbVetements() {
-        return allVetements.size();
+        return (allVetements.size() > 0) ? allVetements.size() : 1;
     }
     
     public void setNewColor(Couleurs c) {
         System.out.println("Setting new color : " + c.toString());
-        selectedVetement.setCouleur(c);
+        getSelectedVetement().setCouleur(c);
     }
     
     public Vetement getSelectedVetement() {
@@ -131,6 +131,7 @@ public class VetementController implements Serializable {
             int refVetement = Integer.parseInt(params.get("refVetement"));
             
             if(refVetement != selectedVetement.getRefVet()) {
+                System.out.println("Reseting vetement from : " + selectedVetement.getRefVet() + " to " + refVetement);
                 Vetement v =  vetementDAO.getVetementFromRef(refVetement);
                 if(v != null) {
                     selectedVetement = v;

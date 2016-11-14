@@ -18,9 +18,9 @@
             <p:layout id="corps">
                 <p:layoutUnit position="north" id="progressBar" resizable="false">
                     <p:steps activeIndex="0" readonly="true" style="width:100%;">
-                        <p:menuitem value="Personnalization" />
-                        <p:menuitem value="Review" />
-                        <p:menuitem value="Payment" />
+                        <p:menuitem value="Choix du type de vêtement" />
+                        <p:menuitem value="Personnalisation" />
+                        <p:menuitem value="Paiement" />
                         <p:menuitem value="Confirmation" />
                     </p:steps>
                 </p:layoutUnit>
@@ -30,8 +30,9 @@
                         <p:dataGrid var="vet" value="#{vetementController.vetements}" columns="3" layout="grid"
                                     rows="#{vetementController.getNbVetements()/3}" id="vetementList">
                             <p:panel style="text-align:center">
-                                <h:commandLink action="/personalization.xhtml">
+                                <h:commandLink action="personalization">
                                     <f:param name="refVetement" value="#{vet.refVet}" />
+                                    <p:ajax listener="#{motifController.resetSelectedMotif()}" />
                                     <p:graphicImage library="img" name="vetements/#{vet.type}/blanc/avant.png" />
                                 </h:commandLink>
                             </p:panel>

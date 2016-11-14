@@ -13,23 +13,30 @@
     
     <h:body>
         <f:view encoding="UTF-8" contentType="text/html">
-            <ui:include src="templates/global/header.xhtml" />
             <h:form id="form">
                 <p:layout id="corps" fullPage="true">
-                    <p:layoutUnit position="north" id="progressBar" resizable="true" closable="true" collapsible="true">
-                        <p:steps activeIndex="0" readonly="true" style="width:100%;">
-                            <p:menuitem value="Personnalization" />
-                            <p:menuitem value="Review" />
-                            <p:menuitem value="Payment" />
-                            <p:menuitem value="Confirmation" />
-                        </p:steps>
+                    <p:layoutUnit position="north" resizable="true" closable="true" collapsible="true">
+                        <p:outputPanel id="entete">
+                            <h:graphicImage library="img" name="global/logo.png" id="logo" alt="logo"/>
+                            <h id="titre"> Tex'Style </h>
+                            <p:commandButton id="changeUserButton" value="Utilisateur"/>
+                        </p:outputPanel>
+                        
+                        <p:outputPanel id="progressBar" deferred="false">
+                            <p:steps activeIndex="1" readonly="true" style="width:100%;">
+                                <p:menuitem value="Choix du type de vêtement" />
+                                <p:menuitem value="Personnalisation" />
+                                <p:menuitem value="Paiement" />
+                                <p:menuitem value="Confirmation" />
+                            </p:steps>
+                        </p:outputPanel>
                     </p:layoutUnit>
                     
                     <p:layoutUnit position="west" resizable="true" closable="true" collapsible="true">
-                        <h:outputText value="Selected Vetement : #{vetementController.selectedVetement.refVet}" />
                         <p:dataGrid var="m" value="#{motifController.motifs}" columns="#{motifController.getNeededColumns()}" layout="grid" id="vetementList">
                             <p:panel style="text-align:center">
-                                <h:commandLink action="#{motifController.setSelectedMotif(m)}">
+                                <h:commandLink>
+                                    <p:ajax listener="#{motifController.setSelectedMotif(m)}" update="form:selectedMotif" />
                                     <p:graphicImage value="#{m.urlMotif}" style="width:75px;height:75px;" />
                                 </h:commandLink>
                             </p:panel>
@@ -38,10 +45,14 @@
 
                     <p:layoutUnit position="center" resizable="true" closable="true" collapsible="true">
                         <p:graphicImage id="finalImageVetement" library="img" name="#{vetementController.getCurrentVetementUrl()}" />
-                        <p:panel id="selectedMotif">
-                            <p:graphicImage value="#{motifController.selectedMotif.urlMotif}" />
-                        </p:panel>
                         
+                        
+                        <p:outputPanel id="selectedMotifRestrictContainer" layout="block">
+                            <p:panel id="selectedMotifContainer">
+                                <p:graphicImage id="selectedMotif" value="#{motifController.selectedMotif.urlMotif}" />
+                            </p:panel>
+                        </p:outputPanel>
+                        <p:draggable for="selectedMotifContainer" containment="parent" />
                     </p:layoutUnit>
 
                     <p:layoutUnit position="east" resizable="true" closable="true" collapsible="true">
@@ -49,16 +60,14 @@
                     </p:layoutUnit>
                     
                     <p:layoutUnit position="south" resizable="true" closable="true" collapsible="true" size="200">
-                        <p:dataGrid var="c" value="#{couleursController.couleurs}" columns="#{couleursController.getNbCouleurs()}" layout="grid"
-                                    rows="1" id="vetementAvailableColors">
-                            <p:panel style="text-align:center">
+                       <ul>
+                            <ui:repeat value="#{couleursController.couleurs}" var="c">
                                 <h:commandLink>
-                                    <p:graphicImage library="img" name="vetements/#{vetementController.selectedVetement.type}/#{c.couleur}/avant.png" style="width:75px;height:75px;">
-                                        <p:ajax listener="#{vetementController.setNewColor(c)}"/>
-                                    </p:graphicImage>
+                                    <p:ajax listener="#{vetementController.setNewColor(c)}" update="form:finalImageVetement" />
+                                    <p:graphicImage library="img" name="vetements/#{vetementController.selectedVetement.type}/#{c.couleur}/avant.png" style="width:75px;height:75px;" />    
                                 </h:commandLink>
-                            </p:panel>
-                        </p:dataGrid>
+                            </ui:repeat>
+                        </ul>
                     </p:layoutUnit>
                 </p:layout>
             </h:form>

@@ -8,6 +8,7 @@ package Motif;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -109,6 +110,10 @@ public class MotifController implements Serializable {
     
     public Motif getSelectedMotif() {
         return this.selectedMotif;
+    }
+    
+    public void resetSelectedMotif() {
+        this.selectedMotif = new Motif();
     }
     
     public void setSelectedMotif(Motif m) {
