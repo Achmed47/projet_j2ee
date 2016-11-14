@@ -33,7 +33,8 @@ public class MotifController implements Serializable {
     
     private List<Motif> allMotifs;
     private Motif newMotif;
-
+    private Motif selectedMotif;
+    
     /**
      * Creates a new instance of MotifController
      */
@@ -44,6 +45,7 @@ public class MotifController implements Serializable {
     public void init() {
         allMotifs = motifDAO.getAllMotifs();
         newMotif = new Motif();
+        selectedMotif = new Motif();
     }
 
     public List<Motif> getMotifs() {
@@ -101,5 +103,15 @@ public class MotifController implements Serializable {
         return (allMotifs.stream().anyMatch((m) -> (m.getUrlMotif().equals(motifUrl))));
     }
     
+    public int getNeededColumns() {
+        return allMotifs.size() > 8 ? 3 : 2;
+    }
     
+    public Motif getSelectedMotif() {
+        return this.selectedMotif;
+    }
+    
+    public void setSelectedMotif(Motif m) {
+        this.selectedMotif = m;
+    }
 }

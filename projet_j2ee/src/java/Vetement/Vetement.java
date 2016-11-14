@@ -139,10 +139,7 @@ public class Vetement implements Serializable {
             return false;
         }
         Vetement other = (Vetement) object;
-        if ((this.refVet == null && other.refVet != null) || (this.refVet != null && !this.refVet.equals(other.refVet))) {
-            return false;
-        }
-        return true;
+        return (!this.refVet.equals(other.refVet));
     }
 
     @Override

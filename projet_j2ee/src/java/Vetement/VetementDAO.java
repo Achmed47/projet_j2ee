@@ -10,6 +10,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -30,6 +31,12 @@ public class VetementDAO {
     public List<Vetement> getAllVetements() {
         Query query = em.createNamedQuery("Vetement.findAll");
         return query.getResultList();
+    }
+    
+    public Vetement getVetementFromRef(int refVetement) {
+        TypedQuery<Vetement> query = em.createNamedQuery("Vetement.findByRefVet", Vetement.class);
+        query.setParameter("refVet", refVetement);
+        return (Vetement) query.getSingleResult();
     }
     
     public void saveVetement(Vetement vetement){

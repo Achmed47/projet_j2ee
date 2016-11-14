@@ -92,4 +92,8 @@ public class CouleursController implements Serializable {
     private boolean contains(String couleur) {
         return (allCouleurs.stream().anyMatch((c) -> (c.getCouleur().equals(couleur))));
     }
+    
+    public int getNbCouleurs() {
+        return allCouleurs.size();
+    }
 }

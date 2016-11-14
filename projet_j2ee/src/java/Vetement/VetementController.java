@@ -12,6 +12,7 @@ import Types.TypesDAO;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -44,6 +45,7 @@ public class VetementController implements Serializable {
     private List<Vetement> allVetements;
     private List<Types> typesList;
     private List<Couleurs> couleursList;
+    private Vetement selectedVetement;
     
     private Vetement newVetement;
 
@@ -52,6 +54,7 @@ public class VetementController implements Serializable {
     
     @PostConstruct
     public void init() {
+        selectedVetement = new Vetement();
         newVetement  = new Vetement();
         allVetements = vetementDAO.getAllVetements();
         typesList    = typesDAO.getAllTypes();
@@ -112,4 +115,36 @@ public class VetementController implements Serializable {
             newVetement = new Vetement();
         }
     }
+    
+    public int getNbVetements() {
+        return allVetements.size();
+    }
+    
+    public void setNewColor(Couleurs c) {
+        System.out.println("Setting new color : " + c.toString());
+        selectedVetement.setCouleur(c);
+    }
+    
+    public Vetement getSelectedVetement() {
+        Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        if(params.get("refVetement") != null) {
+            int refVetement = Integer.parseInt(params.get("refVetement"));
+            
+            if(refVetement != selectedVetement.getRefVet()) {
+                Vetement v =  vetementDAO.getVetementFromRef(refVetement);
+                if(v != null) {
+                    selectedVetement = v;
+                    return selectedVetement;
+                }
+            }
+        }
+          
+        return selectedVetement;
+    }
+    
+    public String getCurrentVetementUrl() {
+        System.out.println("Getting current vetement : " + getSelectedVetement().toString());
+        return "vetements/" + getSelectedVetement().getType() + "/" + getSelectedVetement().getCouleur() + "/avant.png";
+    }
+            
 }

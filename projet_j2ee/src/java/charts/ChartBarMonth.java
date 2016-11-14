@@ -32,6 +32,8 @@ public class ChartBarMonth implements Serializable {
     
     private static final long serialVersionUID = 1L;
     
+    private final String[] months = {"Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"};
+    
     @EJB
     private CommandeDAO commandeDAO;
 
@@ -58,9 +60,8 @@ public class ChartBarMonth implements Serializable {
             Object[] ligne = (Object[])it.next();
             String sRevenu = ligne[0].toString();
             float revenu = new Float(sRevenu);
-            String sMois = ligne[1].toString();
+            String sMois = months[((int) ligne[1])-1];
             revenuMois.set(sMois, revenu);
-            System.out.println("Revenu = " + revenu + "\n" + "Mois = " + sMois);
         }
         chart.addSeries(revenuMois);
         
