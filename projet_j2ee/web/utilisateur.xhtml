@@ -13,19 +13,12 @@
     
     <h:body>
         <f:view encoding="UTF-8" contentType="text/html">
-            <ui:include src="templates/global/header.xhtml" />
+            <ui:include src="templates/global/headerUser.xhtml" />
             
             <p:layout id="corps">
-                <p:layoutUnit position="north" id="progressBar" resizable="false">
-                    <p:steps activeIndex="0" readonly="true" style="width:100%;">
-                        <p:menuitem value="Choix du type de vêtement" />
-                        <p:menuitem value="Personnalisation" />
-                        <p:menuitem value="Paiement" />
-                        <p:menuitem value="Confirmation" />
-                    </p:steps>
-                </p:layoutUnit>
+                <ui:include src="templates/global/progressBar.xhtml" />
                 
-                <p:layoutUnit position="center" id="content" resizable="false">
+                <p:layoutUnit position="center" id="content" resizable="false" style="height: 125px">
                     <h:form id="form">
                         <p:dataGrid var="vet" value="#{vetementController.vetements}" columns="3" layout="grid"
                                     rows="#{vetementController.getNbVetements()/3}" id="vetementList">
