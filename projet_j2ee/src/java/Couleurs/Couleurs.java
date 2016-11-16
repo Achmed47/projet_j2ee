@@ -5,6 +5,7 @@
  */
 package Couleurs;
 
+import Vente.Vente;
 import Vetement.Vetement;
 import java.io.Serializable;
 import java.util.List;
@@ -38,7 +39,7 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Couleurs implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCouleur")
-    private List<Vetement> vetementList;
+    private List<Vente> venteList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -94,10 +95,7 @@ public class Couleurs implements Serializable {
             return false;
         }
         Couleurs other = (Couleurs) object;
-        if ((this.idCouleur == null && other.idCouleur != null) || (this.idCouleur != null && !this.idCouleur.equals(other.idCouleur))) {
-            return false;
-        }
-        return true;
+        return !((this.idCouleur == null && other.idCouleur != null) || (this.idCouleur != null && !this.idCouleur.equals(other.idCouleur)));
     }
 
     @Override
@@ -106,12 +104,12 @@ public class Couleurs implements Serializable {
     }
 
     @XmlTransient
-    public List<Vetement> getVetementList() {
-        return vetementList;
+    public List<Vente> getVenteList() {
+        return venteList;
     }
 
-    public void setVetementList(List<Vetement> vetementList) {
-        this.vetementList = vetementList;
+    public void setVenteList(List<Vente> venteList) {
+        this.venteList = venteList;
     }
     
 }

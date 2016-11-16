@@ -5,11 +5,11 @@
  */
 package Vetement;
 
-import Couleurs.Couleurs;
 import Types.Types;
 import Vente.Vente;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Random;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -21,11 +21,9 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -41,10 +39,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Vetement.findByUrlV", query = "SELECT v FROM Vetement v WHERE v.urlV = :urlV")})
 public class Vetement implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "refVet")
     private List<Vente> venteList;
-
-    private static final long serialVersionUID = 1L;
+    
     @Id
     @Basic(optional = false)
     @NotNull
@@ -52,7 +51,6 @@ public class Vetement implements Serializable {
     private Integer refVet;
     @Basic(optional = false)
     @NotNull
-    @Min(0)
     @Column(name = "prixV")
     private float prixV;
     @Basic(optional = false)
@@ -63,12 +61,10 @@ public class Vetement implements Serializable {
     @JoinColumn(name = "idType", referencedColumnName = "idType")
     @ManyToOne(optional = false)
     private Types idType;
-    @JoinColumn(name = "idCouleur", referencedColumnName = "idCouleur")
-    @ManyToOne(optional = false)
-    private Couleurs idCouleur;
 
     public Vetement() {
-        this.refVet = getRandomRefV();
+        Random randomGenerator = new Random();
+        this.refVet = randomGenerator.nextInt(9999999);
     }
 
     public Vetement(Integer refVet) {
@@ -113,18 +109,6 @@ public class Vetement implements Serializable {
         this.idType = idType;
     }
 
-    public Couleurs getCouleur() {
-        return idCouleur;
-    }
-
-    public void setCouleur(Couleurs idCouleur) {
-        this.idCouleur = idCouleur;
-    }
-    
-    private int getRandomRefV() {
-        return 1000000 + (int)(Math.random() * 9999999); 
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -139,15 +123,17 @@ public class Vetement implements Serializable {
             return false;
         }
         Vetement other = (Vetement) object;
-        return (!this.refVet.equals(other.refVet));
+        if ((this.refVet == null && other.refVet != null) || (this.refVet != null && !this.refVet.equals(other.refVet))) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString() {
-        return "Vetement.Vetement[ refVet=" + refVet + ", " + idType + ", " + idCouleur + ", " + prixV + ", " + urlV + " ]";
+        return "Vetement.Vetement[ refVet=" + refVet + ", " + idType + ", " + prixV + ", " + urlV + " ]";
     }
 
-    @XmlTransient
     public List<Vente> getVenteList() {
         return venteList;
     }
@@ -155,5 +141,4 @@ public class Vetement implements Serializable {
     public void setVenteList(List<Vente> venteList) {
         this.venteList = venteList;
     }
-    
 }

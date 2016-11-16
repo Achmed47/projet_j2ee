@@ -10,7 +10,7 @@ import Dates.Dates;
 import Vente.Vente;
 import java.io.Serializable;
 import java.util.List;
-import javax.annotation.PostConstruct;
+import java.util.Random;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -24,7 +24,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -44,6 +43,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Commande.revenuMensuel", query = "SELECT SUM(c.prixC) AS revenu, d.mois FROM Commande AS c LEFT JOIN c.idDate AS d GROUP BY d.mois ORDER BY d.mois"),
     @NamedQuery(name = "Commande.revenuAnnuel", query = "SELECT SUM(c.prixC) AS revenu, d.annee FROM Commande AS c LEFT JOIN c.idDate AS d GROUP BY d.annee ORDER BY d.annee")})
 public class Commande implements Serializable {
+
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "prixC")
+    private int prixC;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCommande")
     private List<Vente> venteList;
@@ -67,13 +71,10 @@ public class Commande implements Serializable {
     @JoinColumn(name = "idDate", referencedColumnName = "idDate")
     @ManyToOne(optional = false)
     private Dates idDate;
-    @Basic(optional = false)
-    @NotNull
-    @Min(0)
-    @Column(name = "prixC")
-    private float prixC;
 
     public Commande() {
+        Random randomGenerator = new Random();
+        this.idCommande = randomGenerator.nextInt(9999999);
     }
 
     public Commande(Integer idCommande) {
@@ -125,13 +126,6 @@ public class Commande implements Serializable {
         this.idDate = idDate;
     }
 
-    public float getPrixC() {
-        return prixC;
-    }
-
-    public void setPrixC(float prixC) {
-        this.prixC = prixC;
-    }
 
     @Override
     public int hashCode() {
@@ -170,6 +164,14 @@ public class Commande implements Serializable {
     
     public boolean mayBeRendered() {
         return (statut == 0);
+    }
+
+    public int getPrixC() {
+        return prixC;
+    }
+
+    public void setPrixC(int prixC) {
+        this.prixC = prixC;
     }
 
 }

@@ -5,10 +5,10 @@
  */
 package Vente;
 
+import Couleurs.Couleurs;
+import Couleurs.CouleursDAO;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -26,9 +26,12 @@ public class VenteController implements Serializable {
     
     @EJB
     private VenteDAO venteDAO;
+    
+    @EJB
+    private CouleursDAO couleursDAO;
 
     private List<Vente> allVentes;
-    private List<Vente> ventesFiltered;
+    private Vente currentVente;
     
     /**
      * Creates a new instance of VenteController
@@ -39,18 +42,27 @@ public class VenteController implements Serializable {
     @PostConstruct
     public void init() {
         allVentes = venteDAO.getAllVentes();
-        ventesFiltered = new ArrayList<>();
+        currentVente = new Vente(couleursDAO.getAllCouleurs().get(0));
     }
     
     public List<Vente> getVentes() {
         return allVentes;
     }
+
+    public Vente getCurrentVente() {
+        return currentVente;
+    }
+
+    public void setCurrentVente(Vente currentVente) {
+        this.currentVente = currentVente;
+    }
     
-    public List<Vente> getVentesByCommandeId(Integer commandeId) {
-        ventesFiltered.clear();
-        allVentes.stream().filter((v) -> (Objects.equals(v.getCommande().getIdCommande(), commandeId))).forEachOrdered((v) -> {
-            ventesFiltered.add(v);
-        });
-        return ventesFiltered;
+    public void updatePrixCurrentVente() {
+        this.currentVente.setPrixV(currentVente.getQuantite()*(currentVente.getVet().getPrixV()+currentVente.getMotif().getPrixM()));
+    }
+    
+    public void setNewColor(Couleurs c) {
+        System.out.println("Setting new color : " + c.toString());
+        currentVente.setCouleur(c);
     }
 }

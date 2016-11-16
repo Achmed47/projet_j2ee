@@ -5,6 +5,7 @@
  */
 package Commande;
 
+import Vente.Vente;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -24,28 +25,57 @@ public class CommandeController implements Serializable {
 
     @EJB
     private CommandeDAO commandeDAO;
-    
+
     private List<Commande> allCommandes;
-    
+    private Commande currentCommande;
+
     /**
      * Creates a new instance of CommandeController
      */
     public CommandeController() {
     }
-    
+
     @PostConstruct
     public void init() {
+        currentCommande = new Commande();
         allCommandes = commandeDAO.getAllCommandes();
     }
-    
+
     public List<Commande> getCommandes() {
         return allCommandes;
     }
-    
+
     public void updateCommandeStatut(Commande c) {
-        if(c != null && c.getIdCommande() != null && c.getStatut() == 0) {
+        if (c != null && c.getIdCommande() != null && c.getStatut() == 0) {
             c.setStatut((short) 1);
             commandeDAO.save(c);
         }
+    }
+
+    public void addVente(Vente v) {
+        currentCommande.getVenteList().add(v);
+    }
+
+    public Commande getCurrentCommande() {
+        return currentCommande;
+    }
+
+    public void setCurrentCommande(Commande c) {
+        this.currentCommande = c;
+    }
+
+    public void validatePanier() {
+        System.out.println("Panier en validation.");
+    }
+
+    public float getPrixCurrentCommande() {
+        float prixTotal = 0;
+
+        if (currentCommande != null && currentCommande.getVenteList() != null && currentCommande.getVenteList().size() > 0) {
+            for (Vente v : currentCommande.getVenteList()) {
+                prixTotal += v.getPrixV();
+            }
+        }
+        return prixTotal;
     }
 }
