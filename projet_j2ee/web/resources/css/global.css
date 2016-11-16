@@ -51,21 +51,21 @@ body{
     height: 110px;
 }
 
-#progressBar {
+#progressBar, #form\:progressBar {
     height: 120px !important;
     background: rgba(0,0,0,0.0);
     border: none;
 }
 
-#content{
+#content, #form\:content {
     height: 500px;
     background: rgba(0,0,0,0.0);
     border: none;
 }
 
 .ui-layout-unit-content{
-    height: 520px !important;
-    background: rgba(0,0,0,0.0);
+    height: 522px !important;
+    background: rgba(0,0,0,0.0) !important;
 }
 
 .ui-menuitem-link{
@@ -132,8 +132,13 @@ body{
     border-radius: 10px;
     border: 3px solid white;
     -moz-box-shadow: 6px 8px 20px 0px #656565;
--webkit-box-shadow: 6px 8px 20px 0px #656565;
--o-box-shadow: 6px 8px 20px 0px #656565;
-box-shadow: 6px 8px 20px 0px #656565;
-filter:progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=143, Strength=20);
+    -webkit-box-shadow: 6px 8px 20px 0px #656565;
+    -o-box-shadow: 6px 8px 20px 0px #656565;
+    box-shadow: 6px 8px 20px 0px #656565;
+    filter:progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=143, Strength=20);
+}
+
+#form\:form\:vetementList_content{
+    background: rgba(0,0,0,0.0);
+    border: none;
 }
