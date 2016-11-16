@@ -36,8 +36,8 @@ body{
 
 #form\:selectedMotifRestrictContainer {
     position:absolute;
-    top: 120px !important;
-    left: 150px;
+    top: 150px !important;
+    left: 185px !important;
     width: 190px;
     height: 280px;
     z-index: 99999;

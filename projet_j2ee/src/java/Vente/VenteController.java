@@ -5,7 +5,6 @@
  */
 package Vente;
 
-import Couleurs.Couleurs;
 import Couleurs.CouleursDAO;
 import java.io.Serializable;
 import java.util.List;
@@ -59,10 +58,5 @@ public class VenteController implements Serializable {
     
     public void updatePrixCurrentVente() {
         this.currentVente.setPrixV(currentVente.getQuantite()*(currentVente.getVet().getPrixV()+currentVente.getMotif().getPrixM()));
-    }
-    
-    public void setNewColor(Couleurs c) {
-        System.out.println("Setting new color : " + c.toString());
-        currentVente.setCouleur(c);
     }
 }

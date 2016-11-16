@@ -42,11 +42,14 @@
                                 </h:commandLink>
                             </p:panel>
                         </p:dataGrid>
+
+                        <p:commandButton id="addToCartButton" value="Ajouter au panier">
+                            <p:ajax listener="#{commandeController.addVente(venteController.currentVente, motifController.selectedMotif, vetementController.selectedVetement, venteController.currentVente.faceVetementAsString)}" update="form:panierVentes" process="@this" />
+                        </p:commandButton>
                     </p:layoutUnit>
 
                     <p:layoutUnit id="centerLayout" position="center" resizable="false" closable="true" collapsible="true">
                         <p:graphicImage id="finalImageVetement" library="img" name="vetements/#{vetementController.selectedVetement.type}/#{venteController.currentVente.couleur}/#{venteController.currentVente.faceVetementAsString}.png" />
-
 
                         <p:outputPanel id="selectedMotifRestrictContainer" layout="block">
                             <p:panel id="selectedMotifContainer">
@@ -75,25 +78,28 @@
 
                     <p:layoutUnit position="east" resizable="true" closable="true" collapsible="true">
                         <p:outputPanel>
-                            <h:form id="panierForm">
+                            <p:outputPanel id="panierVentes">
                                 <h2>Panier</h2>
-                                <ui:repeat value="#{commandeController.currentCommande.venteList}" var="v">
-                                    <div class="ui-g">
-                                        <div class="ui-g-7">#{v.vet.type} #{v.couleur} (#{v.taille})</div>
+                                <p:dataTable id="tablePanier" var="v" value="#{commandeController.currentCommande.venteList}">
+                                    <p:column>
+                                        <p:outputLabel value="#{v.vet.type} #{v.couleur} (#{v.taille})" />
+                                    </p:column>    
 
-                                        <div class="ui-g-2">
-                                            <p:spinner id="minMax" value="#{v.quantite}" min="1">
-                                                <p:ajax listener="#{venteController.updatePrixCurrentVente  ()}" update=":panierForm:prixVente :panierForm:prixCommande" process="@this" />
-                                            </p:spinner>
-                                        </div>
-                                        <div class="ui-g-3" styleClass="prixVente" id="prixVente">#{v.vet.prixV * v.quantite} + #{v.motif.prixM * v.quantite}€</div>
-                                    </div>
-                                </ui:repeat>
-                                <div class="ui-g">
-                                    <div class="ui-g-6">Total : </div>
-                                    <div class="ui-g-6" id="prixCommande">#{commandeController.getPrixCurrentCommande()}€</div>
-                                </div>
-                            </h:form>    
+                                    <p:column>
+                                        <p:spinner value="#{v.quantite}" min="1">
+                                            <p:ajax listener="#{venteController.updatePrixCurrentVente()}" update="form:panierVentes" process="@this" />
+                                        </p:spinner>
+                                    </p:column>
+                                    
+                                    <p:column>
+                                        <p:outputLabel value="#{v.vet.prixV * v.quantite} + #{v.motif.prixM * v.quantite}€" />
+                                    </p:column>
+                                </p:dataTable>
+                            </p:outputPanel>
+                            <div class="ui-g">
+                                <div class="ui-g-6">Total : </div>
+                                <div class="ui-g-6" id="prixCommande">#{commandeController.getPrixCurrentCommande()}€</div>
+                            </div>  
                         </p:outputPanel>
                         <p:commandButton value="Valider le panier" actionListener="#{commandeController.validatePanier()}"/>
                     </p:layoutUnit>
@@ -102,7 +108,7 @@
                         <ul id="ulVetement">
                             <ui:repeat value="#{couleursController.couleurs}" var="c">
                                 <h:commandLink>
-                                    <p:ajax listener="#{venteController.setNewColor(c)}" update="form:finalImageVetement form:sideVetementContainer" />
+                                    <p:ajax listener="#{venteController.currentVente.setCouleur(c)}" update="form:finalImageVetement form:sideVetementContainer" />
                                     <p:graphicImage library="img" name="vetements/#{vetementController.selectedVetement.type}/#{c.couleur}/avant.png" style="width:75px;height:75px;" />    
                                 </h:commandLink>
                             </ui:repeat>
