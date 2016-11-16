@@ -32,7 +32,7 @@
                             </p:steps>
                         </p:outputPanel>
                     </p:layoutUnit>
-                    
+
                     <p:layoutUnit id="westLayout" position="west" resizable="false" closable="true" collapsible="true" style="height: 500px">
                         <p:dataGrid var="m" value="#{motifController.motifs}" columns="#{motifController.getNeededColumns()}" layout="grid" id="vetementList">
                             <p:panel style="text-align:center">
@@ -45,9 +45,9 @@
                     </p:layoutUnit>
 
                     <p:layoutUnit id="centerLayout" position="center" resizable="false" closable="true" collapsible="true">
-                        <p:graphicImage id="finalImageVetement" library="img" name="#{vetementController.getCurrentVetementUrl()}" />
-                        
-                        
+                        <p:graphicImage id="finalImageVetement" library="img" name="vetements/#{vetementController.selectedVetement.type}/#{venteController.currentVente.couleur}/#{venteController.currentVente.faceVetementAsString}.png" />
+
+
                         <p:outputPanel id="selectedMotifRestrictContainer" layout="block">
                             <p:panel id="selectedMotifContainer">
                                 <p:graphicImage id="selectedMotif" value="#{motifController.selectedMotif.urlMotif}" />
@@ -97,6 +97,9 @@
                         </p:outputPanel>
                         <p:commandButton value="Valider le panier" actionListener="#{commandeController.validatePanier()}"/>
                     </p:layoutUnit>
+
+                    <p:layoutUnit id="choiseColor" position="south" resizable="true" closable="true" collapsible="true" size="100">
+                        <ul id="ulVetement">
                             <ui:repeat value="#{couleursController.couleurs}" var="c">
                                 <h:commandLink>
                                     <p:ajax listener="#{venteController.setNewColor(c)}" update="form:finalImageVetement form:sideVetementContainer" />
@@ -110,6 +113,3 @@
         </f:view>
     </h:body>
 </html>
-                    
-                    <p:layoutUnit id="choiseColor" position="south" resizable="true" closable="true" collapsible="true" size="100">
-                       <ul id="ulVetement">
