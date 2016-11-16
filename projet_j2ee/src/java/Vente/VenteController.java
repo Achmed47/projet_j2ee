@@ -5,7 +5,6 @@
  */
 package Vente;
 
-import Couleurs.Couleurs;
 import Couleurs.CouleursDAO;
 import java.io.Serializable;
 import java.util.List;

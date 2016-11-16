@@ -94,11 +94,9 @@ public class CommandeController implements Serializable {
 
     public float getPrixCurrentCommande() {
         float prixTotal = 0;
-
+        System.out.println("Nb vente in commande : " + ((currentCommande.getVenteList() != null) ? currentCommande.getVenteList().size() : "0 par défaut"));
         if (currentCommande != null && currentCommande.getVenteList() != null && currentCommande.getVenteList().size() > 0) {
-            for (Vente v : currentCommande.getVenteList()) {
-                prixTotal += v.getPrixV();
-            }
+            prixTotal = currentCommande.getVenteList().stream().map((v) -> v.getPrixV()).reduce(prixTotal, (accumulator, _item) -> accumulator + _item);
         }
         return prixTotal;
     }
