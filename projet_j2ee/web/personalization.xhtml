@@ -15,11 +15,12 @@
         <f:view encoding="UTF-8" contentType="text/html">
             <h:form id="form">
                 <p:layout id="corps" fullPage="true">
-                    <p:layoutUnit position="north" resizable="true" closable="true" collapsible="true">
+                    <p:layoutUnit id="persoLabel" position="north" resizable="false" closable="true" collapsible="true">
                         <p:outputPanel id="entete">
-                            <h:graphicImage library="img" name="global/logo.png" id="logo" alt="logo"/>
+                            <h:graphicImage library="img" name="global/logo.png" id="logo" alt="logo" style="height: 35px"/>
                             <h id="titre"> Tex'Style </h>
-                            <p:commandButton id="changeUserButton" value="Utilisateur"/>
+                            <p:commandButton id="changeUserButton" value="Gérant" style="float: right"/>
+                            <p:commandButton id="commandeView" value="Commandes" style="float: right"/>
                         </p:outputPanel>
 
                         <p:outputPanel id="progressBar" deferred="false">
@@ -31,8 +32,8 @@
                             </p:steps>
                         </p:outputPanel>
                     </p:layoutUnit>
-
-                    <p:layoutUnit position="west" resizable="true" closable="true" collapsible="true">
+                    
+                    <p:layoutUnit id="westLayout" position="west" resizable="false" closable="true" collapsible="true" style="height: 500px">
                         <p:dataGrid var="m" value="#{motifController.motifs}" columns="#{motifController.getNeededColumns()}" layout="grid" id="vetementList">
                             <p:panel style="text-align:center">
                                 <h:commandLink>
@@ -43,10 +44,11 @@
                         </p:dataGrid>
                     </p:layoutUnit>
 
-                    <p:layoutUnit position="center" resizable="true" closable="true" collapsible="true">
-                        <p:graphicImage id="finalImageVetement" library="img" name="vetements/#{vetementController.selectedVetement.type}/#{venteController.currentVente.couleur}/#{venteController.currentVente.faceVetementAsString}.png" />
-
-                        <p:outputPanel id="selectedMotifRestrictContainer" layout="block" style="position: absolute; top: 50px; right: 0px;">
+                    <p:layoutUnit id="centerLayout" position="center" resizable="false" closable="true" collapsible="true">
+                        <p:graphicImage id="finalImageVetement" library="img" name="#{vetementController.getCurrentVetementUrl()}" />
+                        
+                        
+                        <p:outputPanel id="selectedMotifRestrictContainer" layout="block">
                             <p:panel id="selectedMotifContainer">
                                 <p:graphicImage id="selectedMotif" value="#{motifController.selectedMotif.urlMotif}" />
                             </p:panel>
@@ -95,9 +97,6 @@
                         </p:outputPanel>
                         <p:commandButton value="Valider le panier" actionListener="#{commandeController.validatePanier()}"/>
                     </p:layoutUnit>
-
-                    <p:layoutUnit position="south" resizable="true" closable="true" collapsible="true" size="200">
-                        <ul>
                             <ui:repeat value="#{couleursController.couleurs}" var="c">
                                 <h:commandLink>
                                     <p:ajax listener="#{venteController.setNewColor(c)}" update="form:finalImageVetement form:sideVetementContainer" />
@@ -111,3 +110,6 @@
         </f:view>
     </h:body>
 </html>
+                    
+                    <p:layoutUnit id="choiseColor" position="south" resizable="true" closable="true" collapsible="true" size="100">
+                       <ul id="ulVetement">
