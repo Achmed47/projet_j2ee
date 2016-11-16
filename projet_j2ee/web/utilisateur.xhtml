@@ -14,10 +14,9 @@
     <h:body>
         <f:view encoding="UTF-8" contentType="text/html">
             <ui:include src="templates/global/headerUser.xhtml" />
-            
             <p:layout id="corps">
                 <ui:include src="templates/global/progressBar.xhtml" />
-                
+
                 <p:layoutUnit position="center" id="content" resizable="false" style="height: 125px">
                     <h:form id="form">
                         <p:dataGrid var="vet" value="#{vetementController.vetements}" columns="3" layout="grid"
