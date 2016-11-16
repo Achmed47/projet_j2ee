@@ -104,6 +104,10 @@ public class MotifController implements Serializable {
         return (allMotifs.stream().anyMatch((m) -> (m.getUrlMotif().equals(motifUrl))));
     }
     
+    public boolean isMotifSet() {
+        return (this.selectedMotif != null && this.selectedMotif.getUrlMotif() != null);
+    }
+    
     public int getNeededColumns() {
         return allMotifs.size() > 8 ? 3 : 2;
     }
