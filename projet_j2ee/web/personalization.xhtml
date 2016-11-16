@@ -37,14 +37,14 @@
                         <p:dataGrid var="m" value="#{motifController.motifs}" columns="#{motifController.getNeededColumns()}" layout="grid" id="vetementList">
                             <p:panel style="text-align:center">
                                 <h:commandLink>
-                                    <p:ajax listener="#{motifController.setSelectedMotif(m)}" update="form:selectedMotif" />
+                                    <p:ajax listener="#{motifController.setSelectedMotif(m)}" update="form:selectedMotif form:validatePanier" />
                                     <p:graphicImage value="#{m.urlMotif}" style="width:75px;height:75px;" />
                                 </h:commandLink>
                             </p:panel>
                         </p:dataGrid>
 
-                        <p:commandButton id="addToCartButton" value="Ajouter au panier">
-                            <p:ajax listener="#{commandeController.addVente(venteController.currentVente, motifController.selectedMotif, vetementController.selectedVetement, venteController.currentVente.faceVetementAsString)}" update="form:panierVentes" process="@this" />
+                        <p:commandButton id="addToCartButton" disabled="#{venteController.motifSet}" value="Ajouter au panier">
+                            <p:ajax listener="#{commandeController.addVente(venteController.currentVente, motifController.selectedMotif, vetementController.selectedVetement, venteController.currentVente.faceVetementAsString)}" update="form:panierVentes form:panierTotal form:validatePanier" process="@this" />
                         </p:commandButton>
                     </p:layoutUnit>
 
@@ -76,32 +76,8 @@
                         </p:outputPanel>
                     </p:layoutUnit>
 
-                    <p:layoutUnit position="east" resizable="true" closable="true" collapsible="true">
-                        <p:outputPanel>
-                            <p:outputPanel id="panierVentes">
-                                <h2>Panier</h2>
-                                <p:dataTable id="tablePanier" var="v" value="#{commandeController.currentCommande.venteList}">
-                                    <p:column>
-                                        <p:outputLabel value="#{v.vet.type} #{v.couleur} (#{v.taille})" />
-                                    </p:column>    
-
-                                    <p:column>
-                                        <p:spinner value="#{v.quantite}" min="1">
-                                            <p:ajax listener="#{venteController.updatePrixCurrentVente()}" update="form:panierVentes" process="@this" />
-                                        </p:spinner>
-                                    </p:column>
-                                    
-                                    <p:column>
-                                        <p:outputLabel value="#{v.vet.prixV * v.quantite} + #{v.motif.prixM * v.quantite}€" />
-                                    </p:column>
-                                </p:dataTable>
-                            </p:outputPanel>
-                            <div class="ui-g">
-                                <div class="ui-g-6">Total : </div>
-                                <div class="ui-g-6" id="prixCommande">#{commandeController.getPrixCurrentCommande()}€</div>
-                            </div>  
-                        </p:outputPanel>
-                        <p:commandButton value="Valider le panier" actionListener="#{commandeController.validatePanier()}"/>
+                    <p:layoutUnit position="east" resizable="true" collapsible="true">
+                        <ui:include src="templates/utilisateur/panierVentes.xhtml" />
                     </p:layoutUnit>
 
                     <p:layoutUnit id="choiseColor" position="south" resizable="true" closable="true" collapsible="true" size="100">
