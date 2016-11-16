@@ -60,11 +60,6 @@ public class VenteController implements Serializable {
         this.currentVente.setPrixV(currentVente.getQuantite()*(currentVente.getVet().getPrixV()+currentVente.getMotif().getPrixM()));
     }
     
-    public boolean isMotifSet() {
-        System.out.println("Printing vente's add button : " + (this.currentVente.getMotif() != null && this.currentVente.getMotif().getUrlMotif() != null));
-        return !(this.currentVente.getMotif() != null && this.currentVente.getMotif().getUrlMotif() != null);
-    }
-    
     public void updatePrixVente(Vente v) {
         v.setPrixV(v.getQuantite()*(v.getVet().getPrixV()+v.getMotif().getPrixM()));
     }

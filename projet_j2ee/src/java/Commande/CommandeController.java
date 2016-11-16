@@ -88,8 +88,8 @@ public class CommandeController implements Serializable {
         this.currentCommande = c;
     }
 
-    public void validatePanier() {
-        System.out.println("Panier en validation.");
+    public String validatePanier() {
+        return "confirmation";
     }
     
     public void removeVente(Vente v) {

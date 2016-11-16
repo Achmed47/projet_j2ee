@@ -37,13 +37,13 @@
                         <p:dataGrid var="m" value="#{motifController.motifs}" columns="#{motifController.getNeededColumns()}" layout="grid" id="vetementList">
                             <p:panel style="text-align:center">
                                 <h:commandLink>
-                                    <p:ajax listener="#{motifController.setSelectedMotif(m)}" update="form:selectedMotif form:validatePanier" />
+                                    <p:ajax listener="#{motifController.setSelectedMotif(m)}" update="form:selectedMotif form:validatePanier form:addToCartButton" />
                                     <p:graphicImage value="#{m.urlMotif}" style="width:75px;height:75px;" />
                                 </h:commandLink>
                             </p:panel>
                         </p:dataGrid>
 
-                        <p:commandButton id="addToCartButton" disabled="#{venteController.motifSet}" value="Ajouter au panier">
+                        <p:commandButton id="addToCartButton" disabled="#{!motifController.motifSet}" value="Ajouter au panier">
                             <p:ajax listener="#{commandeController.addVente(venteController.currentVente, motifController.selectedMotif, vetementController.selectedVetement, venteController.currentVente.faceVetementAsString)}" update="form:panierVentes form:panierTotal form:validatePanier" process="@this" />
                         </p:commandButton>
                     </p:layoutUnit>

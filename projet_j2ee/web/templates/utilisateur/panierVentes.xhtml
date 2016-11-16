@@ -44,7 +44,7 @@
                     <p:outputLabel value="Total :" /> 
                     <p:outputLabel value="#{commandeController.getPrixCurrentCommande()}€" />
                 </h:panelGrid>  
-                <p:commandButton id="validatePanier" disabled="#{commandeController.ventesEmpty}" value="Valider le panier" actionListener="#{commandeController.validatePanier()}" />
+                <p:commandButton id="validatePanier" disabled="#{commandeController.ventesEmpty}" value="Valider le panier" action="#{commandeController.validatePanier()}" />
             </p:outputPanel>
         </ui:composition>
     </h:body>
