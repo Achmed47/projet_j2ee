@@ -33,7 +33,7 @@
                                 <h:commandLink action="personalization">
                                     <f:param name="refVetement" value="#{vet.refVet}" />
                                     <p:ajax listener="#{motifController.resetSelectedMotif()}" />
-                                    <p:graphicImage library="img" name="vetements/#{vet.type}/blanc/avant.png" />
+                                    <p:graphicImage library="img" name="vetements/#{vet.type}/#{couleursController.firstCouleur}/avant.png" />
                                 </h:commandLink>
                             </p:panel>
                         </p:dataGrid>

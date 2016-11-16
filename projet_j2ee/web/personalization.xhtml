@@ -10,7 +10,7 @@
         <title>Tex'Style</title>
         <h:outputStylesheet library="css" name="global.css" />
     </h:head>
-    
+
     <h:body>
         <f:view encoding="UTF-8" contentType="text/html">
             <h:form id="form">
@@ -21,7 +21,7 @@
                             <h id="titre"> Tex'Style </h>
                             <p:commandButton id="changeUserButton" value="Utilisateur"/>
                         </p:outputPanel>
-                        
+
                         <p:outputPanel id="progressBar" deferred="false">
                             <p:steps activeIndex="1" readonly="true" style="width:100%;">
                                 <p:menuitem value="Choix du type de vêtement" />
@@ -31,7 +31,7 @@
                             </p:steps>
                         </p:outputPanel>
                     </p:layoutUnit>
-                    
+
                     <p:layoutUnit position="west" resizable="true" closable="true" collapsible="true">
                         <p:dataGrid var="m" value="#{motifController.motifs}" columns="#{motifController.getNeededColumns()}" layout="grid" id="vetementList">
                             <p:panel style="text-align:center">
@@ -44,26 +44,63 @@
                     </p:layoutUnit>
 
                     <p:layoutUnit position="center" resizable="true" closable="true" collapsible="true">
-                        <p:graphicImage id="finalImageVetement" library="img" name="#{vetementController.getCurrentVetementUrl()}" />
-                        
-                        
-                        <p:outputPanel id="selectedMotifRestrictContainer" layout="block">
+                        <p:graphicImage id="finalImageVetement" library="img" name="vetements/#{vetementController.selectedVetement.type}/#{venteController.currentVente.couleur}/#{venteController.currentVente.faceVetementAsString}.png" />
+
+                        <p:outputPanel id="selectedMotifRestrictContainer" layout="block" style="position: absolute; top: 50px; right: 0px;">
                             <p:panel id="selectedMotifContainer">
                                 <p:graphicImage id="selectedMotif" value="#{motifController.selectedMotif.urlMotif}" />
                             </p:panel>
                         </p:outputPanel>
                         <p:draggable for="selectedMotifContainer" containment="parent" />
+
+                        <p:outputPanel id="sideVetementContainer" layout="block">
+                            <ul id="sideVetementList" style="position:absolute;top:30px;left:-20px;list-style-type:none;">
+                                <li>
+                                    <h:commandLink>
+                                        <p:ajax listener="#{venteController.currentVente.setFaceVetement(true)}" update="form:finalImageVetement" />
+                                        <p:graphicImage library="img" name="vetements/#{vetementController.selectedVetement.type}/#{venteController.currentVente.couleur}/avant.png" style="width:30px;height:30px;" />
+                                    </h:commandLink>
+                                </li>
+                                <li>
+                                    <h:commandLink>
+                                        <p:ajax listener="#{venteController.currentVente.setFaceVetement(false)}" update="form:finalImageVetement" />
+                                        <p:graphicImage library="img" name="vetements/#{vetementController.selectedVetement.type}/#{venteController.currentVente.couleur}/arriere.png" style="width:30px;height:30px;" />
+                                    </h:commandLink>
+                                </li>
+                            </ul>
+                        </p:outputPanel>
                     </p:layoutUnit>
 
                     <p:layoutUnit position="east" resizable="true" closable="true" collapsible="true">
+                        <p:outputPanel>
+                            <h:form id="panierForm">
+                                <h2>Panier</h2>
+                                <ui:repeat value="#{commandeController.currentCommande.venteList}" var="v">
+                                    <div class="ui-g">
+                                        <div class="ui-g-7">#{v.vet.type} #{v.couleur} (#{v.taille})</div>
 
+                                        <div class="ui-g-2">
+                                            <p:spinner id="minMax" value="#{v.quantite}" min="1">
+                                                <p:ajax listener="#{venteController.updatePrixCurrentVente  ()}" update=":panierForm:prixVente :panierForm:prixCommande" process="@this" />
+                                            </p:spinner>
+                                        </div>
+                                        <div class="ui-g-3" styleClass="prixVente" id="prixVente">#{v.vet.prixV * v.quantite} + #{v.motif.prixM * v.quantite}€</div>
+                                    </div>
+                                </ui:repeat>
+                                <div class="ui-g">
+                                    <div class="ui-g-6">Total : </div>
+                                    <div class="ui-g-6" id="prixCommande">#{commandeController.getPrixCurrentCommande()}€</div>
+                                </div>
+                            </h:form>    
+                        </p:outputPanel>
+                        <p:commandButton value="Valider le panier" actionListener="#{commandeController.validatePanier()}"/>
                     </p:layoutUnit>
-                    
+
                     <p:layoutUnit position="south" resizable="true" closable="true" collapsible="true" size="200">
-                       <ul>
+                        <ul>
                             <ui:repeat value="#{couleursController.couleurs}" var="c">
                                 <h:commandLink>
-                                    <p:ajax listener="#{vetementController.setNewColor(c)}" update="form:finalImageVetement" />
+                                    <p:ajax listener="#{venteController.setNewColor(c)}" update="form:finalImageVetement form:sideVetementContainer" />
                                     <p:graphicImage library="img" name="vetements/#{vetementController.selectedVetement.type}/#{c.couleur}/avant.png" style="width:75px;height:75px;" />    
                                 </h:commandLink>
                             </ui:repeat>

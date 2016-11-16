@@ -104,8 +104,7 @@ public class VetementController implements Serializable {
     }
     
     public void addVetement(ActionEvent e) {
-        if(newVetement != null && newVetement.getRefVet() != null 
-                && newVetement.getCouleur() != null && newVetement.getType() != null
+        if(newVetement != null && newVetement.getRefVet() != null && newVetement.getType() != null
                 && newVetement.getPrixV() >= 0 && newVetement.getUrlV().length() > 0) {
             vetementDAO.saveVetement(newVetement);
             allVetements.add(newVetement);
@@ -120,16 +119,10 @@ public class VetementController implements Serializable {
         return (allVetements.size() > 0) ? allVetements.size() : 1;
     }
     
-    public void setNewColor(Couleurs c) {
-        System.out.println("Setting new color : " + c.toString());
-        getSelectedVetement().setCouleur(c);
-    }
-    
     public Vetement getSelectedVetement() {
         Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         if(params.get("refVetement") != null) {
             int refVetement = Integer.parseInt(params.get("refVetement"));
-            
             if(refVetement != selectedVetement.getRefVet()) {
                 System.out.println("Reseting vetement from : " + selectedVetement.getRefVet() + " to " + refVetement);
                 Vetement v =  vetementDAO.getVetementFromRef(refVetement);
@@ -141,11 +134,5 @@ public class VetementController implements Serializable {
         }
           
         return selectedVetement;
-    }
-    
-    public String getCurrentVetementUrl() {
-        System.out.println("Getting current vetement : " + getSelectedVetement().toString());
-        return "vetements/" + getSelectedVetement().getType() + "/" + getSelectedVetement().getCouleur() + "/avant.png";
-    }
-            
+    }            
 }
