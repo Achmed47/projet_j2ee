@@ -60,9 +60,4 @@ public class VenteController implements Serializable {
     public void updatePrixCurrentVente() {
         this.currentVente.setPrixV(currentVente.getQuantite()*(currentVente.getVet().getPrixV()+currentVente.getMotif().getPrixM()));
     }
-    
-    public void setNewColor(Couleurs c) {
-        System.out.println("Setting new color : " + c.toString());
-        currentVente.setCouleur(c);
-    }
 }

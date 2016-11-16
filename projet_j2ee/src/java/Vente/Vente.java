@@ -83,7 +83,7 @@ public class Vente implements Serializable {
     public Vente() {
         Random randomGenerator = new Random();
         this.idVente = randomGenerator.nextInt(9999999);
-        this.faceVetement = true; 
+        this.faceVetement = true;
     }
 
     public Vente(Integer idVente) {
@@ -92,6 +92,8 @@ public class Vente implements Serializable {
     }
     
     public Vente(Couleurs couleur) {
+        Random randomGenerator = new Random();
+        this.idVente = randomGenerator.nextInt(9999999);
         this.idCouleur = couleur;
         this.faceVetement = true;
     }
@@ -202,15 +204,12 @@ public class Vente implements Serializable {
             return false;
         }
         Vente other = (Vente) object;
-        if ((this.idVente == null && other.idVente != null) || (this.idVente != null && !this.idVente.equals(other.idVente))) {
-            return false;
-        }
-        return true;
+        return !((this.idVente == null && other.idVente != null) || (this.idVente != null && !this.idVente.equals(other.idVente)));
     }
 
     @Override
     public String toString() {
-        return "Vente.Vente[ idVente=" + idVente + " ]";
+        return "Vente.Vente[" + idVente + ", " + idMotif + ", " + idTaille + ", " + quantite + ", " + prixV + ", " + faceVetement + " ]";
     }
     
 }

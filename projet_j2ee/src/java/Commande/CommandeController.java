@@ -5,8 +5,12 @@
  */
 package Commande;
 
+import Motif.Motif;
+import Tailles.TaillesDAO;
 import Vente.Vente;
+import Vetement.Vetement;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -25,6 +29,9 @@ public class CommandeController implements Serializable {
 
     @EJB
     private CommandeDAO commandeDAO;
+    
+    @EJB
+    private TaillesDAO tailleDAO;
 
     private List<Commande> allCommandes;
     private Commande currentCommande;
@@ -52,8 +59,25 @@ public class CommandeController implements Serializable {
         }
     }
 
-    public void addVente(Vente v) {
-        currentCommande.getVenteList().add(v);
+    public void addVente(Vente v, Motif m, Vetement vet, String positionMotif) {
+        Vente newVente = new Vente();
+        
+        newVente.setCouleur(v.getCouleur());
+        newVente.setFaceVetement("avant".equals(positionMotif));
+        newVente.setMotif(m);
+        newVente.setVet(vet);
+        newVente.setQuantite(1);
+        newVente.setPositionMotif("avant".equals(positionMotif) ? (short) 0 : (short) 1);
+        newVente.setPrixV((m != null) ? m.getPrixM() + vet.getPrixV() : vet.getPrixV());
+        newVente.setTaille(tailleDAO.getTailleByValue("M"));
+        newVente.setCommande(currentCommande);
+        
+        if(currentCommande.getVenteList() == null) {
+            currentCommande.setVenteList(new ArrayList<>());
+        }
+        
+        List<Vente> listeVente = currentCommande.getVenteList();
+        listeVente.add(newVente);
     }
 
     public Commande getCurrentCommande() {

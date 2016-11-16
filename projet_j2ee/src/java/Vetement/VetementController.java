@@ -124,7 +124,6 @@ public class VetementController implements Serializable {
         if(params.get("refVetement") != null) {
             int refVetement = Integer.parseInt(params.get("refVetement"));
             if(refVetement != selectedVetement.getRefVet()) {
-                System.out.println("Reseting vetement from : " + selectedVetement.getRefVet() + " to " + refVetement);
                 Vetement v =  vetementDAO.getVetementFromRef(refVetement);
                 if(v != null) {
                     selectedVetement = v;
