@@ -10,18 +10,19 @@
         <title>Tex'Style</title>
         <h:outputStylesheet library="css" name="global.css" />
     </h:head>
-    
+
     <h:body>
         <f:view encoding="UTF-8" contentType="text/html">
             <h:form id="form">
                 <p:layout id="corps" fullPage="true">
-                    <p:layoutUnit position="north" resizable="true" closable="true" collapsible="true">
+                    <p:layoutUnit id="persoLabel" position="north" resizable="false" closable="true" collapsible="true">
                         <p:outputPanel id="entete">
-                            <h:graphicImage library="img" name="global/logo.png" id="logo" alt="logo"/>
+                            <h:graphicImage library="img" name="global/logo.png" id="logo" alt="logo" style="height: 35px"/>
                             <h id="titre"> Tex'Style </h>
-                            <p:commandButton id="changeUserButton" value="Utilisateur"/>
+                            <p:commandButton id="changeUserButton" value="Gérant" style="float: right" action="accueil.xhtml" styleClass="ui-priority-primary"/>
+                            <p:commandButton id="commandeView" value="Commandes" style="float: right" styleClass="ui-priority-primary"/>
                         </p:outputPanel>
-                        
+
                         <p:outputPanel id="progressBar" deferred="false">
                             <p:steps activeIndex="1" readonly="true" style="width:100%;">
                                 <p:menuitem value="Choix du type de vêtement" />
@@ -31,39 +32,59 @@
                             </p:steps>
                         </p:outputPanel>
                     </p:layoutUnit>
-                    
-                    <p:layoutUnit position="west" resizable="true" closable="true" collapsible="true">
+
+                    <p:layoutUnit id="westLayout" position="west" resizable="false" closable="true" collapsible="true" style="height: 500px">
                         <p:dataGrid var="m" value="#{motifController.motifs}" columns="#{motifController.getNeededColumns()}" layout="grid" id="vetementList">
                             <p:panel style="text-align:center">
                                 <h:commandLink>
-                                    <p:ajax listener="#{motifController.setSelectedMotif(m)}" update="form:selectedMotif" />
-                                    <p:graphicImage value="#{m.urlMotif}" style="width:75px;height:75px;" />
+                                    <p:ajax listener="#{motifController.setSelectedMotif(m)}" update="form:selectedMotif form:validatePanier form:addToCartButton" />
+                                    <p:graphicImage value="#{m.urlMotif}" style="width:60px;height:60px;" />
                                 </h:commandLink>
                             </p:panel>
                         </p:dataGrid>
+
+                        <p:commandButton id="addToCartButton" disabled="#{!motifController.motifSet}" value="Ajouter au panier" styleClass="ui-priority-primary">
+                            <p:ajax listener="#{commandeController.addVente(venteController.currentVente, motifController.selectedMotif, vetementController.selectedVetement, venteController.currentVente.faceVetementAsString)}" update="form:panierVentes form:panierTotal form:validatePanier" process="@this" />
+                        </p:commandButton>
                     </p:layoutUnit>
 
-                    <p:layoutUnit position="center" resizable="true" closable="true" collapsible="true">
-                        <p:graphicImage id="finalImageVetement" library="img" name="#{vetementController.getCurrentVetementUrl()}" />
-                        
-                        
+                    <p:layoutUnit id="centerLayout" position="center" resizable="false" closable="true" collapsible="true">
+                        <p:graphicImage id="finalImageVetement" library="img" name="vetements/#{vetementController.selectedVetement.type}/#{venteController.currentVente.couleur}/#{venteController.currentVente.faceVetementAsString}.png" />
+
                         <p:outputPanel id="selectedMotifRestrictContainer" layout="block">
                             <p:panel id="selectedMotifContainer">
                                 <p:graphicImage id="selectedMotif" value="#{motifController.selectedMotif.urlMotif}" />
                             </p:panel>
                         </p:outputPanel>
                         <p:draggable for="selectedMotifContainer" containment="parent" />
+
+                        <p:outputPanel id="sideVetementContainer" layout="block">
+                            <ul id="sideVetementList" style="position:absolute;top:30px;left:-20px;list-style-type:none;">
+                                <li>
+                                    <h:commandLink>
+                                        <p:ajax listener="#{venteController.currentVente.setFaceVetement(true)}" update="form:finalImageVetement" />
+                                        <p:graphicImage library="img" name="vetements/#{vetementController.selectedVetement.type}/#{venteController.currentVente.couleur}/avant.png" style="width:40px;height:40px;" />
+                                    </h:commandLink>
+                                </li>
+                                <li>
+                                    <h:commandLink>
+                                        <p:ajax listener="#{venteController.currentVente.setFaceVetement(false)}" update="form:finalImageVetement" />
+                                        <p:graphicImage library="img" name="vetements/#{vetementController.selectedVetement.type}/#{venteController.currentVente.couleur}/arriere.png" style="width:40px;height:40px;" />
+                                    </h:commandLink>
+                                </li>
+                            </ul>
+                        </p:outputPanel>
                     </p:layoutUnit>
 
-                    <p:layoutUnit position="east" resizable="true" closable="true" collapsible="true">
-                          
+                    <p:layoutUnit id="panierLayout" position="east" resizable="true" collapsible="true">
+                        <ui:include src="templates/utilisateur/panierVentes.xhtml" />
                     </p:layoutUnit>
-                    
-                    <p:layoutUnit position="south" resizable="true" closable="true" collapsible="true" size="200">
-                       <ul>
+
+                    <p:layoutUnit id="choiseColor" position="south" resizable="true" closable="true" collapsible="true" size="100">
+                        <ul id="ulVetement">
                             <ui:repeat value="#{couleursController.couleurs}" var="c">
                                 <h:commandLink>
-                                    <p:ajax listener="#{vetementController.setNewColor(c)}" update="form:finalImageVetement" />
+                                    <p:ajax listener="#{venteController.currentVente.setCouleur(c)}" update="form:finalImageVetement form:sideVetementContainer" />
                                     <p:graphicImage library="img" name="vetements/#{vetementController.selectedVetement.type}/#{c.couleur}/avant.png" style="width:75px;height:75px;" />    
                                 </h:commandLink>
                             </ui:repeat>

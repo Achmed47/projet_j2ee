@@ -28,5 +28,27 @@ public class VenteDAO {
     public List<Vente> getAllVentes() {
         Query query = em.createNamedQuery("Vente.findAll");
         return query.getResultList();
-    }  
+    }
+    
+    public void save(Vente v){
+        try {
+            if (v.getIdVente() != null && v.getMotif() != null) {
+                em.merge(v);
+            } else {
+                em.persist(v);
+            }
+        } catch (Exception e){
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    public void save(List<Vente> listVente){
+        try {
+            listVente.stream().forEach((v) -> {
+                save(v);
+            });
+        } catch (Exception e){
+            System.err.println(e.getMessage());
+        }
+    }
 }

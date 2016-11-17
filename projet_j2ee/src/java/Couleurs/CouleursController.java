@@ -47,6 +47,10 @@ public class CouleursController implements Serializable {
         return allCouleurs;
     }
     
+    public Couleurs getFirstCouleur() {
+        return allCouleurs.get(0);
+    }
+    
     public Couleurs getNewCouleur() {
         return this.newCouleur;
     }

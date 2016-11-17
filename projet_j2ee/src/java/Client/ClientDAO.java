@@ -5,10 +5,10 @@
  */
 package Client;
 
-import java.io.Serializable;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -24,7 +24,10 @@ public class ClientDAO {
         em.persist(object);
     }
 
-    
+    public Client getFirstClient() {
+        TypedQuery<Client> query = em.createNamedQuery("Client.findAll", Client.class);
+        return (Client) query.getSingleResult();
+    }
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
 }
