@@ -67,9 +67,7 @@ public class MotifController implements Serializable {
     
     public void onRowEdit(RowEditEvent event) {
         Motif m = (Motif) event.getObject();
-        if(!contains(m.getUrlMotif())) { 
-           motifDAO.saveMotif(m); 
-       }
+        motifDAO.saveMotif(m);
     }
 
     public void onRowCancel(RowEditEvent event) {

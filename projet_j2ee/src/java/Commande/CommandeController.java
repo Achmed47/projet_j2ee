@@ -17,6 +17,8 @@ import Vetement.Vetement;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.TimeZone;
 import javax.annotation.PostConstruct;
@@ -103,6 +105,15 @@ public class CommandeController implements Serializable {
     public void setCurrentCommande(Commande c) {
         this.currentCommande = c;
     }
+    
+    public List<Vente> getVentesByCommandeId(int idCommande) {
+        for(Commande c : allCommandes) {
+            if(idCommande == c.getIdCommande()) {
+                return c.getVenteList();
+            }
+        }
+        return new ArrayList<>();
+    }
 
     public String validatePanier() {
         if(currentCommande != null && currentCommande.getVenteList() != null) {
@@ -131,7 +142,7 @@ public class CommandeController implements Serializable {
             }
             
             venteDAO.save(currentCommande.getVenteList());
-            allCommandes.add(currentCommande.clone());
+            allCommandes.add(0, currentCommande.clone());
         }
         return "paiement";
     }
@@ -141,7 +152,7 @@ public class CommandeController implements Serializable {
             currentCommande.getVenteList().remove(v);
         }
     }
-
+    
     public float getPrixCurrentCommande() {
         float prixTotal = 0;
         if (currentCommande != null && currentCommande.getVenteList() != null && currentCommande.getVenteList().size() > 0) {
