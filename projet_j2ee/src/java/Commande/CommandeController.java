@@ -106,12 +106,10 @@ public class CommandeController implements Serializable {
 
     public String validatePanier() {
         if(currentCommande != null && currentCommande.getVenteList() != null) {
-            Commande c = new Commande();
             Client client = clientDAO.getFirstClient();
-            c.setPrixC(getPrixCurrentCommande());
-            c.setClient(client);
-            c.setStatut((short) 0);
-            c.setPrixC(getPrixCurrentCommande());
+            currentCommande.setClient(client);
+            currentCommande.setStatut((short) 0);
+            currentCommande.setPrixC(getPrixCurrentCommande());
             
             // link to current day
             Calendar localCalendar = Calendar.getInstance(TimeZone.getDefault());
@@ -121,24 +119,21 @@ public class CommandeController implements Serializable {
             d.setJour(localCalendar.get(Calendar.DATE));
             d.setHeure(localCalendar.get(Calendar.HOUR_OF_DAY));
             d.setMinute(localCalendar.get(Calendar.MINUTE));
-           
             
             dateDAO.add(d);
             d.setIdDate(dateDAO.getLastDateId());
             
-            System.out.println(d.getIdDate() + " : " + d.toString());
-            c.setDate(d);
-            commandeDAO.save(c);
-            allCommandes.add(c);
+            currentCommande.setDate(d);
+            commandeDAO.save(currentCommande);
             
             for(Vente v : currentCommande.getVenteList()) {
                 v.setCommande(currentCommande);
             }
             
             venteDAO.save(currentCommande.getVenteList());
-            currentCommande = new Commande();
+            allCommandes.add(currentCommande.clone());
         }
-        return "confirmation";
+        return "paiement";
     }
     
     public void removeVente(Vente v) {

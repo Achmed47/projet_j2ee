@@ -40,7 +40,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Commande.findByIdCommande", query = "SELECT c FROM Commande c WHERE c.idCommande = :idCommande"),
     @NamedQuery(name = "Commande.findByStatut", query = "SELECT c FROM Commande c WHERE c.statut = :statut"),
     @NamedQuery(name = "Commande.findByPrixC", query = "SELECT c FROM Commande c WHERE c.prixC = :prixC")})
-public class Commande implements Serializable {
+public class Commande implements Serializable, Cloneable {
 @Basic(optional = false)
     private static final long serialVersionUID = 1L;
 
@@ -176,4 +176,14 @@ public class Commande implements Serializable {
         return (statut == 0);
     }
     
+    @Override
+    public Commande clone() {
+        try {
+                Object c = super.clone();
+                return (Commande) c;
+        } catch(CloneNotSupportedException cnse) {
+                cnse.printStackTrace(System.err);
+        }
+        return null;
+    }
 }

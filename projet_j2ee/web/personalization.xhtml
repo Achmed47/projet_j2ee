@@ -19,8 +19,8 @@
                         <p:outputPanel id="entete">
                             <h:graphicImage library="img" name="global/logo.png" id="logo" alt="logo" style="height: 35px"/>
                             <h id="titre"> Tex'Style </h>
-                            <p:commandButton id="changeUserButton" value="Gérant" style="float: right" action="accueil.xhtml" styleClass="ui-priority-primary"/>
-                            <p:commandButton id="commandeView" value="Commandes" style="float: right" styleClass="ui-priority-primary"/>
+                            <p:commandButton id="changeUserButton" value="Gérant" style="float: right" action="accueil.xhtml" />
+                            <p:commandButton id="commandeView" value="Commandes" style="float: right" />
                         </p:outputPanel>
 
                         <p:outputPanel id="progressBar" deferred="false">
@@ -43,8 +43,8 @@
                             </p:panel>
                         </p:dataGrid>
 
-                        <p:commandButton id="addToCartButton" disabled="#{!motifController.motifSet}" value="Ajouter au panier" styleClass="ui-priority-primary">
-                            <p:ajax listener="#{commandeController.addVente(venteController.currentVente, motifController.selectedMotif, vetementController.selectedVetement, venteController.currentVente.faceVetementAsString)}" update="form:panierVentes form:panierTotal form:validatePanier" process="@this" />
+                        <p:commandButton id="addToCartButton" disabled="#{!motifController.motifSet}" value="Ajouter au panier">
+                            <p:ajax listener="#{commandeController.addVente(venteController.currentVente, motifController.selectedMotif, vetementController.selectedVetement, venteController.currentVente.faceVetementAsString)}" update="form:panierVentes form:panierTotal form:validatePanier" process="@this"/>
                         </p:commandButton>
                     </p:layoutUnit>
 
