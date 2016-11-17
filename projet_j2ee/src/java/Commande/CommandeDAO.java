@@ -50,13 +50,13 @@ public class CommandeDAO {
     }
 
     public List<Commande> recupDataMois(){
-        Query query = em.createNamedQuery("Commande.revenuMensuel", Commande.class);
+        Query query = em.createNamedQuery("Commande.findMonthlyIncome", Commande.class);
         List rs = (List) query.getResultList();
         return rs;
     }
     
     public List<Commande> recupDataAnnee(){
-        Query query = em.createNamedQuery("Commande.revenuAnnuel", Commande.class);
+        Query query = em.createNamedQuery("Commande.findYearlyIncome", Commande.class);
         List rs = (List) query.getResultList();
         return rs;
     }

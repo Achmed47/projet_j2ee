@@ -20,8 +20,6 @@
                 
                 <p:layoutUnit position="center" id="content" resizable="false">
                     <h:form id="formCommande">
-                        <p:growl id="msgs" showDetail="true"/>
-
                         <h1><h:outputText value="Gestion des commandes"/></h1>
                         <p:accordionPanel id="allCommandes" value="#{commandeController.commandes}" multiple="false" dynamic="true" var="c" style="height:100%">
                             <p:tab title="##{c.idCommande} pour le client ##{c.client.refClient}, validée le #{c.date} (#{c.stringStatut})">

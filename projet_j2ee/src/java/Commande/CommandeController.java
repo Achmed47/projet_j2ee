@@ -116,6 +116,7 @@ public class CommandeController implements Serializable {
     }
 
     public String validatePanier() {
+        System.out.println("validatePanier");
         if(currentCommande != null && currentCommande.getVenteList() != null) {
             Client client = clientDAO.getFirstClient();
             currentCommande.setClient(client);
@@ -135,14 +136,15 @@ public class CommandeController implements Serializable {
             d.setIdDate(dateDAO.getLastDateId());
             
             currentCommande.setDate(d);
-            commandeDAO.save(currentCommande);
+            
             
             for(Vente v : currentCommande.getVenteList()) {
                 v.setCommande(currentCommande);
             }
             
-            venteDAO.save(currentCommande.getVenteList());
+            commandeDAO.save(currentCommande);
             allCommandes.add(0, currentCommande.clone());
+            System.out.println("added");
         }
         return "paiement";
     }

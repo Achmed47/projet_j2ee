@@ -60,7 +60,6 @@ public class ChartBarYear implements Serializable {
             float revenu = new Float(sRevenu);
             String sAnnee = ligne[1].toString();
             revenuAnnee.set(sAnnee, revenu);
-            System.out.println("Revenu = " + revenu + "\n" + "Mois = " + sAnnee);
         }
         chart.addSeries(revenuAnnee);
         

@@ -28,7 +28,55 @@
 
                     <p:layoutUnit position="center" id="content" resizable="false" style="height: 125px">
                         <h:form id="form">
-                            
+                            <p:layout style="height:210px;">
+                                <p:layoutUnit position="north">
+                                    <p:dataTable liveResize="true" class="tableCommandes" var="v" value="#{commandeController.currentCommande.venteList}">
+                                        <p:column>
+                                            <h:outputText value="#{v.vet.type} #{v.couleur}, taille #{v.taille.taille}" />
+                                        </p:column>
+
+                                        <p:column>
+                                            <h:outputText value="Motif à l'#{v.faceVetementAsString}" />
+                                        </p:column>
+
+                                        <p:column>
+                                            <h:outputText value="#{v.quantite} x (#{v.vet.prixV}€ + #{v.motif.prixM}€)" />
+                                        </p:column>
+
+                                        <p:column>
+                                            <h:outputText value="#{v.prixV}€" />
+                                        </p:column>
+                                    </p:dataTable>
+                                    
+                                    <h:outputText style="display:inline !important; height:50px !important; font-weight: bold;" value="Prix Total TTC : #{commandeController.prixCurrentCommande}€" />
+                                </p:layoutUnit>
+
+                                <p:layoutUnit position="center" styleClass="clientInformationSummary">
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <h:outputLabel for="nom" value="Nom : " />
+                                        <p:inputText id="nom" value="#{clientController.client.prenom}" required="true" label="Nom" />
+
+                                        <h:outputLabel for="prenom" value="Prénom : " />
+                                        <p:inputText id="prenom" value="#{clientController.client.nom}" required="true" label="Prénom" />
+                                        
+                                        <h:outputLabel for="adresse" value="Adresse : " />
+                                        <p:inputText id="adresse" value="#{clientController.client.adresse}" required="true" label="Adresse" />
+                                        
+                                        <h:outputLabel for="codePostal" value="Code Postal : " />
+                                        <p:inputText id="codePostal" value="#{clientController.client.codePostal}" required="true" label="Code Postal" />
+                                        
+                                        <h:outputLabel for="ville" value="Ville : " />
+                                        <p:inputText id="ville" value="#{clientController.client.ville}" required="true" label="Ville" />
+                                        
+                                        <h:outputLabel for="email" value="Email : " />
+                                        <p:inputText id="email" value="#{clientController.client.mail}" required="true" label="Email" />
+
+                                        <f:facet name="footer">
+                                            <p:commandButton value="Valider la commande" action="confirmation" />
+                                        </f:facet>  
+                                    </h:panelGrid>
+                                </p:layoutUnit>
+                            </p:layout>
                         </h:form>
                     </p:layoutUnit>
                 </p:layout>

@@ -43,6 +43,8 @@
                             </p:panel>
                         </p:dataGrid>
 
+                        <p:commandButton id="backToChoice" value="Choisir un autre type de vêtement" action="utilisateur" />
+                        
                         <p:commandButton id="addToCartButton" disabled="#{!motifController.motifSet}" value="Ajouter au panier">
                             <p:ajax listener="#{commandeController.addVente(venteController.currentVente, motifController.selectedMotif, vetementController.selectedVetement, venteController.currentVente.faceVetementAsString)}" update="form:panierVentes form:panierTotal form:validatePanier" process="@this"/>
                         </p:commandButton>

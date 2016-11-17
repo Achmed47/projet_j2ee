@@ -22,8 +22,6 @@
 
                     <p:panelGrid columns="3">
                         <h:form id="formCouleurs">
-                            <p:growl id="msgsCouleur" showDetail="true"/>
-
                             <p:commandButton value="Ajouter une couleur" type="button" onclick="PF('addCouleurDialog').show();" />
 
                             <p:dialog id="addCouleurDialog" widgetVar="addCouleurDialog" header="Ajouter une couleur" resizable="false">
@@ -51,8 +49,6 @@
                         </h:form>
 
                         <h:form id="formTaille">
-                            <p:growl id="msgsTaille" showDetail="true"/>
-
                             <p:commandButton value="Ajouter une taille" type="button" onclick="PF('addTailleDialog').show();" />
 
                             <p:dialog id="addTailleDialog" widgetVar="addTailleDialog" header="Ajouter une taille" resizable="false">
@@ -80,8 +76,6 @@
                         </h:form>
                         
                         <h:form id="formType">
-                            <p:growl id="msgsType" showDetail="true"/>
-
                             <p:commandButton value="Ajouter un type" type="button" onclick="PF('addTypeDialog').show();" />
 
                             <p:dialog id="addTypeDialog" widgetVar="addTypeDialog" header="Ajouter un type" resizable="false">

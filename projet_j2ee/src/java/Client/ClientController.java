@@ -6,6 +6,7 @@
 package Client;
 
 import java.io.Serializable;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -22,13 +23,24 @@ public class ClientController implements Serializable {
 
     @EJB
     private ClientDAO clientDAO;
-
+    
+    private Client client;
     /**
      * Creates a new instance of ClientController
      */
     public ClientController() {
     }
     
+    @PostConstruct
+    public void init() {
+        client = clientDAO.getFirstClient();
+    }
     
+    public Client getClient() {
+        return this.client;
+    }
     
+    public void setClient(Client c) {
+        this.client = c;
+    }
 }

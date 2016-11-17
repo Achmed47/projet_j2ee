@@ -39,7 +39,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Commande.findAll", query = "SELECT c FROM Commande c order by c.idCommande DESC"),
     @NamedQuery(name = "Commande.findByIdCommande", query = "SELECT c FROM Commande c WHERE c.idCommande = :idCommande"),
     @NamedQuery(name = "Commande.findByStatut", query = "SELECT c FROM Commande c WHERE c.statut = :statut"),
-    @NamedQuery(name = "Commande.findByPrixC", query = "SELECT c FROM Commande c WHERE c.prixC = :prixC")})
+    @NamedQuery(name = "Commande.findByPrixC", query = "SELECT c FROM Commande c WHERE c.prixC = :prixC"),
+    @NamedQuery(name = "Commande.findMonthlyIncome", query = "SELECT SUM(c.prixC), d.mois FROM Commande c LEFT JOIN c.idDate d GROUP BY d.mois ORDER BY d.mois"),
+    @NamedQuery(name = "Commande.findYearlyIncome", query = "SELECT SUM(c.prixC), d.annee FROM Commande c LEFT JOIN c.idDate d GROUP BY d.annee ORDER BY d.annee")
+})
 public class Commande implements Serializable, Cloneable {
 @Basic(optional = false)
     private static final long serialVersionUID = 1L;

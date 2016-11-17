@@ -228,4 +228,7 @@ public class Client implements Serializable {
         return "tables.Client[ refClient=" + refClient + " ]";
     }
     
+    public String getAdresse() {
+        return numeroRue + " " + rue + " (" + complementAdresse + ")";
+    }
 }
