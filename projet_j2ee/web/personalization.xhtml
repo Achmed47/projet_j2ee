@@ -43,7 +43,7 @@
                             </p:panel>
                         </p:dataGrid>
 
-                        <p:commandButton id="addToCartButton" disabled="#{!motifController.motifSet}" value="Ajouter au panier">
+                        <p:commandButton id="addToCartButton" disabled="#{!motifController.motifSet}" value="Ajouter au panier" styleClass="ui-priority-primary">
                             <p:ajax listener="#{commandeController.addVente(venteController.currentVente, motifController.selectedMotif, vetementController.selectedVetement, venteController.currentVente.faceVetementAsString)}" update="form:panierVentes form:panierTotal form:validatePanier" process="@this" />
                         </p:commandButton>
                     </p:layoutUnit>

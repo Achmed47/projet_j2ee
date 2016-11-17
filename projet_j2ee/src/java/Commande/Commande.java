@@ -24,7 +24,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -39,18 +38,12 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Commande.findAll", query = "SELECT c FROM Commande c"),
     @NamedQuery(name = "Commande.findByIdCommande", query = "SELECT c FROM Commande c WHERE c.idCommande = :idCommande"),
-    @NamedQuery(name = "Commande.findByStatut", query = "SELECT c FROM Commande c WHERE c.statut = :statut")})
+    @NamedQuery(name = "Commande.findByStatut", query = "SELECT c FROM Commande c WHERE c.statut = :statut"),
+    @NamedQuery(name = "Commande.findByPrixC", query = "SELECT c FROM Commande c WHERE c.prixC = :prixC")})
 public class Commande implements Serializable {
-
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "prixC")
-    private int prixC;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCommande")
-    private List<Vente> venteList;
-
+@Basic(optional = false)
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -60,28 +53,40 @@ public class Commande implements Serializable {
     @NotNull
     @Column(name = "statut")
     private short statut;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "prixC")
+    private float prixC;
     @JoinColumn(name = "refClient", referencedColumnName = "refClient")
     @ManyToOne(optional = false)
     private Client refClient;
     @JoinColumn(name = "idDateExp", referencedColumnName = "idDate")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Dates idDateExp;
     @JoinColumn(name = "idDate", referencedColumnName = "idDate")
     @ManyToOne(optional = false)
     private Dates idDate;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCommande")
+    private List<Vente> venteList;
 
     public Commande() {
-        Random randomGenerator = new Random();
-        this.idCommande = randomGenerator.nextInt(9999999);
+        Random r = new Random();
+        this.idCommande = r.nextInt(9999999);
     }
 
     public Commande(Integer idCommande) {
         this.idCommande = idCommande;
     }
-
+    
     public Commande(Integer idCommande, short statut) {
         this.idCommande = idCommande;
         this.statut = statut;
+    }
+
+    public Commande(Integer idCommande, short statut, int prixC) {
+        this.idCommande = idCommande;
+        this.statut = statut;
+        this.prixC = prixC;
     }
 
     public Integer getIdCommande() {
@@ -98,6 +103,14 @@ public class Commande implements Serializable {
 
     public void setStatut(short statut) {
         this.statut = statut;
+    }
+
+    public float getPrixC() {
+        return prixC;
+    }
+
+    public void setPrixC(float prixC) {
+        this.prixC = prixC;
     }
 
     public Client getClient() {
@@ -119,11 +132,10 @@ public class Commande implements Serializable {
     public Dates getDate() {
         return idDate;
     }
-    
+
     public void setDate(Dates idDate) {
         this.idDate = idDate;
     }
-
 
     @Override
     public int hashCode() {
@@ -146,7 +158,7 @@ public class Commande implements Serializable {
     public String toString() {
         return "Commande.Commande[ idCommande=" + idCommande + " ]";
     }
-
+    
     @XmlTransient
     public List<Vente> getVenteList() {
         return venteList;
@@ -163,13 +175,5 @@ public class Commande implements Serializable {
     public boolean mayBeRendered() {
         return (statut == 0);
     }
-
-    public int getPrixC() {
-        return prixC;
-    }
-
-    public void setPrixC(int prixC) {
-        this.prixC = prixC;
-    }
-
+    
 }
