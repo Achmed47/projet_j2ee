@@ -88,7 +88,7 @@ public class TypesController implements Serializable {
             allTypes.add(newType);
             RequestContext.getCurrentInstance().execute("PF('addTypeDialog').hide()");
             FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("tableTypes");
-            RequestContext.getCurrentInstance().update("formTypes:addTypeDialog");
+            RequestContext.getCurrentInstance().update("formType:addTypeDialog");
             newType = new Types();
         }
     }

@@ -29,11 +29,6 @@
                                     <f:selectItems value="#{vetementController.types}" var="type" itemLabel="#{type}" itemValue="#{type}" />
                                 </h:selectOneMenu>
 
-                                <h:outputLabel for="addVetementCouleur" value="Couleur : " />
-                                <h:selectOneMenu id="addVetementCouleur" value="#{vetementController.newVetement.couleur}" style="width:100%" required="true">
-                                    <f:selectItems value="#{vetementController.couleurs}" var="couleur" itemLabel="#{couleur}" itemValue="#{couleur}" />
-                                </h:selectOneMenu>
-
                                 <h:outputLabel for="addVetementPrix" value="Prix : " />
                                 <p:inputText id="addVetementPrix" value="#{vetementController.newVetement.prixV}" required="true" label="Prix" />
 
@@ -59,24 +54,13 @@
                                     <f:facet name="input"><p:inputText value="#{vet.refVet}" style="width:100%;visibility:hidden;"/></f:facet>
                                 </p:cellEditor>
                             </p:column>
-
+                            
                             <p:column headerText="Type" sortBy="#{vet.type}" filterBy="#{vet.type}">
                                 <p:cellEditor>
                                     <f:facet name="output"><h:outputText value="#{vet.type}" /></f:facet>
                                     <f:facet name="input">
                                         <h:selectOneMenu value="#{vet.type}" style="width:100%">
                                             <f:selectItems value="#{vetementController.types}" var="type" itemLabel="#{type}" itemValue="#{type}" />
-                                        </h:selectOneMenu>
-                                    </f:facet>
-                                </p:cellEditor>
-                            </p:column>
-
-                            <p:column headerText="Couleur" sortBy="#{vet.couleur}" filterBy="#{vet.couleur}">
-                                <p:cellEditor>
-                                    <f:facet name="output"><h:outputText value="#{vet.couleur}" /></f:facet>
-                                    <f:facet name="input">
-                                        <h:selectOneMenu value="#{vet.couleur}" style="width:100%">
-                                            <f:selectItems value="#{vetementController.couleurs}" var="couleur" itemLabel="#{couleur}" itemValue="#{couleur}" />
                                         </h:selectOneMenu>
                                     </f:facet>
                                 </p:cellEditor>

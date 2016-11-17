@@ -37,31 +37,15 @@
                                 </h:panelGrid>
                             </p:dialog>
 
-                            <p:dataTable id="tableCouleurs" var="c" value="#{couleursController.couleurs}" editable="true" sortMode="multiple" sortOrder="desending">
-                                <p:ajax event="rowEdit" listener="#{couleursController.onRowEdit}" update=":formCouleurs:tableCouleurs :formCouleurs:msgsCouleur" />
-                                <p:ajax event="rowEditCancel" listener="#{couleursController.onRowCancel}" />
-
+                            <p:dataTable id="tableCouleurs" var="c" value="#{couleursController.couleurs}" sortMode="multiple" sortOrder="desending">
                                 <p:column headerText="RefVet" sortBy="#{c.couleur}" filterBy="#{c.couleur}">
-                                    <p:cellEditor>
-                                        <f:facet name="output"><h:outputText value="#{c.couleur}" /></f:facet>
-                                        <f:facet name="input"><p:inputText value="#{c.couleur}" style="width:100%"/></f:facet>
-                                    </p:cellEditor>
+                                    <h:outputText value="#{c.couleur}" />
                                 </p:column>
 
                                 <p:column style="width:32px">
-                                    <p:rowEditor />
-                                    <p:cellEditor>
-                                        <f:facet name="output">
-                                            <p:commandLink styleClass="ui-icon ui-icon-trash">
-                                                <p:ajax listener="#{couleursController.deleteCouleur(c)}" update="tableCouleurs" />
-                                            </p:commandLink>
-                                        </f:facet>
-                                        <f:facet name="input">
-                                            <p:commandLink styleClass="ui-icon ui-icon-trash" >
-                                                <p:ajax listener="#{couleursController.deleteCouleur(c)}" update="tableCouleurs" />
-                                            </p:commandLink>
-                                        </f:facet>
-                                    </p:cellEditor>
+                                    <p:commandLink styleClass="ui-icon ui-icon-trash">
+                                        <p:ajax listener="#{couleursController.deleteCouleur(c)}" update="tableCouleurs" />
+                                    </p:commandLink>
                                 </p:column>
                             </p:dataTable>
                         </h:form>
@@ -82,31 +66,15 @@
                                 </h:panelGrid>
                             </p:dialog>
 
-                            <p:dataTable id="tableTaille" var="t" value="#{taillesController.tailles}" editable="true" sortMode="multiple" sortOrder="desending">
-                                <p:ajax event="rowEdit" listener="#{taillesController.onRowEdit}" update=":formTaille:tableTaille :formTaille:msgsTaille" />
-                                <p:ajax event="rowEditCancel" listener="#{taillesController.onRowCancel}" />
-
+                            <p:dataTable id="tableTaille" var="t" value="#{taillesController.tailles}" sortMode="multiple" sortOrder="desending">
                                 <p:column headerText="Taille" sortBy="#{t.taille}" filterBy="#{t.taille}">
-                                    <p:cellEditor>
-                                        <f:facet name="output"><h:outputText value="#{t.taille}" /></f:facet>
-                                        <f:facet name="input"><p:inputText value="#{t.taille}" style="width:100%"/></f:facet>
-                                    </p:cellEditor>
+                                    <h:outputText value="#{t.taille}" />
                                 </p:column>
 
                                 <p:column style="width:32px">
-                                    <p:rowEditor />
-                                    <p:cellEditor>
-                                        <f:facet name="output">
-                                            <p:commandLink styleClass="ui-icon ui-icon-trash">
-                                                <p:ajax listener="#{taillesController.deleteTaille(t)}" update="tableTaille" />
-                                            </p:commandLink>
-                                        </f:facet>
-                                        <f:facet name="input">
-                                            <p:commandLink styleClass="ui-icon ui-icon-trash" >
-                                                <p:ajax listener="#{taillesController.deleteTaille(t)}" update="tableTaille" />
-                                            </p:commandLink>
-                                        </f:facet>
-                                    </p:cellEditor>
+                                    <p:commandLink styleClass="ui-icon ui-icon-trash">
+                                        <p:ajax listener="#{taillesController.deleteTaille(t)}" update="tableTaille" />
+                                    </p:commandLink>
                                 </p:column>
                             </p:dataTable>
                         </h:form>
@@ -127,31 +95,15 @@
                                 </h:panelGrid>
                             </p:dialog>
 
-                            <p:dataTable id="tableType" var="t" value="#{typesController.types}" editable="true" sortMode="multiple" sortOrder="desending">
-                                <p:ajax event="rowEdit" listener="#{typesController.onRowEdit}" update=":formType:tableType :formType:msgsType" />
-                                <p:ajax event="rowEditCancel" listener="#{typesController.onRowCancel}" />
-
+                            <p:dataTable id="tableType" var="t" value="#{typesController.types}" sortMode="multiple" sortOrder="desending">
                                 <p:column headerText="Type" sortBy="#{t.type}" filterBy="#{t.type}">
-                                    <p:cellEditor>
-                                        <f:facet name="output"><h:outputText value="#{t.type}" /></f:facet>
-                                        <f:facet name="input"><p:inputText value="#{t.type}" style="width:100%"/></f:facet>
-                                    </p:cellEditor>
+                                    <h:outputText value="#{t.type}" />
                                 </p:column>
 
                                 <p:column style="width:32px">
-                                    <p:rowEditor />
-                                    <p:cellEditor>
-                                        <f:facet name="output">
-                                            <p:commandLink styleClass="ui-icon ui-icon-trash">
-                                                <p:ajax listener="#{typesController.deleteType(t)}" update="tableType" />
-                                            </p:commandLink>
-                                        </f:facet>
-                                        <f:facet name="input">
-                                            <p:commandLink styleClass="ui-icon ui-icon-trash" >
-                                                <p:ajax listener="#{typesController.deleteType(t)}" update="tableType" />
-                                            </p:commandLink>
-                                        </f:facet>
-                                    </p:cellEditor>
+                                    <p:commandLink styleClass="ui-icon ui-icon-trash">
+                                        <p:ajax listener="#{typesController.deleteType(t)}" update="tableType" />
+                                    </p:commandLink>
                                 </p:column>
                             </p:dataTable>
                         </h:form>

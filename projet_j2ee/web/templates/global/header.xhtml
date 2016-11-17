@@ -14,12 +14,14 @@
             xmlns:h="http://xmlns.jcp.org/jsf/html"
             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
             xmlns:p="http://primefaces.org/ui">
-
-            <p:outputPanel id="entete" deferred="false">
-                <h:graphicImage library="img" name="global/logo.png" id="logo" alt="logo"/>
-                <h id="titre"> Tex'Style </h>
-                <p:commandButton id="changeUserButton" value="Utilisateur" action="utilisateur.xhtml" styleClass="ui-priority-primary"/>
-            </p:outputPanel>
+            
+            <h:form id="headerForm">
+                <p:outputPanel id="entete" deferred="false">
+                    <h:graphicImage library="img" name="global/logo.png" id="logo" alt="logo"/>
+                    <h id="titre"> Tex'Style </h>
+                    <p:commandButton id="changeUserButton" value="Utilisateur" action="utilisateur.xhtml" styleClass="ui-priority-primary"/>
+                </p:outputPanel>
+            </h:form>
         </ui:composition>
     </h:body>
 </html>

@@ -2,11 +2,11 @@ body{
     background-image: url(img/global/wallpaper.jpg);
 }
 
-#entete {
+#entete, #headerForm\:entete {
     margin-bottom: 20px;
 }
 
-#changeUserButton {
+#changeUserButton, #headerForm\:changeUserButton {
     float: right;
 }
 
@@ -22,7 +22,7 @@ body{
     font-family: Regular;
 }
 
-#logo {
+#logo, #headerForm\:logo {
     height: 35px !important;
 }
 
@@ -77,7 +77,6 @@ body{
 }
 
 .ui-menuitem-link{
-    color: white !important;
 }
 
 .ui-steps-item{
