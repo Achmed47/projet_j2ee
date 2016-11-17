@@ -19,8 +19,8 @@
                         <p:outputPanel id="entete">
                             <h:graphicImage library="img" name="global/logo.png" id="logo" alt="logo" style="height: 35px"/>
                             <h id="titre"> Tex'Style </h>
-                            <p:commandButton id="changeUserButton" value="Gérant" style="float: right" action="accueil.xhtml"/>
-                            <p:commandButton id="commandeView" value="Commandes" style="float: right"/>
+                            <p:commandButton id="changeUserButton" value="Gérant" style="float: right" action="accueil.xhtml" styleClass="ui-priority-primary"/>
+                            <p:commandButton id="commandeView" value="Commandes" style="float: right" styleClass="ui-priority-primary"/>
                         </p:outputPanel>
 
                         <p:outputPanel id="progressBar" deferred="false">
@@ -38,7 +38,7 @@
                             <p:panel style="text-align:center">
                                 <h:commandLink>
                                     <p:ajax listener="#{motifController.setSelectedMotif(m)}" update="form:selectedMotif form:validatePanier form:addToCartButton" />
-                                    <p:graphicImage value="#{m.urlMotif}" style="width:75px;height:75px;" />
+                                    <p:graphicImage value="#{m.urlMotif}" style="width:60px;height:60px;" />
                                 </h:commandLink>
                             </p:panel>
                         </p:dataGrid>

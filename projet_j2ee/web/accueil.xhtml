@@ -41,13 +41,13 @@
                                 <p:inputText id="addVetementUrl" value="#{vetementController.newVetement.urlV}" required="true" label="Url" />
 
                                 <f:facet name="footer">
-                                    <p:commandButton value="Créer" update="tableVetements" actionListener="#{vetementController.addVetement}"/>
+                                    <p:commandButton value="Créer" update="tableVetements" actionListener="#{vetementController.addVetement}" styleClass="ui-priority-primary"/>
                                 </f:facet>  
                             </h:panelGrid>
                         </p:dialog>
                         
                         <h1><h:outputText value="Gestion des vêtements" /></h1>
-                        <p:commandButton value="Ajouter un vêtement" type="button" onclick="PF('addVetementDialog').show();" />
+                        <p:commandButton value="Ajouter un vêtement" type="button" onclick="PF('addVetementDialog').show();" styleClass="ui-priority-primary"/>
 
                         <p:dataTable id="tableVetements" var="vet" value="#{vetementController.vetements}" editable="true" sortMode="multiple" sortOrder="desending">
                             <p:ajax event="rowEdit" listener="#{vetementController.onRowEdit}" update=":form:msgs" />
