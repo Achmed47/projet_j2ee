@@ -19,13 +19,13 @@
                 <p:layout id="corps">
                     <ui:include src="templates/global/progressBar.xhtml" />
 
-                    <p:layoutUnit position="east" resizable="true" collapsible="true">
+                    <p:layoutUnit id="panierLayout" position="east" resizable="false">
                         <ui:include src="templates/utilisateur/panierVentes.xhtml" />
                     </p:layoutUnit>
 
                     <p:layoutUnit position="center" id="content" resizable="false" style="height: 125px">
                         <h:form id="form">
-                            <p:dataGrid var="vet" value="#{vetementController.vetements}" columns="3" layout="grid"
+                            <p:dataGrid var="vet" value="#{vetementController.vetements}" columns="2" layout="grid"
                                         rows="#{vetementController.getNbVetements()/3}" id="vetementList">
                                 <p:panel style="text-align:center">
                                     <h:commandLink action="personalization">

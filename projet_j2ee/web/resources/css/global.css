@@ -34,6 +34,14 @@ body{
     z-index: 99999;
     border: none;
     background: transparent;
+    
+    background: rgba(0,0,0,0) !important;
+    border-radius: 0px;
+    border: 0px !important;
+    -moz-box-shadow: 0px 0px 0px 0px;
+    -webkit-box-shadow: 0px 0px 0px 0px;
+    -o-box-shadow: 0px 0px 0px 0px;
+    box-shadow: 0px 0px 0px 0px;
 }
 
 #form\:selectedMotifRestrictContainer {
@@ -69,8 +77,6 @@ body{
 }
 
 .ui-menuitem-link{
-    margin-left: 100px;
-    margin-right: 100px;
     color: white !important;
 }
 
@@ -79,11 +85,6 @@ body{
     border-color: white !important;
     border-width: medium !important;
     width: 25%;
-}
-
-#form\:vetementList_content{
-    border: none;
-    background: rgba(0,0,0,0.0);
 }
 
 #form\:persoLabel{
@@ -130,7 +131,7 @@ body{
 .ui-panel{
     background: rgba(255,255,255,0.3) !important;
     border-radius: 10px;
-    border: 3px solid white;
+    border: 3px solid white !important;
     -moz-box-shadow: 6px 8px 20px 0px #656565;
     -webkit-box-shadow: 6px 8px 20px 0px #656565;
     -o-box-shadow: 6px 8px 20px 0px #656565;
@@ -138,7 +139,24 @@ body{
     filter:progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=143, Strength=20);
 }
 
-#form\:form\:vetementList_content{
+#form\:form\:vetementList_content, #form\:vetementList_content{
     background: rgba(0,0,0,0.0);
     border: none;
+}
+
+#form\:panierLayout{
+    height: 250px;
+    width: 350px !important;
+    z-index: 999;
+    border: 3px solid white;
+    -moz-box-shadow: 6px 8px 20px 0px #656565;
+    -webkit-box-shadow: 6px 8px 20px 0px #656565;
+    -o-box-shadow: 6px 8px 20px 0px #656565;
+    box-shadow: 6px 8px 20px 0px #656565;
+}
+
+#form\:addToCartButton{
+    position: absolute;
+    bottom: 60px;
+    left: 20%;
 }
