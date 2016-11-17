@@ -22,6 +22,16 @@ body{
     font-family: Regular;
 }
 
+#panier {
+    color: #4d636c;
+    font-weight: bold;
+    font-size: 30px;
+    font-family: Regular;
+    margin-bottom: 10px;
+    margin-top: 5px;
+    text-align: center;
+}
+
 #logo {
     height: 35px !important;
 }
@@ -34,7 +44,6 @@ body{
     z-index: 99999;
     border: none;
     background: transparent;
-    
     background: rgba(0,0,0,0) !important;
     border-radius: 0px;
     border: 0px !important;
@@ -47,7 +56,7 @@ body{
 #form\:selectedMotifRestrictContainer {
     position:absolute;
     top: 150px !important;
-    left: 185px !important;
+    left: 280px !important;
     width: 190px;
     height: 280px;
     z-index: 99999;
@@ -125,7 +134,7 @@ body{
 
 #form\:finalImageVetement{
     padding-top: 35px !important;
-    padding-left: 40px !important;
+    padding-left: 130px !important;
 }
 
 .ui-panel{
@@ -153,10 +162,25 @@ body{
     -webkit-box-shadow: 6px 8px 20px 0px #656565;
     -o-box-shadow: 6px 8px 20px 0px #656565;
     box-shadow: 6px 8px 20px 0px #656565;
+/*    background: rgba(255,255,255,0.9);*/
 }
 
 #form\:addToCartButton{
     position: absolute;
     bottom: 60px;
     left: 20%;
+}
+
+.buttonClass, #form\:changeUserButton, #form\:commandeView, #form\:validatePanier, #form\:addToCartButton {
+    font-weight: bold;
+    display: block;
+    line-height: normal;
+    background: #779fb0;
+    color: #fff;
+    text-align: center;
+    border: none;    
+}
+
+#form\:tablePanier_head{
+    display: none;
 }

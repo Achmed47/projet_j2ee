@@ -17,12 +17,12 @@
 
             <p:outputPanel>
                 <p:outputPanel id="panierVentes">
-                    <h2>Panier</h2>
+                    <h2 id="panier">Panier</h2>
                     <p:dataTable id="tablePanier" var="v" value="#{commandeController.currentCommande.venteList}">
                         <p:column>
                             <p:outputLabel value="#{v.vet.type} #{v.couleur} (#{v.taille})" />
                         </p:column>    
-
+s
                         <p:column>
                             <p:spinner value="#{v.quantite}" min="1" size="1">
                                 <p:ajax listener="#{venteController.updatePrixVente(v)}" update="form:panierVentes form:panierTotal form:validatePanier" process="@this" />
@@ -44,7 +44,7 @@
                     <p:outputLabel value="Total :" /> 
                     <p:outputLabel value="#{commandeController.getPrixCurrentCommande()}€" />
                 </h:panelGrid>  
-                <p:commandButton id="validatePanier" disabled="#{commandeController.ventesEmpty}" value="Valider le panier" action="#{commandeController.validatePanier()}" styleClass="ui-priority-primary"/>
+                <p:commandButton id="validatePanier" disabled="#{commandeController.ventesEmpty}" value="Valider le panier" action="#{commandeController.validatePanier()}" />
             </p:outputPanel>
         </ui:composition>
     </h:body>
