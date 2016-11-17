@@ -5,13 +5,19 @@
  */
 package Commande;
 
+import Client.Client;
+import Client.ClientDAO;
+import Dates.Dates;
 import Motif.Motif;
 import Tailles.TaillesDAO;
 import Vente.Vente;
+import Vente.VenteDAO;
 import Vetement.Vetement;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -32,6 +38,12 @@ public class CommandeController implements Serializable {
     
     @EJB
     private TaillesDAO tailleDAO;
+    
+    @EJB
+    private ClientDAO clientDAO;
+    
+    @EJB
+    private VenteDAO venteDAO;
 
     private List<Commande> allCommandes;
     private Commande currentCommande;
@@ -89,6 +101,30 @@ public class CommandeController implements Serializable {
     }
 
     public String validatePanier() {
+        if(currentCommande != null && currentCommande.getVenteList() != null) {
+            Commande c = new Commande();
+            Client client = clientDAO.getFirstClient();
+            c.setPrixC(getPrixCurrentCommande());
+            c.setClient(client);
+            c.setStatut((short) 0);
+            c.setPrixC(getPrixCurrentCommande());
+            
+            // link to current day
+            Calendar localCalendar = Calendar.getInstance(TimeZone.getDefault());
+            Dates d = new Dates();
+            d.setAnnee(localCalendar.get(Calendar.YEAR));
+            d.setMois(localCalendar.get(Calendar.MONTH)+1);
+            d.setJour(localCalendar.get(Calendar.DATE));
+            d.setHeure(localCalendar.get(Calendar.HOUR_OF_DAY));
+            d.setMinute(localCalendar.get(Calendar.MINUTE));
+            c.setDate((d));
+            
+            
+            venteDAO.save(currentCommande.getVenteList());
+            commandeDAO.save(c);
+            allCommandes.add(c);
+            currentCommande = new Commande();
+        }
         return "confirmation";
     }
     
