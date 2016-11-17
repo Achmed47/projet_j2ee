@@ -8,6 +8,7 @@ package Commande;
 import Client.Client;
 import Client.ClientDAO;
 import Dates.Dates;
+import Dates.DatesDAO;
 import Motif.Motif;
 import Tailles.TaillesDAO;
 import Vente.Vente;
@@ -44,6 +45,9 @@ public class CommandeController implements Serializable {
     
     @EJB
     private VenteDAO venteDAO;
+    
+    @EJB
+    private DatesDAO dateDAO;
 
     private List<Commande> allCommandes;
     private Commande currentCommande;
@@ -102,12 +106,10 @@ public class CommandeController implements Serializable {
 
     public String validatePanier() {
         if(currentCommande != null && currentCommande.getVenteList() != null) {
-            Commande c = new Commande();
             Client client = clientDAO.getFirstClient();
-            c.setPrixC(getPrixCurrentCommande());
-            c.setClient(client);
-            c.setStatut((short) 0);
-            c.setPrixC(getPrixCurrentCommande());
+            currentCommande.setClient(client);
+            currentCommande.setStatut((short) 0);
+            currentCommande.setPrixC(getPrixCurrentCommande());
             
             // link to current day
             Calendar localCalendar = Calendar.getInstance(TimeZone.getDefault());
@@ -117,15 +119,21 @@ public class CommandeController implements Serializable {
             d.setJour(localCalendar.get(Calendar.DATE));
             d.setHeure(localCalendar.get(Calendar.HOUR_OF_DAY));
             d.setMinute(localCalendar.get(Calendar.MINUTE));
-            c.setDate((d));
             
+            dateDAO.add(d);
+            d.setIdDate(dateDAO.getLastDateId());
+            
+            currentCommande.setDate(d);
+            commandeDAO.save(currentCommande);
+            
+            for(Vente v : currentCommande.getVenteList()) {
+                v.setCommande(currentCommande);
+            }
             
             venteDAO.save(currentCommande.getVenteList());
-            commandeDAO.save(c);
-            allCommandes.add(c);
-            currentCommande = new Commande();
+            allCommandes.add(currentCommande.clone());
         }
-        return "confirmation";
+        return "paiement";
     }
     
     public void removeVente(Vente v) {

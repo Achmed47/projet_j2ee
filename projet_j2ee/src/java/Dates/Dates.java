@@ -8,6 +8,7 @@ package Dates;
 import Commande.Commande;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Random;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -72,6 +73,8 @@ public class Dates implements Serializable {
     private Collection<Commande> commandeCollection1;
 
     public Dates() {
+        Random r = new Random();
+        this.idDate = r.nextInt(9999999);
     }
 
     public Dates(Integer idDate) {

@@ -151,6 +151,8 @@ body{
 #form\:form\:vetementList_content, #form\:vetementList_content{
     background: rgba(0,0,0,0.0);
     border: none;
+    height: 300px;
+    margin-bottom: 20px;
 }
 
 #form\:panierLayout{
@@ -166,9 +168,7 @@ body{
 }
 
 #form\:addToCartButton{
-    position: absolute;
-    bottom: 60px;
-    left: 20%;
+    left: 65px;
 }
 
 .buttonClass, #form\:changeUserButton, #form\:commandeView, #form\:validatePanier, #form\:addToCartButton {
