@@ -8,6 +8,7 @@ package Commande;
 import Client.Client;
 import Client.ClientDAO;
 import Dates.Dates;
+import Dates.DatesDAO;
 import Motif.Motif;
 import Tailles.TaillesDAO;
 import Vente.Vente;
@@ -44,6 +45,9 @@ public class CommandeController implements Serializable {
     
     @EJB
     private VenteDAO venteDAO;
+    
+    @EJB
+    private DatesDAO dateDAO;
 
     private List<Commande> allCommandes;
     private Commande currentCommande;
@@ -117,12 +121,21 @@ public class CommandeController implements Serializable {
             d.setJour(localCalendar.get(Calendar.DATE));
             d.setHeure(localCalendar.get(Calendar.HOUR_OF_DAY));
             d.setMinute(localCalendar.get(Calendar.MINUTE));
-            c.setDate((d));
+           
             
+            dateDAO.add(d);
+            d.setIdDate(dateDAO.getLastDateId());
             
-            venteDAO.save(currentCommande.getVenteList());
+            System.out.println(d.getIdDate() + " : " + d.toString());
+            c.setDate(d);
             commandeDAO.save(c);
             allCommandes.add(c);
+            
+            for(Vente v : currentCommande.getVenteList()) {
+                v.setCommande(currentCommande);
+            }
+            
+            venteDAO.save(currentCommande.getVenteList());
             currentCommande = new Commande();
         }
         return "confirmation";
